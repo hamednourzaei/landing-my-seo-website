@@ -51,7 +51,7 @@ export const ContactSection: React.FC = () => {
     const { name, email, subject, message } = values;
     console.log(values);
 
-    const mailToLink = `mailto:support@tsarseo.com?subject=${encodeURIComponent(
+    const mailToLink = `mailto:hamednourzaie1@gmail.com?subject=${encodeURIComponent(
       subject
     )}&body=سلام، من ${encodeURIComponent(
       name
@@ -63,8 +63,12 @@ export const ContactSection: React.FC = () => {
   }
 
   return (
-    <section dir="rtl" id="contact" className="container font-kalameh py-10 sm:py-20">
-             <hr className="border-secondary" />
+    <section
+      dir="rtl"
+      id="contact"
+      className="container font-kalameh py-10 sm:py-20"
+    >
+      <hr className="border-secondary" />
       <section className="grid grid-cols-1 py-10 md:grid-cols-2 gap-8">
         <div>
           <div className="mb-4">
@@ -77,7 +81,8 @@ export const ContactSection: React.FC = () => {
             </h2>
           </div>
           <p className="mb-8 text-muted-foreground lg:w-5/6">
-            برای دریافت مشاوره رایگان یا اطلاعات بیشتر درباره تحلیل سئو و ترافیک واقعی، با ما تماس بگیرید. تیم ما آماده کمک به شماست!
+            برای دریافت مشاوره رایگان یا اطلاعات بیشتر درباره تحلیل سئو و ترافیک
+            واقعی، با ما تماس بگیرید. تیم ما آماده کمک به شماست!
           </p>
 
           <div className="flex flex-col gap-4">
@@ -86,7 +91,7 @@ export const ContactSection: React.FC = () => {
                 <Mail />
                 <div className="font-sans font-bold">ایمیل ما</div>
               </div>
-              <div>support@tsarseo.com</div>
+              <div>hamednourzaie1@gmail.com</div>
             </div>
 
             <div>
@@ -94,7 +99,7 @@ export const ContactSection: React.FC = () => {
                 <Phone />
                 <div className="font-sans font-bold">تماس با ما</div>
               </div>
-              <div>۰۲۱-۱۲۳۴۵۶۷۸</div>
+              <div>989962260723+</div>
             </div>
 
             <div>
@@ -103,7 +108,7 @@ export const ContactSection: React.FC = () => {
                 <div className="font-sans font-bold">ساعات کاری</div>
               </div>
               <div>
-                <div>شنبه تا پنج‌شنبه</div>
+                <div className="mt-3">شنبه تا پنج‌شنبه : </div>
                 <div>۹ صبح تا ۵ عصر</div>
               </div>
             </div>
@@ -125,7 +130,10 @@ export const ContactSection: React.FC = () => {
                     <FormItem className="w-full">
                       <FormLabel>نام</FormLabel>
                       <FormControl>
-                        <Input placeholder="لطفا نام شخصی یا شرکت  خودرا به صورت کامل وارد بکنید." {...field} />
+                        <Input
+                          placeholder="لطفا نام شخصی یا شرکت  خودرا به صورت کامل وارد بکنید."
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
