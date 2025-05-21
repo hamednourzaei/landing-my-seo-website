@@ -1,27 +1,28 @@
 import { useTheme } from "next-themes";
-import { Button } from "../ui/button";
+import { Button } from "../ui/button"; // فرض می‌کنم Button از shadcn/ui یا مشابهه
 import { Moon, Sun } from "lucide-react";
 
 export const ToggleTheme = () => {
   const { theme, setTheme } = useTheme();
+
   return (
     <Button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       size="sm"
       variant="ghost"
-      className="w-full justify-start"
+      className="flex items-center gap-2 text-gray-700 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors"
     >
-      <div className="flex gap-2 dark:hidden">
-        <Moon className="size-5" />
-        <span className="block lg:hidden"> Escuro </span>
+      <div className="flex items-center gap-2 dark:hidden">
+        <Moon className="size-5 transition-transform duration-300 hover:rotate-90" />
+        <span className="hidden md:block">تیره</span>
       </div>
 
-      <div className="dark:flex gap-2 hidden">
-        <Sun className="size-5" />
-        <span className="block lg:hidden">Claro</span>
+      <div className="dark:flex items-center gap-2 hidden">
+        <Sun className="size-5 transition-transform duration-300 hover:rotate-90" />
+        <span className="hidden md:block">روشن</span>
       </div>
 
-      <span className="sr-only">Trocar de tema</span>
+      <span className="sr-only">تغییر تم</span>
     </Button>
   );
 };
