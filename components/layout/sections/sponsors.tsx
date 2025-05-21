@@ -4,48 +4,54 @@ import { Icon } from "@/components/ui/icon";
 import { Marquee } from "@devnomic/marquee";
 import "@devnomic/marquee/dist/index.css";
 import { icons } from "lucide-react";
-interface sponsorsProps {
+
+interface FeatureProps {
   icon: string;
   name: string;
 }
 
-const sponsors: sponsorsProps[] = [
+const features: FeatureProps[] = [
   {
-    icon: "Crown",
-    name: "Acmebrand",
+    icon: "BarChart2",
+    name: "گزارش‌های پیشرفته سئو",
   },
   {
-    icon: "Vegan",
-    name: "Acmelogo",
+    icon: "Users",
+    name: "ترافیک واقعی انسانی",
   },
   {
-    icon: "Ghost",
-    name: "Acmesponsor",
+    icon: "Gauge",
+    name: "داشبورد کاربرپسند",
   },
   {
-    icon: "Puzzle",
-    name: "Acmeipsum",
+    icon: "Zap",
+    name: "تحلیل سریع و دقیق",
   },
   {
-    icon: "Squirrel",
-    name: "Acme",
+    icon: "ShieldCheck",
+    name: "امنیت داده‌ها",
   },
   {
-    icon: "Cookie",
-    name: "Accmee",
+    icon: "Globe",
+    name: "پشتیبانی چندزبانه",
   },
   {
-    icon: "Drama",
-    name: "Acmetech",
+    icon: "Trophy",
+    name: "بهبود رتبه گوگل",
   },
 ];
 
 export const SponsorsSection = () => {
   return (
-    <section id="sponsors" className="max-w-[75%] mx-auto pb-24 sm:pb-32">
-      <h2 className="text-lg md:text-xl text-center mb-6">
-        Our Platinum Sponsors
-      </h2>
+    <section id="features" className="max-w-[75%] mx-auto pb-24 sm:pb-32">
+  
+      <h1 className="text-lg md:text-xl text-center mb-6">
+                چرا باید {' '}
+              <span className="inline-block text-transparent mt- bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text">
+                TsarSEO
+              </span>{' '}
+              را انتخاب کنید؟
+            </h1>
 
       <div className="mx-auto">
         <Marquee
@@ -54,10 +60,10 @@ export const SponsorsSection = () => {
           innerClassName="gap-[3rem]"
           pauseOnHover
         >
-          {sponsors.map(({ icon, name }) => (
+          {features.map(({ icon, name }) => (
             <div
               key={name}
-              className="flex items-center text-xl md:text-2xl font-medium"
+              className="flex items-center text-xl md:text-2xl font-sans font-medium"
             >
               <Icon
                 name={icon as keyof typeof icons}

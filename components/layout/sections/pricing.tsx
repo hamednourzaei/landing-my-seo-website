@@ -78,7 +78,7 @@ export const PricingSection = () => {
         Pricing
       </h2>
 
-      <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
+      <h2 className="text-3xl md:text-4xl text-center font-sans font-bold mb-4">
         Get unlimitted access
       </h2>
 
@@ -105,7 +105,7 @@ export const PricingSection = () => {
                 </CardDescription>
 
                 <div>
-                  <span className="text-3xl font-bold">${price}</span>
+                  <span className="text-3xl font-sans font-bold">${price}</span>
                   <span className="text-muted-foreground"> /month</span>
                 </div>
               </CardHeader>

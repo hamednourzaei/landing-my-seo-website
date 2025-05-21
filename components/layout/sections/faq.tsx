@@ -14,7 +14,7 @@ interface FAQProps {
 const FAQList: FAQProps[] = [
   {
     question: "Is this template free?",
-    answer: "Yes. It is a free NextJS Shadcn template.",
+    answer: "Yes. It is a  NextJS TsarSEO template.",
     value: "item-1",
   },
   {
@@ -51,7 +51,7 @@ export const FAQSection = () => {
           FAQS
         </h2>
 
-        <h2 className="text-3xl md:text-4xl text-center font-bold">
+        <h2 className="text-3xl md:text-4xl text-center font-sans font-bold">
           Common Questions
         </h2>
       </div>

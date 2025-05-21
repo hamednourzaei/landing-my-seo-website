@@ -16,7 +16,7 @@ export const CommunitySection = () => {
         <div className="lg:w-[60%] mx-auto">
           <Card className="bg-background border-none shadow-none text-center flex flex-col items-center justify-center">
             <CardHeader>
-              <CardTitle className="text-4xl md:text-5xl font-bold flex flex-col items-center">
+              <CardTitle className="text-4xl md:text-5xl font-bold font-sans flex flex-col items-center">
                 <DiscordIcon />
                 <div>
                   Ready to join this

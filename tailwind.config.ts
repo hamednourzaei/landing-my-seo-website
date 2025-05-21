@@ -13,6 +13,9 @@ module.exports = {
   ],
 
   theme: {
+    fontFamily: {
+      kalameh: ['KalamehWeb', 'sans-serif'], // 'kalameh' کلاسیه که بعداً استفاده می‌کنی
+    },
     container: {
       center: true,
       padding: "1.5rem",

@@ -54,7 +54,7 @@ export const FeaturesSection = () => {
         Features
       </h2>
 
-      <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
+      <h2 className="text-3xl md:text-4xl text-center font-sans font-bold mb-4">
         What Makes Us Different
       </h2>
 

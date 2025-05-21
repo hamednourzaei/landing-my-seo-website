@@ -30,7 +30,7 @@ const reviewList: ReviewProps[] = [
     name: "John Doe",
     userName: "Product Manager",
     comment:
-      "Wow NextJs + Shadcn is awesome!. This template lets me change colors, fonts and images to match my brand identity. ",
+      "Wow NextJs + TsarSEO is awesome!. This template lets me change colors, fonts and images to match my brand identity. ",
     rating: 5.0,
   },
   {

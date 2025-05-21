@@ -66,7 +66,7 @@ export const ContactSection = () => {
               Contact
             </h2>
 
-            <h2 className="text-3xl md:text-4xl font-bold">Connect With Us</h2>
+            <h2 className="text-3xl md:text-4xl font-sans font-bold">Connect With Us</h2>
           </div>
           <p className="mb-8 text-muted-foreground lg:w-5/6">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
@@ -77,7 +77,7 @@ export const ContactSection = () => {
             <div>
               <div className="flex gap-2 mb-1">
                 <Building2 />
-                <div className="font-bold">Find us</div>
+                <div className=" font-sans font-bold">Find us</div>
               </div>
 
               <div>742 Evergreen Terrace, Springfield, IL 62704</div>
@@ -86,7 +86,7 @@ export const ContactSection = () => {
             <div>
               <div className="flex gap-2 mb-1">
                 <Phone />
-                <div className="font-bold">Call us</div>
+                <div className="font-sans font-bold">Call us</div>
               </div>
 
               <div>+1 (619) 123-4567</div>
@@ -95,7 +95,7 @@ export const ContactSection = () => {
             <div>
               <div className="flex gap-2 mb-1">
                 <Mail />
-                <div className="font-bold">Mail US</div>
+                <div className="font-sans font-bold">Mail US</div>
               </div>
 
               <div>leomirandadev@gmail.com</div>
@@ -104,7 +104,7 @@ export const ContactSection = () => {
             <div>
               <div className="flex gap-2">
                 <Clock />
-                <div className="font-bold">Visit us</div>
+                <div className="font-sans font-bold">Visit us</div>
               </div>
 
               <div>
