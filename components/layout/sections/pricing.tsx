@@ -76,12 +76,12 @@ export const PricingSection: React.FC = () => {
   return (
     <section dir="rtl" className="container font-kalameh py-24 sm:py-32">
        <hr className="border-secondary" />
-      <h2 className="text-lg py-20 text-primary text-center mb-2 tracking-wider">
+      <h2 className="text-lg py-10 text-primary text-center mb-2 tracking-wider">
         پلن‌های TsarSEO
       </h2>
 
       <h2 className="text-3xl md:text-4xl text-center font-sans font-bold mb-4">
-        با TsarSEO به قله های گوگل برسید
+        با TsarSEO به قله های گوگل برسید.
       </h2>
 
       <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14">

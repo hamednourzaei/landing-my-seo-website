@@ -125,8 +125,7 @@ export const ContactSection: React.FC = () => {
                     <FormItem className="w-full">
                       <FormLabel>نام</FormLabel>
                       <FormControl>
-                        <Input placeholder="لطفا نام و نام 
-                        خانوائدگی  خودرا به صورت کامل وارد بکنید." {...field} />
+                        <Input placeholder="لطفا نام شخصی یا شرکت  خودرا به صورت کامل وارد بکنید." {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
