@@ -43,7 +43,7 @@ const features: FeatureProps[] = [
 
 export const SponsorsSection = () => {
   return (
-    <section id="features" className="max-w-[75%] mx-auto pb-24 sm:pb-32">
+    <section id="features" className="max-w-[75%] mx-auto font-kalameh pb-24 sm:pb-32">
   
       <h1 className="text-lg md:text-xl text-center mb-6">
                 چرا باید {' '}

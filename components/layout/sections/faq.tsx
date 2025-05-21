@@ -1,3 +1,11 @@
+"use client";
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -8,65 +16,61 @@ import {
 interface FAQProps {
   question: string;
   answer: string;
-  value: string;
 }
 
-const FAQList: FAQProps[] = [
+const faqList: FAQProps[] = [
   {
-    question: "Is this template free?",
-    answer: "Yes. It is a  NextJS TsarSEO template.",
-    value: "item-1",
-  },
-  {
-    question: "Duis aute irure dolor in reprehenderit in voluptate velit?",
+    question: "ترافیک واقعی TsarSEO چطور کار می‌کند؟",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam consectetur sapiente, iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
-    value: "item-2",
+      "ترافیک واقعی ما با شبیه‌سازی رفتارهای انسانی (مثل کلیک، اسکرول، و تعامل با سایت) ایجاد می‌شود. این بازدیدها کاملاً امن و با الگوریتم‌های گوگل سازگارند و به بهبود رتبه سایت شما کمک می‌کنند.",
   },
   {
-    question:
-      "Lorem ipsum dolor sit amet Consectetur natus dolor minus quibusdam?",
+    question: "گزارش‌های تحلیل سئو شامل چه اطلاعاتی هستند؟",
     answer:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore qui nostrum reiciendis veritatis.",
-    value: "item-3",
+      "گزارش‌های ما شامل تحلیل کلمات کلیدی، بررسی رقبا، وضعیت فنی سایت، و پیشنهادات عملی برای بهبود سئو است. این گزارش‌ها برای آژانس‌ها و کسب‌وکارها طراحی شده‌اند تا استراتژی سئوی خود را بهینه کنند.",
   },
   {
-    question: "Excepteur sint occaecat cupidata non proident sunt?",
-    answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    value: "item-4",
+    question: "آیا می‌توانم TsarSEO را رایگان تست کنم؟",
+    answer:
+      "بله! پلن پایه ما رایگان است و شامل گزارش سئو پایه و تا ۱۰۰۰ بازدید ماهانه می‌شود. می‌توانید همین حالا ثبت‌نام کنید و قدرت TsarSEO را تجربه کنید.",
   },
   {
-    question:
-      "Enim ad minim veniam, quis nostrud exercitation ullamco laboris?",
-    answer: "consectetur adipisicing elit. Sint labore.",
-    value: "item-5",
+    question: "آیا ترافیک TsarSEO برای سایت من امن است؟",
+    answer:
+      "کاملاً! ترافیک ما با فناوری پیشرفته و مطابق با استانداردهای گوگل تولید می‌شود. هیچ ریسکی برای جریمه شدن سایت شما وجود ندارد.",
   },
 ];
 
-export const FAQSection = () => {
+export const FAQSection: React.FC = () => {
   return (
-    <section id="faq" className="container md:w-[700px] py-24 sm:py-32">
+    <section dir="rtl" id="faq" className="container lg:w-[75%] py-24 sm:py-32">
       <div className="text-center mb-8">
         <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-          FAQS
+          سوالات متداول
         </h2>
 
         <h2 className="text-3xl md:text-4xl text-center font-sans font-bold">
-          Common Questions
+          پاسخ به سوالات شما درباره TsarSEO
         </h2>
       </div>
 
-      <Accordion type="single" collapsible className="AccordionRoot">
-        {FAQList.map(({ question, answer, value }) => (
-          <AccordionItem key={value} value={value}>
-            <AccordionTrigger className="text-left">
-              {question}
-            </AccordionTrigger>
-
-            <AccordionContent>{answer}</AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      <div className="grid grid-cols-1 gap-8">
+        <Card className="bg-muted/60 dark:bg-card">
+          <CardHeader>
+            <CardTitle className="text-2xl">سوالات رایج</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="single" collapsible className="w-full">
+              {faqList.map(({ question, answer }, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger>{question}</AccordionTrigger>
+                  <AccordionContent>{answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
+        </Card>
+      </div>
     </section>
   );
 };

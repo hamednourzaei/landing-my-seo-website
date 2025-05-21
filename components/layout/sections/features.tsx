@@ -1,67 +1,66 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
-import { icons } from "lucide-react";
 
 interface FeaturesProps {
-  icon: string;
+  icon: keyof typeof import("lucide-react").icons;
   title: string;
   description: string;
 }
 
 const featureList: FeaturesProps[] = [
   {
-    icon: "TabletSmartphone",
-    title: "Mobile Friendly",
+    icon: "Search",
+    title: "تحلیل کلمات کلیدی",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, consectetur.",
+      "شناسایی دقیق کلمات کلیدی پرجستجو و رقابتی برای بهبود استراتژی محتوای شما.",
   },
   {
-    icon: "BadgeCheck",
-    title: "Social Proof",
+    icon: "Users",
+    title: "ترافیک شبیه‌سازی‌شده",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Natus consectetur, odio ea accusamus aperiam.",
+      "بازدیدهای واقعی با رفتار انسانی برای افزایش رتبه گوگل بدون ریسک جریمه.",
   },
   {
-    icon: "Goal",
-    title: "Targeted Content",
+    icon: "LineChart",
+    title: "گزارش‌های تعاملی",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. odio ea accusamus aperiam.",
+      "نمودارها و گزارش‌های پویا برای رصد لحظه‌ای عملکرد سئو و ترافیک سایت.",
   },
   {
-    icon: "PictureInPicture",
-    title: "Strong Visuals",
+    icon: "Globe",
+    title: "پشتیبانی چندزبانه",
     description:
-      "Lorem elit. A odio velit cum aliquam. Natus consectetur dolores, odio ea accusamus aperiam.",
+      "پشتیبانی ۲۴/۷ به زبان‌های مختلف برای کاربران ایرانی و بین‌المللی.",
   },
   {
-    icon: "MousePointerClick",
-    title: "Clear CTA",
+    icon: "Zap",
+    title: "سرعت تحلیل بالا",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing. odio ea accusamus consectetur.",
+      "دریافت گزارش‌های سئو در کمتر از چند دقیقه با فناوری پیشرفته TsarSEO.",
   },
   {
-    icon: "Newspaper",
-    title: "Clear Headline",
+    icon: "Lock",
+    title: "امنیت داده‌ها",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur.",
+      "حفاظت از اطلاعات شما با رمزنگاری پیشرفته و پروتکل‌های امنیتی.",
   },
 ];
 
-export const FeaturesSection = () => {
+export const FeaturesSection: React.FC = () => {
   return (
-    <section id="features" className="container py-24 sm:py-32">
+    <section dir="rtl" id="features" className="container font-kalameh py-24 sm:py-32">
       <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-        Features
+        ویژگی‌های TsarSEO
       </h2>
 
       <h2 className="text-3xl md:text-4xl text-center font-sans font-bold mb-4">
-        What Makes Us Different
+        ابزارهای حرفه‌ای برای فرمانروایی دیجیتال
       </h2>
 
       <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground mb-8">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem
-        fugiat, odit similique quasi sint reiciendis quidem iure veritatis optio
-        facere tenetur.
+        با قابلیت‌های پیشرفته TsarSEO، تحلیل سئو و ترافیک سایت خود را به سطحی جدید ببرید.
       </h3>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -71,7 +70,7 @@ export const FeaturesSection = () => {
               <CardHeader className="flex justify-center items-center">
                 <div className="bg-primary/20 p-2 rounded-full ring-8 ring-primary/10 mb-4">
                   <Icon
-                    name={icon as keyof typeof icons}
+                    name={icon}
                     size={24}
                     color="hsl(var(--primary))"
                     className="text-primary"

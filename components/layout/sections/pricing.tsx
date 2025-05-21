@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,65 +27,65 @@ interface PlanProps {
 
 const plans: PlanProps[] = [
   {
-    title: "Free",
-    popular: 0,
+    title: "پایه",
+    popular: PopularPlan.NO,
     price: 0,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Start Free Trial",
+      "مناسب برای کسب‌وکارهای کوچک که می‌خواهند با سئو و ترافیک آشنا شوند.",
+    buttonText: "شروع رایگان",
     benefitList: [
-      "1 team member",
-      "1 GB storage",
-      "Upto 2 pages",
-      "Community support",
-      "AI assistance",
+      "گزارش سئو پایه",
+      "تا ۱۰۰۰ بازدید ماهانه",
+      "پشتیبانی ایمیلی",
+      "دسترسی به داشبورد",
     ],
   },
   {
-    title: "Premium",
-    popular: 1,
-    price: 45,
+    title: "حرفه‌ای",
+    popular: PopularPlan.YES,
+    price: 99,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Get starterd",
+      "ایده‌آل برای آژانس‌ها و کسب‌وکارهایی که تحلیل پیشرفته و ترافیک بالا می‌خواهند.",
+    buttonText: "شروع کنید",
     benefitList: [
-      "4 team member",
-      "8 GB storage",
-      "Upto 6 pages",
-      "Priority support",
-      "AI assistance",
+      "گزارش‌های جامع سئو",
+      "تا ۱۰,۰۰۰ بازدید ماهانه",
+      "پشتیبانی ۲۴/۷",
+      "تحلیل کلمات کلیدی پیشرفته",
+      "دسترسی به API",
     ],
   },
   {
-    title: "Enterprise",
-    popular: 0,
-    price: 120,
+    title: "سازمانی",
+    popular: PopularPlan.NO,
+    price: 299,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Contact US",
+      "برای شرکت‌های بزرگ با نیاز به گزارش‌های سفارشی و ترافیک گسترده.",
+    buttonText: "تماس با ما",
     benefitList: [
-      "10 team member",
-      "20 GB storage",
-      "Upto 10 pages",
-      "Phone & email support",
-      "AI assistance",
+      "گزارش‌های سفارشی سئو",
+      "ترافیک نامحدود",
+      "پشتیبانی اختصاصی",
+      "تحلیل رقبا",
+      "مشاوره استراتژی سئو",
     ],
   },
 ];
 
-export const PricingSection = () => {
+export const PricingSection: React.FC = () => {
   return (
-    <section className="container py-24 sm:py-32">
-      <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-        Pricing
+    <section dir="rtl" className="container font-kalameh py-24 sm:py-32">
+       <hr className="border-secondary" />
+      <h2 className="text-lg py-20 text-primary text-center mb-2 tracking-wider">
+        پلن‌های TsarSEO
       </h2>
 
       <h2 className="text-3xl md:text-4xl text-center font-sans font-bold mb-4">
-        Get unlimitted access
+        با TsarSEO به قله های گوگل برسید
       </h2>
 
       <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14">
-        Lorem ipsum dolor sit amet consectetur adipisicing reiciendis.
+        پلن مناسب خود را انتخاب کنید و با تحلیل‌های دقیق و ترافیک واقعی، کسب‌وکارتان را رشد دهید.
       </h3>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-4">
@@ -92,7 +94,7 @@ export const PricingSection = () => {
             <Card
               key={title}
               className={
-                popular === PopularPlan?.YES
+                popular === PopularPlan.YES
                   ? "drop-shadow-xl shadow-black/10 dark:shadow-white/10 border-[1.5px] border-primary lg:scale-[1.1]"
                   : ""
               }
@@ -105,8 +107,10 @@ export const PricingSection = () => {
                 </CardDescription>
 
                 <div>
-                  <span className="text-3xl font-sans font-bold">${price}</span>
-                  <span className="text-muted-foreground"> /month</span>
+                  <span className="text-3xl font-sans font-bold">
+                    {price === 0 ? "رایگان" : `${price} تومان`}
+                  </span>
+                  <span className="text-muted-foreground"> /ماه</span>
                 </div>
               </CardHeader>
 
@@ -123,9 +127,7 @@ export const PricingSection = () => {
 
               <CardFooter>
                 <Button
-                  variant={
-                    popular === PopularPlan?.YES ? "default" : "secondary"
-                  }
+                  variant={popular === PopularPlan.YES ? "default" : "secondary"}
                   className="w-full"
                 >
                   {buttonText}
@@ -135,6 +137,7 @@ export const PricingSection = () => {
           )
         )}
       </div>
+      <hr className="border-secondary" />
     </section>
   );
 };

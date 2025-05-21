@@ -1,4 +1,5 @@
 "use client";
+
 import { ChevronsDown, Github, Menu } from "lucide-react";
 import React from "react";
 import {
@@ -35,44 +36,45 @@ interface FeatureProps {
 
 const routeList: RouteProps[] = [
   {
-    href: "#testimonials",
-    label: "Testimonials",
+    href: "#success-stories",
+    label: "داستان‌های موفقیت",
   },
   {
-    href: "#team",
-    label: "Team",
+    href: "#features",
+    label: "ویژگی‌های ما",
   },
   {
     href: "#contact",
-    label: "Contact",
+    label: "تماس با ما",
   },
   {
     href: "#faq",
-    label: "FAQ",
+    label: "سوالات متداول",
   },
 ];
 
 const featureList: FeatureProps[] = [
   {
-    title: "Showcase Your Value ",
-    description: "Highlight how your product solves user problems.",
+    title: "تحلیل هوشمند رقبا با AI",
+    description:
+      "به‌زودی با هوش مصنوعی TsarSEO، استراتژی رقبای خود را تحلیل کنید و با پیشنهادات دقیق، پادشاه سئو شوید!",
   },
   {
-    title: "Build Trust",
+    title: "ترافیک هدفمند محلی",
     description:
-      "Leverages social proof elements to establish trust and credibility.",
+      "در آینده، بازدیدهای واقعی را برای شهر یا منطقه دلخواه خود هدف‌گذاری کنید و فروش محلی را فتح کنید!",
   },
   {
-    title: "Capture Leads",
+    title: "گزارش‌های ویدئویی سئو",
     description:
-      "Make your lead capture form visually appealing and strategically.",
+      "گزارش‌های سئو به‌صورت ویدئوهای کوتاه و جذاب، به‌زودی برای ارائه حرفه‌ای به مشتریان شما!",
   },
 ];
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
-    <header className="shadow-inner bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
+    <header className="shadow-inner font-kalameh bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
       <Link href="/" className="font-bold text-lg flex items-center">
         <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
         TsarSEO
@@ -88,11 +90,11 @@ export const Navbar = () => {
           </SheetTrigger>
 
           <SheetContent
-            side="left"
+            side="right"
             className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary"
           >
             <div>
-              <SheetHeader className="mb-4 ml-4">
+              <SheetHeader className="mb-4 mr-4">
                 <SheetTitle className="flex items-center">
                   <Link href="/" className="flex items-center">
                     <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
@@ -126,17 +128,17 @@ export const Navbar = () => {
       </div>
 
       {/* <!-- Desktop --> */}
-      <NavigationMenu className="hidden lg:block mx-auto">
+      <NavigationMenu dir="rtl" className="hidden lg:block mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-card text-base">
-              Features
+              ویژگی‌های آینده
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
                 <Image
-                  src="https://avatars.githubusercontent.com/u/75042455?v=4"
-                  alt="RadixLogo"
+                  src="/images/tsarseo-future-features.jpg"
+                  alt="ویژگی‌های آینده TsarSEO"
                   className="h-full w-full rounded-md object-cover"
                   width={600}
                   height={600}
@@ -147,7 +149,7 @@ export const Navbar = () => {
                       key={title}
                       className="rounded-md p-3 text-sm hover:bg-muted"
                     >
-                      <p className="mb-1 font-sans font-semibold leading-none text-foreground">
+                      <p className="mb-1 font-kalameh font-semibold leading-none text-foreground">
                         {title}
                       </p>
                       <p className="line-clamp-2 text-muted-foreground">
@@ -175,9 +177,9 @@ export const Navbar = () => {
       <div className="hidden lg:flex">
         <ToggleTheme />
 
-        <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
+        <Button asChild size="sm" variant="ghost" aria-label="مشاهده در گیت‌هاب">
           <Link
-            aria-label="View on GitHub"
+            aria-label="مشاهده در گیت‌هاب"
             href="https://github.com/hamednourzaei/landing-my-seo-website"
             target="_blank"
           >

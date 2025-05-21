@@ -1,4 +1,5 @@
 "use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
@@ -16,76 +17,68 @@ import {
 } from "@/components/ui/carousel";
 import { Star } from "lucide-react";
 
-interface ReviewProps {
+interface SuccessStoryProps {
   image: string;
   name: string;
-  userName: string;
+  role: string;
   comment: string;
   rating: number;
 }
 
-const reviewList: ReviewProps[] = [
+const storyList: SuccessStoryProps[] = [
   {
-    image: "https://github.com/shadcn.png",
-    name: "John Doe",
-    userName: "Product Manager",
+    image: "https://ui-avatars.com/api/?name=سجاد+محمدی",
+    name: "سجاد محمدی",
+    role: "صاحب فروشگاه آنلاین",
     comment:
-      "Wow NextJs + TsarSEO is awesome!. This template lets me change colors, fonts and images to match my brand identity. ",
+      "با ترافیک واقعی TsarSEO، فروشگاه من در ۳ ماه به صفحه اول گوگل رسید و فروشم ۲ برابر شد. پشتیبانی تیم هم عالی بود!",
     rating: 5.0,
   },
   {
-    image: "https://github.com/shadcn.png",
-    name: "Sophia Collins",
-    userName: "Cybersecurity Analyst",
+    image: "https://ui-avatars.com/api/?name=نسرین+احمدی",
+    name: "نسرین احمدی",
+    role: "مدیر آژانس سئو",
     comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. ",
+      "گزارش‌های پیشرفته TsarSEO به من کمک کرد استراتژی سئوی مشتریانم رو بهینه کنم. حالا ۹۰٪ مشتریانم راضی‌ترن!",
+    rating: 4.9,
+  },
+  {
+    image: "https://ui-avatars.com/api/?name=ندا+حسینی",
+    name: "ندا حسینی",
+    role: "فریلنسر",
+    comment:
+      "با پلن پایه TsarSEO، ترافیک سایتم ۳ برابر شد و پروژه‌های جدیدی گرفتم. استفاده از داشبوردش خیلی ساده بود!",
     rating: 4.8,
   },
-
   {
-    image: "https://github.com/shadcn.png",
-    name: "Adam Johnson",
-    userName: "Chief Technology Officer",
+    image: "https://ui-avatars.com/api/?name=نسرین+احمدی",
+    name: "نسرین احمدی",
+    role: "مدیر آژانس سئو",
     comment:
-      "Lorem ipsum dolor sit amet,exercitation. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "گزارش‌های پیشرفته TsarSEO به من کمک کرد استراتژی سئوی مشتریانم رو بهینه کنم. حالا ۹۰٪ مشتریانم راضی‌ترن!",
     rating: 4.9,
   },
   {
-    image: "https://github.com/shadcn.png",
-    name: "Ethan Parker",
-    userName: "Data Scientist",
+    image: "https://ui-avatars.com/api/?name=ندا+حسینی",
+    name: "ندا حسینی",
+    role: "فریلنسر",
     comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore et dolore magna aliqua. Ut enim ad minim veniam.",
-    rating: 5.0,
-  },
-  {
-    image: "https://github.com/shadcn.png",
-    name: "Ava Mitchell",
-    userName: "IT Project Manager",
-    comment:
-      "Lorem ipsum dolor sit amet, tempor incididunt  aliqua. Ut enim ad minim veniam, quis nostrud incididunt consectetur adipiscing elit.",
-    rating: 5.0,
-  },
-  {
-    image: "https://github.com/shadcn.png",
-    name: "Isabella Reed",
-    userName: "DevOps Engineer",
-    comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    rating: 4.9,
+      "با پلن پایه TsarSEO، ترافیک سایتم ۳ برابر شد و پروژه‌های جدیدی گرفتم. استفاده از داشبوردش خیلی ساده بود!",
+    rating: 4.8,
   },
 ];
 
-export const TestimonialSection = () => {
+export const TestimonialSection: React.FC = () => {
   return (
-    <section id="testimonials" className="container py-24 sm:py-32">
-      <div className="text-center mb-8">
+    <section id="success-stories" className="container py-24 sm:py-32">
+       <hr className="border-secondary" />
+      <div className="text-center mb-8  py-24">
         <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-          Testimonials
+          داستان‌های موفقیت
         </h2>
 
         <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-          Hear What Our 1000+ Clients Say
+          موفقیت مشتریان TsarSEO
         </h2>
       </div>
 
@@ -96,36 +89,44 @@ export const TestimonialSection = () => {
         className="relative w-[80%] sm:w-[90%] lg:max-w-screen-xl mx-auto"
       >
         <CarouselContent>
-          {reviewList.map((review) => (
+          {storyList.map((story) => (
             <CarouselItem
-              key={review.name}
+              key={story.name}
               className="md:basis-1/2 lg:basis-1/3"
             >
               <Card className="bg-muted/50 dark:bg-card">
                 <CardContent className="pt-6 pb-0">
                   <div className="flex gap-1 pb-6">
-                    <Star className="size-4 fill-primary text-primary" />
-                    <Star className="size-4 fill-primary text-primary" />
-                    <Star className="size-4 fill-primary text-primary" />
-                    <Star className="size-4 fill-primary text-primary" />
-                    <Star className="size-4 fill-primary text-primary" />
+                    {Array.from({ length: Math.floor(story.rating) }).map(
+                      (_, i) => (
+                        <Star
+                          key={i}
+                          className="size-4 fill-primary text-primary"
+                        />
+                      )
+                    )}
+                    {story.rating % 1 !== 0 && (
+                      <Star className="size-4 text-primary" />
+                    )}
                   </div>
-                  {`"${review.comment}"`}
+                  {`"${story.comment}"`}
                 </CardContent>
 
                 <CardHeader>
                   <div className="flex flex-row items-center gap-4">
                     <Avatar>
-                      <AvatarImage
-                        src="https://avatars.githubusercontent.com/u/75042455?v=4"
-                        alt="radix"
-                      />
-                      <AvatarFallback>SV</AvatarFallback>
+                      <AvatarImage src={story.image} alt={story.name} />
+                      <AvatarFallback>
+                        {story.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </AvatarFallback>
                     </Avatar>
 
                     <div className="flex flex-col">
-                      <CardTitle className="text-lg">{review.name}</CardTitle>
-                      <CardDescription>{review.userName}</CardDescription>
+                      <CardTitle className="text-lg">{story.name}</CardTitle>
+                      <CardDescription>{story.role}</CardDescription>
                     </div>
                   </div>
                 </CardHeader>
