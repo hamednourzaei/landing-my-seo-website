@@ -42,7 +42,7 @@ export const BenefitsSection: React.FC = () => {
   return (
     <section dir="rtl" id="benefits" className="container font-kalameh sm:py-32">
         <hr className="border-secondary" />
-      <div className="grid lg:grid-cols-2 py-24 place-items-center lg:gap-24">
+      <div className="grid lg:grid-cols-2 pt-24 place-items-center lg:gap-24">
         <div>
           <h2 className="text-lg text-primary mb-2 tracking-wider">
             مزایای TsarSEO

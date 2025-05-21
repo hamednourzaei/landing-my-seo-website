@@ -63,9 +63,9 @@ export const ContactSection: React.FC = () => {
   }
 
   return (
-    <section dir="rtl" id="contact" className="container font-kalameh py-24 sm:py-32">
+    <section dir="rtl" id="contact" className="container font-kalameh py-10 sm:py-20">
              <hr className="border-secondary" />
-      <section className="grid grid-cols-1 py-24 md:grid-cols-2 gap-8">
+      <section className="grid grid-cols-1 py-10 md:grid-cols-2 gap-8">
         <div>
           <div className="mb-4">
             <h2 className="text-lg text-primary mb-2 tracking-wider">

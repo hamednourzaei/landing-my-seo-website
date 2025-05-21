@@ -43,8 +43,9 @@ const faqList: FAQProps[] = [
 
 export const FAQSection: React.FC = () => {
   return (
-    <section dir="rtl" id="faq" className="container lg:w-[75%] py-24 sm:py-32">
-      <div className="text-center mb-8">
+    <section dir="rtl" id="faq" className="container lg:w-[75%]">
+        <hr className="border-secondary" />
+      <div className="text-center mb-8 mt-10">
         <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
           سوالات متداول
         </h2>

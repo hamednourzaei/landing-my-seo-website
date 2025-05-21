@@ -37,7 +37,7 @@ interface FeatureProps {
 const routeList: RouteProps[] = [
   {
     href: "#success-stories",
-    label: "داستان‌های موفقیت",
+    label: "نظرات شما",
   },
   {
     href: "#features",

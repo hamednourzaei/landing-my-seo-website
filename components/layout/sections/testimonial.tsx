@@ -74,11 +74,11 @@ export const TestimonialSection: React.FC = () => {
        <hr className="border-secondary" />
       <div className="text-center mb-8  py-24">
         <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-          داستان‌های موفقیت
+             نظرات  موفقیت آمیز مشتریان
         </h2>
 
         <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-          موفقیت مشتریان TsarSEO
+        TsarSEO موفقیت مشتریان 
         </h2>
       </div>
 
