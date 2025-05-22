@@ -113,7 +113,7 @@ export const TestimonialSection: React.FC = () => {
                 </CardContent>
 
                 <CardHeader>
-                  <div className="flex flex-row items-center gap-4">
+                  <div className="flex flex-row items-center my-5 gap-4">
                     <Avatar>
                       <AvatarImage src={story.image} alt={story.name} />
                       <AvatarFallback>
