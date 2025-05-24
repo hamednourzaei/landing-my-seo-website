@@ -17,12 +17,7 @@ export const FooterSection = () => {
 
           <div className="flex flex-col gap-2">
             <h3 className="font-sans font-bold text-lg">Contact</h3>
-            <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                Github
-              </Link>
-            </div>
-
+         
             <div>
               <Link href="#" className="opacity-60 hover:opacity-100">
                 Twitter
@@ -49,31 +44,19 @@ export const FooterSection = () => {
                 Android
               </Link>
             </div>
-
-            <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                Web
-              </Link>
-            </div>
           </div>
 
           <div className="flex flex-col gap-2">
             <h3 className=" font-sans font-bold text-lg">Help</h3>
             <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
+              <Link href="#contact" className="opacity-60 hover:opacity-100">
                 Contact Us
               </Link>
             </div>
 
             <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
+              <Link href="#faq" className="opacity-60 hover:opacity-100">
                 FAQ
-              </Link>
-            </div>
-
-            <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                Feedback
               </Link>
             </div>
           </div>
@@ -91,12 +74,6 @@ export const FooterSection = () => {
                 Discord
               </Link>
             </div>
-
-            <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                Dribbble
-              </Link>
-            </div>
           </div>
         </div>
 
@@ -109,7 +86,8 @@ export const FooterSection = () => {
               href="https://github.com/hamednourzaei"
               className="text-primary transition-all border-primary hover:border-b-2 ml-1"
             >
-hamednourzaei            </Link>
+             copyright by* hamednourzaei{" "}
+            </Link>
           </h3>
         </section>
       </div>
