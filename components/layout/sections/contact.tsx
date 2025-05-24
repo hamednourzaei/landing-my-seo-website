@@ -53,19 +53,29 @@ export const ContactSection: React.FC = () => {
   const [submitMessage, setSubmitMessage] = useState<string>("");
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setSubmitMessage(""); // پاک کردن پیام قبلی
     try {
-      const response = await fetch("app/api/send-to-telegram", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const response = await fetch(
+        "https://send-to-telegram.hamednourzaie1.workers.dev/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Failed to send to Telegram");
+        throw new Error("ارسال پیام به تلگرام موفق نبود");
       }
 
-      setSubmitMessage("پیام شما با موفقیت به تلگرام ارسال شد!");
-      form.reset();
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitMessage("پیام شما با موفقیت به تلگرام ارسال شد!");
+        form.reset();
+      } else {
+        setSubmitMessage("خطایی در ارسال پیام رخ داد.");
+      }
     } catch (error) {
       setSubmitMessage("خطایی رخ داد. لطفاً دوباره امتحان کنید.");
     }
