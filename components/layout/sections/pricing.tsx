@@ -74,7 +74,7 @@ const plans: PlanProps[] = [
 
 export const PricingSection: React.FC = () => {
   return (
-    <section dir="rtl" className="container font-kalameh py-24 sm:py-32">
+    <section dir="rtl" className="container  font-kalameh py-24 sm:py-32">
        <hr className="border-secondary" />
       <h2 className="text-lg py-10 text-primary text-center mb-2 tracking-wider">
         پلن‌های TsarSEO
@@ -88,7 +88,7 @@ export const PricingSection: React.FC = () => {
         پلن مناسب خود را انتخاب کنید و با تحلیل‌های دقیق و ترافیک واقعی، کسب‌وکارتان را رشد دهید.
       </h3>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-4">
+      <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-8">
         {plans.map(
           ({ title, popular, price, description, buttonText, benefitList }) => (
             <Card

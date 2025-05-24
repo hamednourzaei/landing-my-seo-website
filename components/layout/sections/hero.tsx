@@ -64,8 +64,8 @@ export const HeroSection = () => {
             className="w-full md:w-[1200px] mx-auto rounded-lg relative leading-none flex items-center border border-t-2 border-secondary border-t-primary/30"
             src={
               theme === "light"
-                ? "/seo-report-light.jpg"
-                : "/seo-report-dark.jpg"
+                ? "/demo-img.jpg"
+                : "/demo-img.jpg"
             }
             alt="اسکرین‌شات نمونه گزارش SEO و نمودار ترافیک"
           />

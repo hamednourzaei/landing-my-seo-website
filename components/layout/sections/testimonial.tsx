@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -18,6 +19,7 @@ import {
 import { Star } from "lucide-react";
 
 interface SuccessStoryProps {
+  id: string;
   image: string;
   name: string;
   role: string;
@@ -27,6 +29,7 @@ interface SuccessStoryProps {
 
 const storyList: SuccessStoryProps[] = [
   {
+    id: "t1",
     image: "https://ui-avatars.com/api/?name=سجاد+محمدی",
     name: "سجاد محمدی",
     role: "صاحب فروشگاه آنلاین",
@@ -35,6 +38,7 @@ const storyList: SuccessStoryProps[] = [
     rating: 5.0,
   },
   {
+    id: "t20",
     image: "https://ui-avatars.com/api/?name=نسرین+احمدی",
     name: "نسرین احمدی",
     role: "مدیر آژانس سئو",
@@ -43,6 +47,7 @@ const storyList: SuccessStoryProps[] = [
     rating: 4.9,
   },
   {
+    id: "t03",
     image: "https://ui-avatars.com/api/?name=ندا+حسینی",
     name: "ندا حسینی",
     role: "فریلنسر",
@@ -51,6 +56,7 @@ const storyList: SuccessStoryProps[] = [
     rating: 4.8,
   },
   {
+    id: "t02",
     image: "https://ui-avatars.com/api/?name=نسرین+احمدی",
     name: "نسرین احمدی",
     role: "مدیر آژانس سئو",
@@ -59,6 +65,7 @@ const storyList: SuccessStoryProps[] = [
     rating: 4.9,
   },
   {
+    id: "t30",
     image: "https://ui-avatars.com/api/?name=ندا+حسینی",
     name: "ندا حسینی",
     role: "فریلنسر",
@@ -66,19 +73,20 @@ const storyList: SuccessStoryProps[] = [
       "با پلن پایه TsarSEO، ترافیک سایتم ۳ برابر شد و پروژه‌های جدیدی گرفتم. استفاده از داشبوردش خیلی ساده بود!",
     rating: 4.8,
   },
+  
+  
 ];
 
 export const TestimonialSection: React.FC = () => {
   return (
     <section id="success-stories" className="container py-24 sm:py-32">
-       <hr className="border-secondary" />
-      <div className="text-center mb-8  py-24">
+      <hr className="border-secondary" />
+      <div className="text-center mb-8 py-24">
         <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-             نظرات  موفقیت آمیز مشتریان
+          نظرات موفقیت آمیز مشتریان
         </h2>
-
         <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-        TsarSEO موفقیت مشتریان 
+          TsarSEO موفقیت مشتریان
         </h2>
       </div>
 
@@ -91,7 +99,7 @@ export const TestimonialSection: React.FC = () => {
         <CarouselContent>
           {storyList.map((story) => (
             <CarouselItem
-              key={story.name}
+              key={story.id}
               className="md:basis-1/2 lg:basis-1/3"
             >
               <Card className="bg-muted/50 dark:bg-card">
