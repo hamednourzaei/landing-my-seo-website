@@ -84,13 +84,13 @@ export const FooterSection = () => {
         <Separator className="my-6" />
         <section className="">
           <h3 className="">
-            &copy; 2025 Designed and developed by
+            &copy; 2025 Designed and developed and copyright by*
             <Link
               target="_blank"
               href="https://github.com/hamednourzaei"
               className="text-primary transition-all border-primary hover:border-b-2 ml-1"
             >
-              copyright by* hamednourzaei{" "}
+               hamednourzaei{" "}
             </Link>
           </h3>
         </section>
