@@ -20,7 +20,7 @@ export const FooterSection = () => {
 
             <div>
               <Link href="#" className="opacity-60 hover:opacity-100">
-                Twitter
+                X (Twitter)
               </Link>
             </div>
 
