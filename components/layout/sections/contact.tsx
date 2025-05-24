@@ -71,7 +71,7 @@ export const ContactSection: React.FC = () => {
       const data = await response.json();
 
       if (data.success) {
-        setSubmitMessage("پیام شما با موفقیت به تلگرام ارسال شد!");
+        setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
         form.reset();
       } else {
         setSubmitMessage("خطایی در ارسال پیام رخ داد.");
