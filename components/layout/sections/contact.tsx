@@ -177,7 +177,10 @@ export const ContactSection: React.FC = () => {
                     <FormItem>
                       <FormLabel>دامنه (اختیاری)</FormLabel>
                       <FormControl>
-                        <Input placeholder="مثال: example.com" {...field} />
+                        <Input
+                          placeholder="مثال: https://example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
