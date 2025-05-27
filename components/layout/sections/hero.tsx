@@ -20,14 +20,16 @@ export const HeroSection = () => {
           </Badge>
           <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-bold leading-tight">
   <h1>
-    بازدید واقعی + تحلیل سئوی حرفه‌ای
+    
+    بازدید واقعی + تحلیل سئوی حرفه ای  
+   
     <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text mt-5 border-b-2 border-b-[#af4c00]">
       فقط با یک کلیک
     </span>
   </h1>
 </div>
 
-          <p dir="rtl" className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground text-right font-sans font-medium">تحلیل دقیق سئو برای متخصص‌ها، و بازدید واقعی برای سایت‌هایی که می‌خوان در گوگل دیده شن. گزارش حرفه‌ای بگیر – همین حالا شروع کن!  </p>
+          <p dir="rtl" className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground text-right font-sans font-medium">تحلیل دقیق سئو برای متخصص ها  و بازدید واقعی برای سایت‌هایی که می‌خوان در گوگل دیده شن. گزارش حرفه‌ای بگیر – همین حالا شروع کن!  </p>
 
           <motion.div
       initial={{ opacity: 0, y: 20 }}
