@@ -1,10 +1,8 @@
-
 "use client";
 
 import { Icon } from "@/components/ui/icon";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { icons } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useRef, useState, useEffect } from "react";
 
 interface FeatureProps {
@@ -13,13 +11,13 @@ interface FeatureProps {
 }
 
 const features: FeatureProps[] = [
-  { icon: "BarChart2", name: "گزارش‌های پیشرفته سئو" },
+  { icon: "BarChart2", name: "گزارش پیشرفته سئو" },
   { icon: "Users", name: "ترافیک واقعی انسانی" },
   { icon: "Zap", name: "تحلیل سریع و دقیق" },
   { icon: "Trophy", name: "بهبود رتبه گوگل" },
-  { icon: "Server", name: "۵۸۸ دامنه فعال روی " },
+  { icon: "Server", name: "۵۸۸ دامنه فعال روی" },
   { icon: "Globe", name: "پشتیبانی چندزبانه" },
-  { icon: "LineChart", name: "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" },
+  { icon: "Circle", name: "بیش از 1 میلیون بازدید" },
 ];
 
 export const SponsorsSection = () => {
@@ -28,33 +26,27 @@ export const SponsorsSection = () => {
   const yOffset = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  const [windowSize, setWindowSize] = useState({ width: 900, height: 500 });
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 800);
+      const w = window.innerWidth;
+      const isLarge = w >= 800;
+      const width = isLarge
+        ? w >= 1024
+          ? Math.min(w * 0.9, 900)
+          : Math.max(200, w < 900 ? 650 : 750)
+        : Math.max(200, w * 0.9);
+      const height = isLarge ? Math.max(150, width * 0.5) : 450;
+      setWindowSize({ width, height });
+      setIsLargeScreen(isLarge);
     };
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const getDimensions = () => {
-    let width;
-    if (isLargeScreen) {
-      if (window.innerWidth >= 1024) {
-        width = Math.min(window.innerWidth * 1, 900);
-      } else {
-        width = Math.max(200, window.innerWidth < 900 ? 650 : 750);
-      }
-      const height = Math.max(150, width * 0.5);
-      return { width, height };
-    } else {
-      width = Math.max(200, window.innerWidth * 0.5);
-      const height = 450;
-      return { width, height };
-    }
-  };
 
   const getFixedPositions = (width: number, height: number) => {
     const total = features.length;
@@ -62,7 +54,7 @@ export const SponsorsSection = () => {
     const centerY = height / 2;
     const itemWidth = 180;
     const itemHeight = 40;
-    const margin = 50;
+    const margin = 46;
     const a = (width - itemWidth - 2 * margin) / 2;
     const b = (height - itemHeight - 2 * margin) / 2;
     const positions = [];
@@ -79,8 +71,9 @@ export const SponsorsSection = () => {
     return positions;
   };
 
-  const { width, height } = getDimensions();
-  const basePositions = isLargeScreen ? getFixedPositions(width, height) : [];
+  const basePositions = isLargeScreen
+    ? getFixedPositions(windowSize.width, windowSize.height)
+    : [];
 
   const [currentAssignments, setAssignments] = useState<number[]>(
     Array.from({ length: features.length }, (_, i) => i)
@@ -104,95 +97,52 @@ export const SponsorsSection = () => {
     }
   }, [isLargeScreen]);
 
-  const getEdges = (positions: { x: number; y: number }[], assignments: number[]) => {
-    const edges: [number, number][] = [];
-    const used = new Set<number>();
-
-    for (let i = 0; i < features.length; i++) {
-      if (used.has(i)) continue;
-      let minDist = Infinity;
-      let closest = -1;
-
-      const posI = positions[assignments[i]];
-      for (let j = 0; j < features.length; j++) {
-        if (i === j || used.has(j)) continue;
-        const posJ = positions[assignments[j]];
-        const dist = Math.sqrt((posI.x - posJ.x) ** 2 + (posI.y - posJ.y) ** 2);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = j;
-        }
-      }
-
-      if (closest !== -1) {
-        edges.push([i, closest]);
-        used.add(i);
-        used.add(closest);
-      }
-    }
-
-    const remaining = features.map((_, i) => i).filter((i) => !used.has(i));
-    if (remaining.length === 1) {
-      let minDist = Infinity;
-      let closest = -1;
-      const posI = positions[assignments[remaining[0]]];
-      for (let j = 0; j < features.length; j++) {
-        if (remaining[0] === j) continue;
-        const posJ = positions[assignments[j]];
-        const dist = Math.sqrt((posI.x - posJ.x) ** 2 + (posI.y - posJ.y) ** 2);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = j;
-        }
-      }
-      if (closest !== -1) edges.push([remaining[0], closest]);
-    }
-
-    return edges;
-  };
-
-  const edges = isLargeScreen && currentAssignments.length === features.length
-    ? getEdges(basePositions, currentAssignments)
-    : [];
-
   return (
-    <section id="features" className="max-w-[90%] mx-auto font-kalameh py-10" ref={ref}>
+    <section
+      id="features"
+      ref={ref}
+      className="max-w-[90%] mx-auto font-kalameh py-10"
+    >
       <motion.h1
         className="text-base sm:text-lg md:text-xl text-center mb-6 text-primary"
         style={{ y: yOffset, scale }}
       >
         چرا باید{" "}
-        <span className="inline-block text-primary">
-          TsarSEO
-        </span>{" "}
+        <span className="inline-block text-primary">TsarSEO</span>{" "}
         را انتخاب کنید؟
       </motion.h1>
 
-      {isLargeScreen ? (
-        <div
-          className="relative mx-auto bg-muted/50  rounded-xl overflow-hidden hover:bg-background transition-all delay-75"
-          style={{ width: `${width}px`, height: `${height}px` }}
-        >
+      <div
+        className="relative mx-auto rounded-xl overflow-hidden transition-all delay-75"
+        style={{
+          width: isLargeScreen ? `${windowSize.width}px` : "100%",
+          height: `${windowSize.height}px`,
+        }}
+      >
+        {isLargeScreen && (
           <svg className="absolute inset-0 z-0" width="100%" height="100%">
-            {edges.map(([i, j], idx) => {
-              const start = basePositions[currentAssignments[i]];
-              const end = basePositions[currentAssignments[j]];
-              return (
-                <motion.path
-                  key={idx}
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1, ease: "easeInOut" }}
-                  d={`M${start.x},${start.y} L${end.x},${end.y}`}
-                  stroke="#af4c00"
-                  strokeWidth="2"
-                  strokeOpacity="0.7"
-                />
-              );
-            })}
+            {basePositions.length === features.length &&
+              features.map((_, i) => {
+                const start = basePositions[currentAssignments[i]];
+                const end = basePositions[currentAssignments[(i + 1) % features.length]];
+                return (
+                  <motion.path
+                    key={i}
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+                    d={`M${start.x},${start.y} L${end.x},${end.y}`}
+                    stroke="#af4c00"
+                    strokeWidth="2"
+                    strokeOpacity="0.7"
+                  />
+                );
+              })}
           </svg>
+        )}
 
-          {features.map(({ icon, name }, index) => (
+        {isLargeScreen ? (
+          features.map(({ icon, name }, index) => (
             <motion.div
               key={index}
               className="absolute flex items-center text-xs sm:text-sm md:text-base font-sans font-semibold z-10"
@@ -208,81 +158,35 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-2 px-3 py-2   rounded-lg bg-muted/50  overflow-hidden hover:bg-background transition-all delay-75 w-full max-w-[180px]">
-                <Icon
-                  name={icon as keyof typeof icons}
-                  size={window.innerWidth < 900 ? 18 : 20}
-                  color="hsl(var(--primary))"
-                  className="ml-2"
-                />
-                <span className="text-muted-foreground whitespace-nowrap">{name}</span>
-                {name === "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" && (
-                  <motion.span
-                    className="inline-block w-2 h-2 bg-primary rounded-full"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      boxShadow: [
-                        "0 0 5px rgba(59,130,246,0.5)",
-                        "0 0 15px rgba(59,130,246,0.9)",
-                        "0 0 5px rgba(59,130,246,0.5)",
-                      ],
-                    }}
-                    transition={{ duration: 1.2, repeat: Infinity }}
-                  />
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      ) : (
-        <div
-          className="relative mx-auto bg-muted/50 dark:bg-card rounded-xl overflow-hidden grid grid-cols-2 gap-4 p-4 hover:bg-background transition-all delay-75"
-          style={{ width: `${width}px`, height: `${height}px` }}
-        >
-          {features.map(({ icon, name }, index) => (
-            <motion.div
-              key={index}
-              className={`flex items-center text-xs sm:text-sm font-sans font-semibold ${
-                index === 6 ? "col-span-2 flex justify-center" : ""
-              }`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-            >
               <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all delay-75 w-full max-w-[180px]">
                 <Icon
                   name={icon as keyof typeof icons}
-                  size={16}
+                  size={18}
                   color="hsl(var(--primary))"
                   className="ml-2"
                 />
                 <span className="text-muted-foreground whitespace-nowrap">{name}</span>
-                {name === "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" && (
-                  <motion.span
-                    className="inline-block w-2 h-2 bg-primary rounded-full"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      boxShadow: [
-                        "0 0 5px rgba(59,130,246,0.5)",
-                        "0 0 15px rgba(59,130,246,0.9)",
-                        "0 0 5px rgba(59,130,246,0.5)",
-                      ],
-                    }}
-                    transition={{ duration: 1.2, repeat: Infinity }}
-                  />
-                )}
               </div>
             </motion.div>
-          ))}
-        </div>
-      )}
-
-      <div className="text-center mt-8">
-        <Button asChild className="bg-primary text-white px-6 py-3 rounded-xl text-sm sm:text-base hover:bg-primary/90">
-          <a href="#contact">همین حالا شروع کنید</a>
-        </Button>
+          ))
+        ) : (
+          <div className="grid grid-cols-2 gap-4 justify-items-center p-4">
+            {features.map(({ icon, name }, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-md w-full max-w-[180px]"
+              >
+                <Icon
+                  name={icon as keyof typeof icons}
+                  size={18}
+                  color="hsl(var(--primary))"
+                  className="ml-2"
+                />
+                <span className="text-muted-foreground whitespace-nowrap">{name}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
