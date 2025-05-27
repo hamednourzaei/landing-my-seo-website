@@ -17,7 +17,7 @@ const features: FeatureProps[] = [
   { icon: "Trophy", name: "بهبود رتبه گوگل" },
   { icon: "Server", name: "۵۸۸ دامنه فعال روی" },
   { icon: "Globe", name: "پشتیبانی چندزبانه" },
-  { icon: "Circle", name: "بیش از 1 میلیون بازدید" },
+  { icon: "Circle", name: " 1 میلیون بازدید " },
 ];
 
 export const SponsorsSection = () => {

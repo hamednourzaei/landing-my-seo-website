@@ -1,7 +1,12 @@
 "use client";
 
 import { ChevronsDown, Github, Menu } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+
 import {
   Sheet,
   SheetContent,
@@ -20,79 +25,56 @@ import {
   NavigationMenuTrigger,
 } from "../ui/navigation-menu";
 import { Button } from "../ui/button";
-import Link from "next/link";
-import Image from "next/image";
 import { ToggleTheme } from "./toogle-theme";
 
-interface RouteProps {
-  href: string;
-  label: string;
-}
-
-interface FeatureProps {
-  title: string;
-  description: string;
-}
-
-const routeList: RouteProps[] = [
-  {
-    href: "#success-stories",
-    label: "نظرات شما",
-  },
-  {
-    href: "#features",
-    label: "ویژگی‌های ما",
-  },
-  {
-    href: "#contact",
-    label: "تماس با ما",
-  },
-  {
-    href: "#faq",
-    label: "سوالات متداول",
-  },
+const routeList = [
+  { href: "#success-stories", label: "نظرات شما" },
+  { href: "#features", label: "ویژگی‌های ما" },
+  { href: "#contact", label: "تماس با ما" },
+  { href: "#faq", label: "سوالات متداول" },
 ];
 
-const featureList: FeatureProps[] = [
+const featureList = [
   {
     title: "تحلیل هوشمند رقبا با AI",
-    description:
-      "به‌زودی با هوش مصنوعی TsarSEO، استراتژی رقبای خود را تحلیل کنید و با پیشنهادات دقیق، پادشاه سئو شوید!",
+    description: "به‌زودی با هوش مصنوعی TsarSEO، استراتژی رقبای خود را تحلیل کنید.",
   },
   {
     title: "ترافیک هدفمند محلی",
-    description:
-      "در آینده، بازدیدهای واقعی را برای شهر یا منطقه دلخواه خود هدف‌گذاری کنید و فروش محلی را فتح کنید!",
+    description: "در آینده، بازدیدهای واقعی برای شهر یا منطقه دلخواهتان هدف‌گذاری می‌شوند.",
   },
   {
     title: "گزارش‌های ویدئویی سئو",
-    description:
-      "گزارش‌های سئو به‌صورت ویدئوهای کوتاه و جذاب، به‌زودی برای ارائه حرفه‌ای به مشتریان شما!",
+    description: "گزارش‌های سئو به‌صورت ویدئوهای کوتاه و جذاب، به‌زودی ارائه می‌شود.",
   },
 ];
 
 export const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeHash, setActiveHash] = useState<string>("");
+
+  useEffect(() => {
+    setActiveHash(window.location.hash);
+    const onHashChange = () => setActiveHash(window.location.hash);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
   return (
     <header className="shadow-inner font-kalameh bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
       <Link href="/" className="font-bold text-lg flex items-center">
         <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
         TsarSEO
       </Link>
-      {/* <!-- Mobile --> */}
+
+      {/* Mobile */}
       <div className="flex items-center lg:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Menu
-              onClick={() => setIsOpen(!isOpen)}
-              className="cursor-pointer lg:hidden"
-            />
+            <Menu className="cursor-pointer lg:hidden" />
           </SheetTrigger>
 
-          <SheetContent
-            side="right"
-            className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary"
-          >
+          <SheetContent className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary">
             <div>
               <SheetHeader className="mb-4 mr-4">
                 <SheetTitle className="flex items-center">
@@ -110,7 +92,9 @@ export const Navbar: React.FC = () => {
                     onClick={() => setIsOpen(false)}
                     asChild
                     variant="ghost"
-                    className="justify-start text-base"
+                    className={`justify-start text-base ${
+                      activeHash === href ? "bg-primary/20" : ""
+                    }`}
                   >
                     <Link href={href}>{label}</Link>
                   </Button>
@@ -118,16 +102,15 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
 
-            <SheetFooter className="flex-col sm:flex-col justify-start items-start">
+            <SheetFooter className="flex-col items-start">
               <Separator className="mb-2" />
-
               <ToggleTheme />
             </SheetFooter>
           </SheetContent>
         </Sheet>
       </div>
 
-      {/* <!-- Desktop --> */}
+      {/* Desktop */}
       <NavigationMenu dir="rtl" className="hidden lg:block mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -162,21 +145,30 @@ export const Navbar: React.FC = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
 
-          <NavigationMenuItem>
-            {routeList.map(({ href, label }) => (
-              <NavigationMenuLink key={href} asChild>
-                <Link href={href} className="text-base px-2">
+          {routeList.map(({ href, label }) => (
+            <NavigationMenuItem key={href}>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              >
+                <Link
+                  href={href}
+                  className={`text-base px-3 py-1 rounded-md transition-all ${
+                    activeHash === href
+                      ? "bg-primary/10 text-primary font-bold"
+                      : "hover:bg-muted"
+                  }`}
+                >
                   {label}
                 </Link>
-              </NavigationMenuLink>
-            ))}
-          </NavigationMenuItem>
+              </motion.div>
+            </NavigationMenuItem>
+          ))}
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="hidden lg:flex">
+      <div className="hidden lg:flex items-center">
         <ToggleTheme />
-
         <Button asChild size="sm" variant="ghost" aria-label="مشاهده در گیت‌هاب">
           <Link
             aria-label="مشاهده در گیت‌هاب"
