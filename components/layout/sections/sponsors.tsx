@@ -1,10 +1,9 @@
-
 "use client";
 
 import { Icon } from "@/components/ui/icon";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { icons } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import { useRef, useState, useEffect } from "react";
 
 interface FeatureProps {
@@ -16,10 +15,10 @@ const features: FeatureProps[] = [
   { icon: "BarChart2", name: "گزارش‌های پیشرفته سئو" },
   { icon: "Users", name: "ترافیک واقعی انسانی" },
   { icon: "Zap", name: "تحلیل سریع و دقیق" },
-  { icon: "LineChart", name: "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" },
-  { icon: "Server", name: "۵۸۸ دامنه فعال روی TsarSEO" },
-  { icon: "Globe", name: "پشتیبانی چندزبانه" },
   { icon: "Trophy", name: "بهبود رتبه گوگل" },
+  { icon: "Server", name: "۵۸۸ دامنه فعال روی " },
+  { icon: "Globe", name: "پشتیبانی چندزبانه" },
+  { icon: "LineChart", name: "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" },
 ];
 
 export const SponsorsSection = () => {
@@ -28,7 +27,6 @@ export const SponsorsSection = () => {
   const yOffset = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
-  // تشخیص عرض صفحه
   const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   useEffect(() => {
@@ -40,28 +38,23 @@ export const SponsorsSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // تنظیم عرض و ارتفاع بر اساس عرض صفحه
   const getDimensions = () => {
     let width;
     if (isLargeScreen) {
       if (window.innerWidth >= 1024) {
-        // برای پی‌سی: 90% عرض صفحه، حداکثر ۹۰۰px
-        width = Math.min(window.innerWidth * 0.9, 900);
+        width = Math.min(window.innerWidth * 1, 900);
       } else {
-        // برای ۸۰۰ تا ۱۰۲۴px
         width = Math.max(200, window.innerWidth < 900 ? 650 : 750);
       }
-      const height = Math.max(150, width * 0.53);
+      const height = Math.max(150, width * 0.5);
       return { width, height };
     } else {
-      // برای <۸۰۰px: عرض دقیقاً ۹۰٪ صفحه
-      width = Math.max(200, window.innerWidth * 0.6);
-      const height = 360; // ارتفاع ثابت برای گرید ۴+۳
+      width = Math.max(200, window.innerWidth * 0.5);
+      const height = 360;
       return { width, height };
     }
   };
 
-  // محاسبه ۷ موقعیت با حاشیه برای ≥۸۰۰px
   const getFixedPositions = (width: number, height: number) => {
     const total = features.length;
     const centerX = width / 2;
@@ -77,8 +70,14 @@ export const SponsorsSection = () => {
       const angle = (i / total) * 2 * Math.PI;
       let x = centerX + a * Math.cos(angle);
       let y = centerY + b * Math.sin(angle);
-      x = Math.max(itemWidth / 2 + margin, Math.min(width - itemWidth / 2 - margin, x));
-      y = Math.max(itemHeight / 2 + margin, Math.min(height - itemHeight / 2 - margin, y));
+      x = Math.max(
+        itemWidth / 2 + margin,
+        Math.min(width - itemWidth / 2 - margin, x)
+      );
+      y = Math.max(
+        itemHeight / 2 + margin,
+        Math.min(height - itemHeight / 2 - margin, y)
+      );
       positions.push({ x, y });
     }
 
@@ -88,12 +87,10 @@ export const SponsorsSection = () => {
   const { width, height } = getDimensions();
   const basePositions = isLargeScreen ? getFixedPositions(width, height) : [];
 
-  // تخصیص اولیه آرایه اندیس‌ها برای ≥۸۰۰px
   const [currentAssignments, setAssignments] = useState<number[]>(
     Array.from({ length: features.length }, (_, i) => i)
   );
 
-  // تابع شافل برای ≥۸۰۰px
   const shuffleArray = (array: number[]) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -103,18 +100,21 @@ export const SponsorsSection = () => {
     return newArray;
   };
 
-  // به‌روزرسانی تصادفی برای ≥۸۰۰px
   useEffect(() => {
     if (isLargeScreen) {
       const interval = setInterval(() => {
-        setAssignments(shuffleArray(Array.from({ length: features.length }, (_, i) => i)));
+        setAssignments(
+          shuffleArray(Array.from({ length: features.length }, (_, i) => i))
+        );
       }, 5000);
       return () => clearInterval(interval);
     }
   }, [isLargeScreen]);
 
-  // پیدا کردن جفت‌های نزدیک برای خطوط در ≥۸۰۰px
-  const getEdges = (positions: { x: number; y: number }[], assignments: number[]) => {
+  const getEdges = (
+    positions: { x: number; y: number }[],
+    assignments: number[]
+  ) => {
     const edges: [number, number][] = [];
     const used = new Set<number>();
 
@@ -161,28 +161,33 @@ export const SponsorsSection = () => {
     return edges;
   };
 
-  const edges = isLargeScreen && currentAssignments.length === features.length ? getEdges(basePositions, currentAssignments) : [];
+  const edges =
+    isLargeScreen && currentAssignments.length === features.length
+      ? getEdges(basePositions, currentAssignments)
+      : [];
 
   return (
-    <section id="features" className="max-w-[90%] mx-auto font-kalameh py-10" ref={ref}>
+    <section
+      id="features"
+      className="max-w-[90%] mx-auto font-kalameh py-10"
+      ref={ref}
+    >
       <motion.h1
         className="text-base sm:text-lg md:text-xl text-center mb-6"
         style={{ y: yOffset, scale }}
       >
         چرا باید{" "}
-        <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-blue-900 bg-clip-text">
+        <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-orange-600 bg-clip-text">
           TsarSEO
         </span>{" "}
         را انتخاب کنید؟
       </motion.h1>
 
       {isLargeScreen ? (
-        // باکس جابه‌جایی برای ≥۸۰۰px
         <div
-          className="relative mx-auto bg-gradient-to-b from-gray-900/50 to-gray-800/50 rounded-xl overflow-hidden"
+          className="relative mx-auto bg-gradient-to-b from-orange-900/50 to-yellow-800/50 rounded-xl overflow-hidden"
           style={{ width: `${width}px`, height: `${height}px` }}
         >
-          {/* خطوط اتصال */}
           <svg className="absolute inset-0 z-0" width="100%" height="100%">
             {edges.map(([i, j], idx) => {
               const start = basePositions[currentAssignments[i]];
@@ -202,7 +207,6 @@ export const SponsorsSection = () => {
             })}
           </svg>
 
-          {/* آیتم‌ها */}
           {features.map(({ icon, name }, index) => (
             <motion.div
               key={index}
@@ -219,12 +223,12 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-900/60 to-purple-900/60 backdrop-blur-md border border-white/10 rounded-lg shadow-[0_0_15px_rgba(56,189,248,0.7)] hover:shadow-[0_0_20px_rgba(56,189,248,0.9)] transition-all duration-300">
+              <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-orange-700/60 to-yellow-700/60 backdrop-blur-md border border-white/10 rounded-lg shadow-[0_0_15px_rgba(255,166,0,0.6)] hover:shadow-[0_0_20px_rgba(255,166,0,0.8)] transition-all duration-300">
                 <Icon
                   name={icon as keyof typeof icons}
                   size={window.innerWidth < 900 ? 18 : 20}
                   color="white"
-                  className="ml-2 drop-shadow-[0_0_10px_rgba(56,189,248,0.7)]"
+                  className="ml-2 drop-shadow-[0_0_10px_rgba(255,166,0,0.8)]"
                 />
                 <span className="text-white whitespace-nowrap">{name}</span>
                 {name === "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" && (
@@ -246,9 +250,8 @@ export const SponsorsSection = () => {
           ))}
         </div>
       ) : (
-        // باکس دو ستونی برای <۸۰۰px
         <div
-          className="relative mx-auto bg-gradient-to-b from-gray-900/50 to-gray-800/50 rounded-xl overflow-hidden grid grid-cols-2 gap-4 p-4"
+          className="relative mx-auto bg-gradient-to-b from-orange-900/50 to-yellow-800/50 rounded-xl overflow-hidden grid grid-cols-2 gap-4 p-4"
           style={{ width: `${width}px`, height: `${height}px` }}
         >
           {features.map(({ icon, name }, index) => (
@@ -263,12 +266,12 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-900/60 to-purple-900/60 backdrop-blur-md border border-white/10 rounded-lg shadow-[0_0_15px_rgba(56,189,248,0.7)] hover:shadow-[0_0_20px_rgba(56,189,248,0.9)] transition-all duration-300 w-full max-w-[180px]">
+              <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-orange-700/60 to-yellow-700/60 backdrop-blur-md border border-white/10 rounded-lg shadow-[0_0_15px_rgba(255,166,0,0.6)] hover:shadow-[0_0_20px_rgba(255,166,0,0.8)] transition-all duration-300 w-full max-w-[180px]">
                 <Icon
                   name={icon as keyof typeof icons}
                   size={16}
                   color="white"
-                  className="ml-2 drop-shadow-[0_0_10px_rgba(56,189,248,0.7)]"
+                  className="ml-2 drop-shadow-[0_0_10px_rgba(255,166,0,0.7)]"
                 />
                 <span className="text-white whitespace-nowrap">{name}</span>
                 {name === "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" && (
@@ -290,12 +293,6 @@ export const SponsorsSection = () => {
           ))}
         </div>
       )}
-
-      <div className="text-center mt-8">
-        <Button asChild className="bg-gradient-to-r from-[#D247BF] to-blue-900 px-6 py-3 rounded-xl text-sm sm:text-base">
-          <a href="#contact">همین حالا شروع کنید</a>
-        </Button>
-      </div>
     </section>
   );
 };
