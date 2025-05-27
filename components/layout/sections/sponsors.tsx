@@ -11,11 +11,11 @@ interface FeatureProps {
 }
 
 const features: FeatureProps[] = [
-  { icon: "BarChart2", name: "گزارش پیشرفته سئو" },
-  { icon: "Users", name: "ترافیک واقعی انسانی" },
+  { icon: "BarChart2", name: "تحلیل پیشرفته سئو" },
+  { icon: "Users", name: "بازدید انسانی" },
   { icon: "Zap", name: "تحلیل سریع و دقیق" },
   { icon: "Trophy", name: "بهبود رتبه گوگل" },
-  { icon: "Server", name: "۵۸۸ دامنه فعال روی" },
+  { icon: "Server", name: "در ۵۸۸ سایت انلاین" },
   { icon: "Globe", name: "پشتیبانی چندزبانه" },
   { icon: "Circle", name: " 1 میلیون بازدید " },
 ];
@@ -101,10 +101,10 @@ export const SponsorsSection = () => {
     <section
       id="features"
       ref={ref}
-      className="max-w-[90%] mx-auto font-kalameh py-10"
+      className="max-w-[90%] mx-auto font-kalameh "
     >
       <motion.h1
-        className="text-base sm:text-lg md:text-xl text-center mb-6 text-primary"
+        className="text-base sm:text-lg md:text-xl text-center text-primary"
         style={{ y: yOffset, scale }}
       >
         چرا باید{" "}

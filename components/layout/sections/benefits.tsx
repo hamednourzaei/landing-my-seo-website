@@ -34,14 +34,16 @@ const benefitList: BenefitsProps[] = [
     description:
       "حفاظت کامل از داده‌های شما با پروتکل‌های امنیتی پیشرفته و پشتیبانی ۲۴/۷.",
   },
-
-
 ];
 
 export const BenefitsSection: React.FC = () => {
   return (
-    <section dir="rtl" id="benefits" className="container font-kalameh sm:py-32">
-        <hr className="border-secondary" />
+    <section
+      dir="rtl"
+      id="benefits"
+      className="container font-kalameh sm:py-32"
+    >
+      <hr className="border-secondary" />
       <div className="grid lg:grid-cols-2 pt-24 place-items-center lg:gap-24">
         <div>
           <h2 className="text-lg text-primary mb-2 tracking-wider">
@@ -52,11 +54,12 @@ export const BenefitsSection: React.FC = () => {
             با TsarSEO پادشاه رشد آنلاین شوید
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-            ابزارهای حرفه‌ای ما به شما کمک می‌کنند تا با تحلیل‌های دقیق و ترافیک واقعی، در دنیای دیجیتال بدرخشید.
+            ابزارهای حرفه‌ای ما به شما کمک می‌کنند تا با تحلیل‌های دقیق و ترافیک
+            واقعی، در دنیای دیجیتال بدرخشید.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 font-kalameh gap-4 w-full">
+        <div className="grid grid-cols-2 font-kalameh gap-4 w-full">
           {benefitList.map(({ icon, title, description }, index) => (
             <Card
               key={title}
@@ -74,7 +77,6 @@ export const BenefitsSection: React.FC = () => {
                     {index + 1}
                   </span>
                 </div>
-
                 <CardTitle>{title}</CardTitle>
               </CardHeader>
 
