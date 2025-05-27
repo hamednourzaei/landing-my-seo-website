@@ -1,9 +1,10 @@
+
 "use client";
 
 import { Icon } from "@/components/ui/icon";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { icons } from "lucide-react";
-
+import { Button } from "@/components/ui/button";
 import { useRef, useState, useEffect } from "react";
 
 interface FeatureProps {
@@ -50,7 +51,7 @@ export const SponsorsSection = () => {
       return { width, height };
     } else {
       width = Math.max(200, window.innerWidth * 0.5);
-      const height = 360;
+      const height = 450;
       return { width, height };
     }
   };
@@ -70,14 +71,8 @@ export const SponsorsSection = () => {
       const angle = (i / total) * 2 * Math.PI;
       let x = centerX + a * Math.cos(angle);
       let y = centerY + b * Math.sin(angle);
-      x = Math.max(
-        itemWidth / 2 + margin,
-        Math.min(width - itemWidth / 2 - margin, x)
-      );
-      y = Math.max(
-        itemHeight / 2 + margin,
-        Math.min(height - itemHeight / 2 - margin, y)
-      );
+      x = Math.max(itemWidth / 2 + margin, Math.min(width - itemWidth / 2 - margin, x));
+      y = Math.max(itemHeight / 2 + margin, Math.min(height - itemHeight / 2 - margin, y));
       positions.push({ x, y });
     }
 
@@ -103,18 +98,13 @@ export const SponsorsSection = () => {
   useEffect(() => {
     if (isLargeScreen) {
       const interval = setInterval(() => {
-        setAssignments(
-          shuffleArray(Array.from({ length: features.length }, (_, i) => i))
-        );
+        setAssignments(shuffleArray(Array.from({ length: features.length }, (_, i) => i)));
       }, 5000);
       return () => clearInterval(interval);
     }
   }, [isLargeScreen]);
 
-  const getEdges = (
-    positions: { x: number; y: number }[],
-    assignments: number[]
-  ) => {
+  const getEdges = (positions: { x: number; y: number }[], assignments: number[]) => {
     const edges: [number, number][] = [];
     const used = new Set<number>();
 
@@ -161,23 +151,18 @@ export const SponsorsSection = () => {
     return edges;
   };
 
-  const edges =
-    isLargeScreen && currentAssignments.length === features.length
-      ? getEdges(basePositions, currentAssignments)
-      : [];
+  const edges = isLargeScreen && currentAssignments.length === features.length
+    ? getEdges(basePositions, currentAssignments)
+    : [];
 
   return (
-    <section
-      id="features"
-      className="max-w-[90%] mx-auto font-kalameh py-10"
-      ref={ref}
-    >
+    <section id="features" className="max-w-[90%] mx-auto font-kalameh py-10" ref={ref}>
       <motion.h1
-        className="text-base sm:text-lg md:text-xl text-center mb-6"
+        className="text-base sm:text-lg md:text-xl text-center mb-6 text-primary"
         style={{ y: yOffset, scale }}
       >
         چرا باید{" "}
-        <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-orange-600 bg-clip-text">
+        <span className="inline-block text-primary">
           TsarSEO
         </span>{" "}
         را انتخاب کنید؟
@@ -185,7 +170,7 @@ export const SponsorsSection = () => {
 
       {isLargeScreen ? (
         <div
-          className="relative mx-auto bg-gradient-to-b from-orange-900/50 to-yellow-800/50 rounded-xl overflow-hidden"
+          className="relative mx-auto bg-muted/50  rounded-xl overflow-hidden hover:bg-background transition-all delay-75"
           style={{ width: `${width}px`, height: `${height}px` }}
         >
           <svg className="absolute inset-0 z-0" width="100%" height="100%">
@@ -199,7 +184,7 @@ export const SponsorsSection = () => {
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 1, ease: "easeInOut" }}
                   d={`M${start.x},${start.y} L${end.x},${end.y}`}
-                  stroke="white"
+                  stroke="#af4c00"
                   strokeWidth="2"
                   strokeOpacity="0.7"
                 />
@@ -223,23 +208,23 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-orange-700/60 to-yellow-700/60 backdrop-blur-md border border-white/10 rounded-lg shadow-[0_0_15px_rgba(255,166,0,0.6)] hover:shadow-[0_0_20px_rgba(255,166,0,0.8)] transition-all duration-300">
+              <div className="flex items-center gap-2 px-3 py-2   rounded-lg bg-muted/50  overflow-hidden hover:bg-background transition-all delay-75 w-full max-w-[180px]">
                 <Icon
                   name={icon as keyof typeof icons}
                   size={window.innerWidth < 900 ? 18 : 20}
-                  color="white"
-                  className="ml-2 drop-shadow-[0_0_10px_rgba(255,166,0,0.8)]"
+                  color="hsl(var(--primary))"
+                  className="ml-2"
                 />
-                <span className="text-white whitespace-nowrap">{name}</span>
+                <span className="text-muted-foreground whitespace-nowrap">{name}</span>
                 {name === "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" && (
                   <motion.span
-                    className="inline-block w-2 h-2 bg-green-500 rounded-full"
+                    className="inline-block w-2 h-2 bg-primary rounded-full"
                     animate={{
                       scale: [1, 1.5, 1],
                       boxShadow: [
-                        "0 0 5px rgba(34,197,94,0.5)",
-                        "0 0 15px rgba(34,197,94,0.9)",
-                        "0 0 5px rgba(34,197,94,0.5)",
+                        "0 0 5px rgba(59,130,246,0.5)",
+                        "0 0 15px rgba(59,130,246,0.9)",
+                        "0 0 5px rgba(59,130,246,0.5)",
                       ],
                     }}
                     transition={{ duration: 1.2, repeat: Infinity }}
@@ -251,7 +236,7 @@ export const SponsorsSection = () => {
         </div>
       ) : (
         <div
-          className="relative mx-auto bg-gradient-to-b from-orange-900/50 to-yellow-800/50 rounded-xl overflow-hidden grid grid-cols-2 gap-4 p-4"
+          className="relative mx-auto bg-muted/50 dark:bg-card rounded-xl overflow-hidden grid grid-cols-2 gap-4 p-4 hover:bg-background transition-all delay-75"
           style={{ width: `${width}px`, height: `${height}px` }}
         >
           {features.map(({ icon, name }, index) => (
@@ -266,23 +251,23 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-orange-700/60 to-yellow-700/60 backdrop-blur-md border border-white/10 rounded-lg shadow-[0_0_15px_rgba(255,166,0,0.6)] hover:shadow-[0_0_20px_rgba(255,166,0,0.8)] transition-all duration-300 w-full max-w-[180px]">
+              <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all delay-75 w-full max-w-[180px]">
                 <Icon
                   name={icon as keyof typeof icons}
                   size={16}
-                  color="white"
-                  className="ml-2 drop-shadow-[0_0_10px_rgba(255,166,0,0.7)]"
+                  color="hsl(var(--primary))"
+                  className="ml-2"
                 />
-                <span className="text-white whitespace-nowrap">{name}</span>
+                <span className="text-muted-foreground whitespace-nowrap">{name}</span>
                 {name === "بیش از ۱٬۴۵۰٬٠٠٠ بازدید" && (
                   <motion.span
-                    className="inline-block w-2 h-2 bg-green-500 rounded-full"
+                    className="inline-block w-2 h-2 bg-primary rounded-full"
                     animate={{
                       scale: [1, 1.5, 1],
                       boxShadow: [
-                        "0 0 5px rgba(34,197,94,0.5)",
-                        "0 0 15px rgba(34,197,94,0.9)",
-                        "0 0 5px rgba(34,197,94,0.5)",
+                        "0 0 5px rgba(59,130,246,0.5)",
+                        "0 0 15px rgba(59,130,246,0.9)",
+                        "0 0 5px rgba(59,130,246,0.5)",
                       ],
                     }}
                     transition={{ duration: 1.2, repeat: Infinity }}
@@ -293,6 +278,12 @@ export const SponsorsSection = () => {
           ))}
         </div>
       )}
+
+      <div className="text-center mt-8">
+        <Button asChild className="bg-primary text-white px-6 py-3 rounded-xl text-sm sm:text-base hover:bg-primary/90">
+          <a href="#contact">همین حالا شروع کنید</a>
+        </Button>
+      </div>
     </section>
   );
 };
