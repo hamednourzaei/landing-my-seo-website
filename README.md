@@ -15,11 +15,9 @@
 - [x] Benefits
 - [x] Features
 - [x] Testimonials
-- [x] Team
 - [x] Community
 - [x] Contact
 - [x] Pricing
-- [x] Frequently Asked Questions(FAQ)
 - [x] Services
 - [x] Footer
 
