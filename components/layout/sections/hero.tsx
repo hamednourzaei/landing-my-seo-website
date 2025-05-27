@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-
+import { motion } from "framer-motion"
 export const HeroSection = () => {
   const { theme } = useTheme();
   return (
@@ -18,42 +18,43 @@ export const HeroSection = () => {
             </span>
             <span>سرویس حرفه‌ای برای رشد آنلاین</span>
           </Badge>
+          <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-bold leading-tight">
+  <h1>
+    بازدید واقعی + تحلیل سئوی حرفه‌ای
+    <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text mt-5 border-b-2 border-b-[#af4c00]">
+      فقط با یک کلیک
+    </span>
+  </h1>
+</div>
 
-          <div className="max-w-screen-md  mx-auto text-center text-4xl md:text-6xl font-bold">
-            <h1>
-              با{' '}
-              <span className="inline-block text-transparent mt- bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text">
-                TsarSEO
-              </span>{' '}
-              پادشاه بی رغیب گوگل شوید
-            </h1>
-          </div>
+          <p dir="rtl" className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground text-right font-sans font-medium">تحلیل دقیق سئو برای متخصص‌ها، و بازدید واقعی برای سایت‌هایی که می‌خوان در گوگل دیده شن. گزارش حرفه‌ای بگیر – همین حالا شروع کن!  </p>
 
-          <p dir="rtl" className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground text-right font-sans font-medium">
-            گزارش‌های حرفه‌ای SEO برای آژانس‌ها و بازدیدهای واقعی برای کسب‌وکارهای کوچک و بزرگ. همین حالا شروع کنید!
-          </p>
-
-          <div className="space-y-4 md:space-y-0 md:space-x-4">
-            <Button className="w-5/6 md:w-1/4 font-bold group/arrow" asChild>
-              <Link href="#contact">
-                درخواست رایگان
-                <ArrowRight className="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-
-            <Button
-              asChild
-              variant="secondary"
-              className="w-5/6 md:w-1/4 font-bold"
-            >
-              <Link
-                href="https://github.com/hamednourzaei/landing-my-seo-website"
-                target="_blank"
-              >
-                مخزن GitHub
-              </Link>
-            </Button>
-          </div>
+          <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="text-center font-kalameh mt-8"
+    >
+      <motion.div whileHover={{ scale: 1.05 }}>
+        <Link
+          href="#contact"
+          className="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+        >ببین
+         سایتت 
+         برای
+          گوگل
+           چقدر
+            آمادست؟                      <motion.span
+            className="ml-2"
+            initial={{ x: 0 }}
+            whileHover={{ x: 5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <ArrowRight className="size-5" />
+          </motion.span>
+        </Link>
+      </motion.div>
+    </motion.div>
         </div>
 
         <div className="relative group mt-14">

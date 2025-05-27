@@ -18,34 +18,23 @@ export const FooterSection = () => {
           <div className="flex flex-col gap-2">
             <h3 className="font-sans font-bold text-lg">Contact</h3>
 
-            <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                X (Twitter)
-              </Link>
-            </div>
-
+        
             <div>
               <Link
                 target="_blank"
                 href="https://www.instagram.com/tsarpremiumstream?igsh=MXNhMm5hb2R6aWFoOQ%3D%3D&utm_source=qr"
                 className="opacity-60 hover:opacity-100"
               >
-                Instagram
+                Telegram
               </Link>
             </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <h3 className="font-sans font-bold text-lg">Platforms</h3>
             <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                iOS
-              </Link>
-            </div>
-
-            <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                Android
+              <Link
+                target="_blank"
+                href="https://www.instagram.com/tsarpremiumstream?igsh=MXNhMm5hb2R6aWFoOQ%3D%3D&utm_source=qr"
+                className="opacity-60 hover:opacity-100"
+              >
+                whatsapp
               </Link>
             </div>
           </div>
@@ -68,16 +57,25 @@ export const FooterSection = () => {
           <div className="flex flex-col gap-2">
             <h3 className=" font-sans font-bold text-lg">Socials</h3>
             <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                Twitch
+              <Link
+                target="_blank"
+                href="https://x.com/tsarseo_org?s=21"
+                className="opacity-60 hover:opacity-100"
+              >
+                X (Twitter)
               </Link>
             </div>
 
             <div>
-              <Link href="#" className="opacity-60 hover:opacity-100">
-                Discord
+              <Link
+                target="_blank"
+                href="https://www.instagram.com/tsarpremiumstream?igsh=MXNhMm5hb2R6aWFoOQ%3D%3D&utm_source=qr"
+                className="opacity-60 hover:opacity-100"
+              >
+                Instagram
               </Link>
             </div>
+        
           </div>
         </div>
 
@@ -90,7 +88,7 @@ export const FooterSection = () => {
               href="https://github.com/hamednourzaei"
               className="text-primary transition-all border-primary hover:border-b-2 ml-1"
             >
-               hamednourzaei{" "}
+              hamednourzaei{" "}
             </Link>
           </h3>
         </section>
