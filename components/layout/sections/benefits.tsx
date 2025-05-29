@@ -33,6 +33,7 @@ const benefitList: BenefitsProps[] = [
   },
 ];
 
+
 export const BenefitsSection: React.FC = () => {
   return (
     <section
@@ -41,16 +42,16 @@ export const BenefitsSection: React.FC = () => {
       className="container font-kalameh py-12 sm:py-24 md:py-32"
     >
       <hr className="border-secondary mb-8" />
-      <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 place-items-center">
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-24 place-items-center">
         <div className="max-w-lg">
-          <h2 className="text-base text-center lgtext-2xl sm:text-2xl md:text-4xl text-primary mb-3 tracking-wide">
-            چرا TsarSEO
+          <h2 className="text-base sm:text-2xl md:text-4xl text-primary text-center mb-3 tracking-wide">
+            مزایای TsarSEO
           </h2>
-          <h1 className="text-base text-center  lgtext-2xl sm:text-2xl md:text-4xl font-kalameh font-bold mb-4">
-            با TsarSEO در دنیای دیجیتال بدرخشید
+          <h1 className="text-base sm:text-2xl md:text-4xl font-kalameh font-bold text-center mb-4">
+            با TsarSEO پادشاه رشد آنلاین شوید
           </h1>
-          <p className="text-base sm:text-lg text-center text-muted-foreground mb-6">
-            ابزارهای پیشرفته ما به شما کمک می‌کنند تا با تحلیل دقیق و استراتژی‌های هوشمند، رشد آنلاین خود را تضمین کنید.
+          <p className="text-base sm:text-lg text-muted-foreground text-center mb-8">
+            ابزارهای حرفه‌ای ما به شما کمک می‌کنند تا با تحلیل‌های دقیق و ترافیک واقعی، در دنیای دیجیتال بدرخشید.
           </p>
         </div>
 
@@ -62,7 +63,7 @@ export const BenefitsSection: React.FC = () => {
               initial={{ borderColor: "rgba(255, 108, 0, 0.3)" }}
               whileHover={{
                 borderColor: "rgba(255, 108, 0, 0.7)",
-                boxShadow: "0 0 105px rgba(255, 108, 0, 0.5)",
+                boxShadow: "0 0 35px rgba(255, 108, 0, 0.5)",
                 transition: { duration: 0.5, ease: "easeInOut" }
               }}
             >
@@ -70,12 +71,12 @@ export const BenefitsSection: React.FC = () => {
                 className="bg-muted/50 dark:bg-card hover:bg-background transition-all duration-200 group/number rounded-lg shadow-sm hover:shadow-md border-[#2b2b2b] dark:border-[#af4c00]"
               >
                 <CardHeader className="pb-2">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between">
                     <Icon
                       name={icon}
-                      size={28}
+                      size={32}
                       color="hsl(var(--primary))"
-                      className="mb-3 text-primary"
+                      className="mb-6 text-primary"
                     />
                     <span className="text-3xl text-muted-foreground/30 font-sans font-medium transition-all duration-200 group-hover/number:text-muted-foreground/50">
                       {index + 1}
