@@ -74,9 +74,9 @@ export const FeaturesSection: React.FC = () => {
                     className="text-primary"
                   />
                 </div>
-                <CardTitle className="text-base">{title}</CardTitle>
+                <CardTitle className=" lg:text-3xl md:text-2xl text-base">{title}</CardTitle>
               </CardHeader>
-              <CardContent dir="rtl" className="text-muted-foreground text-xs text-center line-clamp-4">
+              <CardContent dir="rtl" className="text-muted-foreground lg:text-xl md:text-xl  text-xs text-center line-clamp-4">
                 {description}
               </CardContent>
             </Card>
