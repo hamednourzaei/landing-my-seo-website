@@ -113,7 +113,7 @@ export const FeaturesSection: React.FC = () => {
                     className="text-primary"
                   />
                 </div>
-                <CardTitle className="lg:text-3xl md:text-2xl text-base">
+                <CardTitle className="lg:text-3xl md:text-2xl text-xs">
                   {title}
                 </CardTitle>
               </CardHeader>
