@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
+import { motion } from "framer-motion";
 
 interface BenefitsProps {
   icon: keyof typeof import("lucide-react").icons;
@@ -12,28 +13,24 @@ interface BenefitsProps {
 const benefitList: BenefitsProps[] = [
   {
     icon: "BarChart2",
-    title: "گزارش‌های حرفه‌ای سئو",
-    description:
-      "دریافت گزارش‌های جامع و دقیق برای تحلیل عملکرد سایت و بهبود استراتژی‌های سئو، مناسب برای آژانس‌ها.",
+    title: "تحلیل حرفه‌ای سئو",
+    description: "گزارش‌های دقیق برای بهینه‌سازی سایت و رشد استراتژیک، مناسب حرفه‌ای‌ها."
   },
   {
     icon: "Users",
-    title: "ترافیک واقعی انسانی",
-    description:
-      "بازدیدهای شبیه‌سازی‌شده با رفتار انسانی برای افزایش رتبه گوگل و جذب مشتریان واقعی.",
+    title: "جذب مخاطب واقعی",
+    description: "افزایش رتبه گوگل با استراتژی‌های هوشمند و جلب مشتریان هدفمند."
   },
   {
     icon: "Gauge",
-    title: "داشبورد ساده و کاربردی",
-    description:
-      "مدیریت آسان پروژه‌های سئو و ترافیک با داشبوردی کاربرپسند، حتی برای مبتدیان.",
+    title: "مدیریت آسان پروژه",
+    description: "کنترل ساده پروژه‌های سئو با داشبوردی کاربرپسند برای همه."
   },
   {
     icon: "ShieldCheck",
-    title: "امنیت و اعتماد",
-    description:
-      "حفاظت کامل از داده‌های شما با پروتکل‌های امنیتی پیشرفته و پشتیبانی ۲۴/۷.",
-  },
+    title: "امنیت کامل",
+    description: "حفاظت داده‌ها با فناوری پیشرفته و پشتیبانی 24/7."
+  }
 ];
 
 export const BenefitsSection: React.FC = () => {
@@ -41,49 +38,56 @@ export const BenefitsSection: React.FC = () => {
     <section
       dir="rtl"
       id="benefits"
-      className="container font-kalameh sm:py-32"
+      className="container font-kalameh py-12 sm:py-24 md:py-32"
     >
-      <hr className="border-secondary" />
-      <div className="grid lg:grid-cols-2 pt-24 place-items-center lg:gap-24">
-        <div>
-          <h2 className="text-lg text-primary mb-2 tracking-wider">
-            مزایای TsarSEO
+      <hr className="border-secondary mb-8" />
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 place-items-center">
+        <div className="max-w-lg">
+          <h2 className="text-base text-center lgtext-2xl sm:text-2xl md:text-4xl text-primary mb-3 tracking-wide">
+            چرا TsarSEO
           </h2>
-
-          <h2 className="text-3xl md:text-4xl font-sans font-bold mb-4">
-            با TsarSEO پادشاه رشد آنلاین شوید
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            ابزارهای حرفه‌ای ما به شما کمک می‌کنند تا با تحلیل‌های دقیق و ترافیک
-            واقعی، در دنیای دیجیتال بدرخشید.
+          <h1 className="text-base text-center  lgtext-2xl sm:text-2xl md:text-4xl font-kalameh font-bold mb-4">
+            با TsarSEO در دنیای دیجیتال بدرخشید
+          </h1>
+          <p className="text-base sm:text-lg text-center text-muted-foreground mb-6">
+            ابزارهای پیشرفته ما به شما کمک می‌کنند تا با تحلیل دقیق و استراتژی‌های هوشمند، رشد آنلاین خود را تضمین کنید.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 font-kalameh gap-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-4xl">
           {benefitList.map(({ icon, title, description }, index) => (
-            <Card
-              key={title}
-              className="bg-muted/50 dark:bg-card hover:bg-background transition-all delay-75 group/number"
+            <motion.div
+              key={index}
+              className="relative rounded-lg overflow-hidden"
+              initial={{ borderColor: "rgba(255, 108, 0, 0.3)" }}
+              whileHover={{
+                borderColor: "rgba(255, 108, 0, 0.7)",
+                boxShadow: "0 0 105px rgba(255, 108, 0, 0.5)",
+                transition: { duration: 0.5, ease: "easeInOut" }
+              }}
             >
-              <CardHeader>
-                <div className="flex justify-between">
-                  <Icon
-                    name={icon}
-                    size={32}
-                    color="hsl(var(--primary))"
-                    className="mb-6 text-primary"
-                  />
-                  <span className="text-5xl text-muted-foreground/15 font-sans font-medium transition-all delay-75 group-hover/number:text-muted-foreground/30">
-                    {index + 1}
-                  </span>
-                </div>
-                <CardTitle>{title}</CardTitle>
-              </CardHeader>
-
-              <CardContent className="text-muted-foreground">
-                {description}
-              </CardContent>
-            </Card>
+              <Card
+                className="bg-muted/50 dark:bg-card hover:bg-background transition-all duration-200 group/number rounded-lg shadow-sm hover:shadow-md border-[#2b2b2b] dark:border-[#af4c00]"
+              >
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-center">
+                    <Icon
+                      name={icon}
+                      size={28}
+                      color="hsl(var(--primary))"
+                      className="mb-3 text-primary"
+                    />
+                    <span className="text-3xl text-muted-foreground/30 font-sans font-medium transition-all duration-200 group-hover/number:text-muted-foreground/50">
+                      {index + 1}
+                    </span>
+                  </div>
+                  <CardTitle className="text-base sm:text-lg md:text-xl">{title}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-muted-foreground text-sm sm:text-base md:text-lg">
+                  {description}
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
