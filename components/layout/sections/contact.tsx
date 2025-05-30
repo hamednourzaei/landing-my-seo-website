@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -39,6 +39,21 @@ const formSchema = z.object({
 });
 
 export const ContactSection: React.FC = () => {
+  const [submitMessage, setSubmitMessage] = useState<string>("");
+
+  // گرفتن visits از URL
+  let visitsParam = "";
+  if (typeof window !== "undefined") {
+    const hash = window.location.hash;
+    const query = hash.split("?")[1];
+    const params = new URLSearchParams(query);
+    visitsParam = params.get("visits") || "";
+  }
+
+  const defaultMessage = visitsParam
+    ? `تعداد بازدید درخواستی: ${Number(visitsParam).toLocaleString()} بازدید\n`
+    : "";
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,14 +61,12 @@ export const ContactSection: React.FC = () => {
       email: "",
       domain: "",
       subject: "درخواست تحلیل سئو",
-      message: "",
+      message: defaultMessage,
     },
   });
 
-  const [submitMessage, setSubmitMessage] = useState<string>("");
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setSubmitMessage(""); // پاک کردن پیام قبلی
+    setSubmitMessage("");
     try {
       const response = await fetch(
         "https://send-to-telegram.hamednourzaie1.workers.dev/",
@@ -64,10 +77,6 @@ export const ContactSection: React.FC = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("ارسال پیام به تلگرام موفق نبود");
-      }
-
       const data = await response.json();
 
       if (data.success) {
@@ -76,7 +85,7 @@ export const ContactSection: React.FC = () => {
       } else {
         setSubmitMessage("خطایی در ارسال پیام رخ داد.");
       }
-    } catch (error) {
+    } catch {
       setSubmitMessage("خطایی رخ داد. لطفاً دوباره امتحان کنید.");
     }
   }
@@ -90,45 +99,41 @@ export const ContactSection: React.FC = () => {
       <hr className="border-secondary" />
       <section className="grid grid-cols-1 py-10 md:grid-cols-2 gap-8">
         <div>
-          <div className="mb-4">
-            <h2 className="text-lg text-primary mb-2 tracking-wider">
-              تماس با ما
-            </h2>
-            <h2 className="text-3xl md:text-4xl font-sans font-bold">
-              با TsarSEO در ارتباط باشید
-            </h2>
-          </div>
+          <h2 className="text-lg text-primary mb-2 tracking-wider">
+            تماس با ما
+          </h2>
+          <h2 className="text-3xl md:text-4xl font-sans font-bold">
+            با TsarSEO در ارتباط باشید
+          </h2>
           <p className="mb-8 text-muted-foreground lg:w-5/6">
             برای دریافت مشاوره رایگان یا اطلاعات بیشتر درباره تحلیل سئو و ترافیک
-            واقعی، با ما تماس بگیرید. تیم ما آماده کمک به شماست!
+            واقعی، با ما تماس بگیرید.
           </p>
           <div className="flex flex-col gap-4">
             <div>
               <div className="flex gap-2 mb-1">
                 <Mail />
-                <div className="font-sans font-bold">ایمیل ما</div>
+                <div className="font-bold">ایمیل ما</div>
               </div>
               <div>hamednourzaie1@gmail.com</div>
             </div>
             <div>
               <div className="flex gap-2 mb-1">
                 <Phone />
-                <div className="font-sans font-bold">تماس با ما</div>
+                <div className="font-bold">تماس با ما</div>
               </div>
               <div>989962260723+</div>
             </div>
             <div>
               <div className="flex gap-2">
                 <Clock />
-                <div className="font-sans font-bold">ساعات کاری</div>
+                <div className="font-bold">ساعات کاری</div>
               </div>
-              <div>
-                <div className="mt-3">شنبه تا پنج‌شنبه : </div>
-                <div>۹ صبح تا ۵ عصر</div>
-              </div>
+              <div className="mt-3">شنبه تا پنج‌شنبه: ۹ صبح تا ۵ عصر</div>
             </div>
           </div>
         </div>
+
         <Card className="bg-muted/60 dark:bg-card">
           <CardHeader className="text-primary text-2xl"></CardHeader>
           <CardContent>
@@ -138,57 +143,47 @@ export const ContactSection: React.FC = () => {
                 className="grid w-full gap-4"
               >
                 <FormField
-                  control={form.control}
                   name="name"
+                  control={form.control}
                   render={({ field }) => (
-                    <FormItem className="w-full">
+                    <FormItem>
                       <FormLabel>نام</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="لطفا نام شخصی یا شرکت خودرا به صورت کامل وارد بکنید."
-                          {...field}
-                        />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  control={form.control}
                   name="email"
+                  control={form.control}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>ایمیل</FormLabel>
                       <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="لطفا ایمیل یا جیمیل خودرا به صورت کامل وارد بکنید."
-                          {...field}
-                        />
+                        <Input type="email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  control={form.control}
                   name="domain"
+                  control={form.control}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>دامنه (اختیاری)</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="مثال: https://example.com"
-                          {...field}
-                        />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  control={form.control}
                   name="subject"
+                  control={form.control}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>موضوع</FormLabel>
@@ -221,18 +216,13 @@ export const ContactSection: React.FC = () => {
                   )}
                 />
                 <FormField
-                  control={form.control}
                   name="message"
+                  control={form.control}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>پیام</FormLabel>
                       <FormControl>
-                        <Textarea
-                          rows={5}
-                          placeholder="پیام خود را بنویسید..."
-                          className="resize-none"
-                          {...field}
-                        />
+                        <Textarea rows={5} className="resize-none" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
