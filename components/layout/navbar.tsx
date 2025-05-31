@@ -119,6 +119,7 @@ export const Navbar: React.FC = () => {
             <NavigationMenuContent>
               <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
                 <Image
+                rel="preload"
                   src="/images/tsarseo-future-features.jpg"
                   alt="ویژگی‌های آینده TsarSEO"
                   className="h-full w-full rounded-md object-cover"
