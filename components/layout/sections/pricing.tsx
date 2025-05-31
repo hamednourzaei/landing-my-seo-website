@@ -14,13 +14,11 @@ import {
 import { Check } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 
 export const PricingSection: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visits, setVisits] = useState(1000);
-  const router = useRouter();
 
   const basePricePerVisit = 500;
   const totalPrice = visits * basePricePerVisit;
@@ -59,12 +57,23 @@ export const PricingSection: React.FC = () => {
     );
     setTimeout(() => {
       setLoading(false);
-      window.location.hash = `contact`;
+      window.location.hash = `contact?visits=${visits}`;
+      // اسکرول صریح به بخش #contact
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      } else {
+        console.error("Element with id 'contact' not found");
+      }
     }, 2500);
   };
 
   return (
-    <section dir="rtl" className="container font-kalameh py-16 relative">
+    <section
+      dir="rtl"
+      className="container font-kalameh py-16"
+      style={{ position: "relative" }} // برای رفع خطای non-static position
+    >
       <AnimatePresence>
         {loading && (
           <motion.div
@@ -72,6 +81,7 @@ export const PricingSection: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            style={{ position: "fixed" }}
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -88,18 +98,27 @@ export const PricingSection: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <motion.h2 className="text-lg text-primary text-center mb-2 tracking-wider">
+      <motion.h2
+        className="text-lg text-primary text-center mb-2 tracking-wider"
+        style={{ position: "relative" }}
+      >
         پلن‌های TsarSEO
       </motion.h2>
-      <motion.h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
+      <motion.h2
+        className="text-3xl md:text-4xl text-center font-bold mb-4"
+        style={{ position: "relative" }}
+      >
         با TsarSEO به قله‌های گوگل برسید
       </motion.h2>
-      <motion.h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14">
+      <motion.h3
+        className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14"
+        style={{ position: "relative" }}
+      >
         تعداد بازدید موردنظرتان را انتخاب کنید و با تحلیل‌های دقیق سئو،
         کسب‌وکارتان را رشد دهید.
       </motion.h3>
 
-      <motion.div className="max-w-xl mx-auto">
+      <motion.div className="max-w-xl mx-auto" style={{ position: "relative" }}>
         <Card className="text-right border-[1.5px] border-primary drop-shadow-md">
           <CardHeader>
             <CardTitle>پلن سفارشی</CardTitle>

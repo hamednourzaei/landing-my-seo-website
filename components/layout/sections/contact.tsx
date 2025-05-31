@@ -40,18 +40,29 @@ const formSchema = z.object({
 
 export const ContactSection: React.FC = () => {
   const [submitMessage, setSubmitMessage] = useState<string>("");
+  const [visitsParam, setVisitsParam] = useState<string>("");
 
-  // گرفتن visits از URL
-  let visitsParam = "";
-  if (typeof window !== "undefined") {
-    const hash = window.location.hash;
-    const query = hash.split("?")[1];
-    const params = new URLSearchParams(query);
-    visitsParam = params.get("visits") || "";
-  }
+  // استخراج visits از hash
+  useEffect(() => {
+    const getVisitsParam = () => {
+      if (typeof window !== "undefined") {
+        const hash = window.location.hash; // مثلاً #contact?visits=1000
+        const query = hash.includes("?") ? hash.split("?")[1] : "";
+        const params = new URLSearchParams(query);
+        const visits = params.get("visits") || "";
+        console.log("Extracted visitsParam:", visits); // برای دیباگ
+        setVisitsParam(visits);
+      }
+    };
+    getVisitsParam();
+    window.addEventListener("hashchange", getVisitsParam);
+    return () => window.removeEventListener("hashchange", getVisitsParam);
+  }, []);
 
-  const defaultMessage = visitsParam
-    ? `تعداد بازدید درخواستی: ${Number(visitsParam).toLocaleString()} بازدید\n`
+  const protectedMessage = visitsParam
+    ? `تعداد بازدید درخواستی: ${Number(
+        visitsParam
+      ).toLocaleString()} بازدید\n\n`
     : "";
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -61,9 +72,19 @@ export const ContactSection: React.FC = () => {
       email: "",
       domain: "",
       subject: "درخواست تحلیل سئو",
-      message: defaultMessage,
+      message: protectedMessage,
     },
   });
+
+  // به‌روزرسانی مقدار message در صورت تغییر visitsParam
+  useEffect(() => {
+    console.log("Updating form, visitsParam:", visitsParam); // برای دیباگ
+    if (visitsParam) {
+      form.setValue("message", protectedMessage);
+    } else {
+      form.setValue("message", "");
+    }
+  }, [visitsParam, form, protectedMessage]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setSubmitMessage("");
@@ -81,7 +102,13 @@ export const ContactSection: React.FC = () => {
 
       if (data.success) {
         setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
-        form.reset();
+        form.reset({
+          name: "",
+          email: "",
+          domain: "",
+          subject: "درخواست تحلیل سئو",
+          message: protectedMessage,
+        });
       } else {
         setSubmitMessage("خطایی در ارسال پیام رخ داد.");
       }
@@ -95,6 +122,7 @@ export const ContactSection: React.FC = () => {
       dir="rtl"
       id="contact"
       className="container font-kalameh py-10 sm:py-20"
+      style={{ position: "relative" }}
     >
       <hr className="border-secondary" />
       <section className="grid grid-cols-1 py-10 md:grid-cols-2 gap-8">
@@ -222,7 +250,24 @@ export const ContactSection: React.FC = () => {
                     <FormItem>
                       <FormLabel>پیام</FormLabel>
                       <FormControl>
-                        <Textarea rows={5} className="resize-none" {...field} />
+                        <Textarea
+                          rows={5}
+                          className="resize-none"
+                          {...field}
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            // اگر کاربر سعی کند پیام محافظت‌شده را حذف کند، آن را حفظ کن
+                            if (newValue.startsWith(protectedMessage)) {
+                              field.onChange(newValue);
+                            } else {
+                              // پیام محافظت‌شده را دوباره اضافه کن
+                              field.onChange(
+                                protectedMessage +
+                                  newValue.slice(protectedMessage.length)
+                              );
+                            }
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
