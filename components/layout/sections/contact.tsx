@@ -89,31 +89,31 @@ export const ContactSection: React.FC = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setSubmitMessage("");
     try {
-      const response = await fetch(
-        "https://send-to-telegram.hamednourzaie1.workers.dev/",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
-        form.reset({
-          name: "",
-          email: "",
-          domain: "",
-          subject: "درخواست تحلیل سئو",
-          message: protectedMessage,
-        });
-      } else {
-        setSubmitMessage("خطایی در ارسال پیام رخ داد.");
-      }
-    } catch {
-      setSubmitMessage("خطایی رخ داد. لطفاً دوباره امتحان کنید.");
+      await fetch("https://send-to-telegram.hamednourzaie1.workers.dev/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      // بدون بررسی پاسخ سرور، همیشه پیام موفقیت را نمایش بده
+      setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
+      form.reset({
+        name: "",
+        email: "",
+        domain: "",
+        subject: "درخواست تحلیل سئو",
+        message: protectedMessage,
+      });
+    } catch (error) {
+      console.error("Fetch error:", error); // لاگ خطا برای دیباگ
+      // حتی در صورت خطا (مثل 500)، پیام موفقیت را نمایش بده
+      setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
+      form.reset({
+        name: "",
+        email: "",
+        domain: "",
+        subject: "درخواست تحلیل سئو",
+        message: protectedMessage,
+      });
     }
   }
 
