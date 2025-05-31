@@ -29,6 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { motion, AnimatePresence } from "framer-motion";
 
 const formSchema = z.object({
   name: z.string().min(2, "نام باید حداقل ۲ کاراکتر باشد").max(255),
@@ -40,9 +41,9 @@ const formSchema = z.object({
 
 export const ContactSection: React.FC = () => {
   const [submitMessage, setSubmitMessage] = useState<string>("");
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [visitsParam, setVisitsParam] = useState<string>("");
 
-  // استخراج visits از hash
   useEffect(() => {
     const getVisitsParam = () => {
       if (typeof window !== "undefined") {
@@ -50,7 +51,6 @@ export const ContactSection: React.FC = () => {
         const query = hash.includes("?") ? hash.split("?")[1] : "";
         const params = new URLSearchParams(query);
         const visits = params.get("visits") || "";
-        console.log("Extracted visitsParam:", visits);
         setVisitsParam(visits);
       }
     };
@@ -76,9 +76,7 @@ export const ContactSection: React.FC = () => {
     },
   });
 
-  // به‌روزرسانی مقدار message
   useEffect(() => {
-    console.log("Updating form, visitsParam:", visitsParam);
     if (visitsParam) {
       form.setValue("message", protectedMessage);
     } else {
@@ -90,13 +88,13 @@ export const ContactSection: React.FC = () => {
     setSubmitMessage("");
     try {
       await fetch("/api/send-to-telegram", {
-        // تغییر به API داخلی
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
-      // همیشه پیام موفقیت را نمایش بده
       setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000); // مخفی‌سازی پس از ۳ ثانیه
       form.reset({
         name: "",
         email: "",
@@ -106,8 +104,9 @@ export const ContactSection: React.FC = () => {
       });
     } catch (error) {
       console.error("Fetch error:", error);
-      // حتی در صورت خطا، پیام موفقیت را نمایش بده
       setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
       form.reset({
         name: "",
         email: "",
@@ -122,9 +121,32 @@ export const ContactSection: React.FC = () => {
     <section
       dir="rtl"
       id="contact"
-      className="container font-kalameh py-10 sm:py-20"
-      style={{ position: "relative" }}
+      className="container font-kalameh py-10 sm:py-20 relative"
     >
+      {/* انیمیشن پیام موفقیت */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="bg-background p-8 rounded-xl shadow-xl text-center text-lg border border-primary"
+            >
+              <div className="animate-pulse mb-4 text-primary font-bold">
+                ارسال موفق!
+              </div>
+              <div>{submitMessage}</div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <hr className="border-secondary" />
       <section className="grid grid-cols-1 py-10 md:grid-cols-2 gap-8">
         <div>
@@ -133,8 +155,7 @@ export const ContactSection: React.FC = () => {
           </h2>
           <h3 className="text-3xl md:text-4xl font-sans font-bold">
             با TsarSEO در ارتباط باشید
-          </h3>{" "}
-          {/* تغییر به h3 */}
+          </h3>
           <p className="mb-8 text-muted-foreground lg:w-5/6">
             برای دریافت مشاوره رایگان یا اطلاعات بیشتر درباره تحلیل سئو و ترافیک
             واقعی، با ما تماس بگیرید.
@@ -165,7 +186,6 @@ export const ContactSection: React.FC = () => {
         </div>
 
         <Card className="bg-muted/60 dark:bg-card">
-          <CardHeader className="text-primary text-2xl"></CardHeader>
           <CardContent>
             <Form {...form}>
               <form
@@ -230,7 +250,6 @@ export const ContactSection: React.FC = () => {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
-                        aria-label="موضوع پیام"
                       >
                         <FormControl>
                           <SelectTrigger id="subject">
@@ -292,14 +311,6 @@ export const ContactSection: React.FC = () => {
                 </Button>
               </form>
             </Form>
-            {submitMessage && (
-              <p
-                className="mt-4 text-center text-green-700" // کنتراست بهتر
-                aria-live="polite"
-              >
-                {submitMessage}
-              </p>
-            )}
           </CardContent>
           <CardFooter></CardFooter>
         </Card>

@@ -42,7 +42,7 @@ export const PricingSection: React.FC = () => {
   }, []);
 
   const benefits = [
-    "بهینه‌سازی کلمات کلیدی با رشد تا ۷۰٪ در نتایج جست‌وجو – هدف‌گیری دقیق بر اساس موقعیت مکانی شما",
+    "بهینه‌سازی کلمات کلیدی با رشد تا ۷۰٪ در نتایج جست‌وجودر ماه های اولیه – هدف‌گیری دقیق بر اساس موقعیت مکانی شما",
     "گزارش سئو با تحلیل رقبا و پیشنهاد کلمات کلیدی (PDF + داشبورد)",
     "راه‌اندازی در ۵ دقیقه بدون نیاز به دانش فنی",
     "قابلیت انتخاب بازدید در چند مسیر سایت شما",
@@ -118,11 +118,11 @@ export const PricingSection: React.FC = () => {
         کسب‌وکارتان را رشد دهید.
       </motion.h3>
 
-      <motion.div className="max-w-xl mx-auto" style={{ position: "relative" }}>
+      <motion.div className="max-w-4xl mx-auto" style={{ position: "relative" }}>
         <Card className="text-right border-[1.5px] border-primary drop-shadow-md">
           <CardHeader>
-            <CardTitle>پلن سفارشی</CardTitle>
-            <CardDescription className="py-2">
+            <CardTitle className="text-lg text-center sm:text-2xl md:text-4xl  font-kalameh font-bold">پلن سفارشی</CardTitle>
+            <CardDescription className="py-2 text-sm text-center sm:text-xl md:text-2xl font-kalameh font-bold ">
               ترافیک و گزارش سئو بر اساس نیاز شما
             </CardDescription>
           </CardHeader>
@@ -136,7 +136,7 @@ export const PricingSection: React.FC = () => {
               </p>
             </div>
             <div>
-              <label className="block mb-2 text-muted-foreground">
+              <label className="block mb-2 text-base  sm:text-2xl md:text-4xl  font-kalameh font-bold text-muted-foreground">
                 تعداد بازدید:
               </label>
               <Slider
