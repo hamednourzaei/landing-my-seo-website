@@ -46,11 +46,11 @@ export const ContactSection: React.FC = () => {
   useEffect(() => {
     const getVisitsParam = () => {
       if (typeof window !== "undefined") {
-        const hash = window.location.hash; // مثلاً #contact?visits=1000
+        const hash = window.location.hash;
         const query = hash.includes("?") ? hash.split("?")[1] : "";
         const params = new URLSearchParams(query);
         const visits = params.get("visits") || "";
-        console.log("Extracted visitsParam:", visits); // برای دیباگ
+        console.log("Extracted visitsParam:", visits);
         setVisitsParam(visits);
       }
     };
@@ -76,9 +76,9 @@ export const ContactSection: React.FC = () => {
     },
   });
 
-  // به‌روزرسانی مقدار message در صورت تغییر visitsParam
+  // به‌روزرسانی مقدار message
   useEffect(() => {
-    console.log("Updating form, visitsParam:", visitsParam); // برای دیباگ
+    console.log("Updating form, visitsParam:", visitsParam);
     if (visitsParam) {
       form.setValue("message", protectedMessage);
     } else {
@@ -89,12 +89,13 @@ export const ContactSection: React.FC = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setSubmitMessage("");
     try {
-      await fetch("https://send-to-telegram.hamednourzaie1.workers.dev/", {
+      await fetch("/api/send-to-telegram", {
+        // تغییر به API داخلی
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
-      // بدون بررسی پاسخ سرور، همیشه پیام موفقیت را نمایش بده
+      // همیشه پیام موفقیت را نمایش بده
       setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
       form.reset({
         name: "",
@@ -104,8 +105,8 @@ export const ContactSection: React.FC = () => {
         message: protectedMessage,
       });
     } catch (error) {
-      console.error("Fetch error:", error); // لاگ خطا برای دیباگ
-      // حتی در صورت خطا (مثل 500)، پیام موفقیت را نمایش بده
+      console.error("Fetch error:", error);
+      // حتی در صورت خطا، پیام موفقیت را نمایش بده
       setSubmitMessage("پیام شما با موفقیت به تیم TsarSEO ارسال شد!");
       form.reset({
         name: "",
@@ -130,9 +131,10 @@ export const ContactSection: React.FC = () => {
           <h2 className="text-lg text-primary mb-2 tracking-wider">
             تماس با ما
           </h2>
-          <h2 className="text-3xl md:text-4xl font-sans font-bold">
+          <h3 className="text-3xl md:text-4xl font-sans font-bold">
             با TsarSEO در ارتباط باشید
-          </h2>
+          </h3>{" "}
+          {/* تغییر به h3 */}
           <p className="mb-8 text-muted-foreground lg:w-5/6">
             برای دریافت مشاوره رایگان یا اطلاعات بیشتر درباره تحلیل سئو و ترافیک
             واقعی، با ما تماس بگیرید.
@@ -140,21 +142,21 @@ export const ContactSection: React.FC = () => {
           <div className="flex flex-col gap-4">
             <div>
               <div className="flex gap-2 mb-1">
-                <Mail />
+                <Mail aria-hidden="true" />
                 <div className="font-bold">ایمیل ما</div>
               </div>
               <div>hamednourzaie1@gmail.com</div>
             </div>
             <div>
               <div className="flex gap-2 mb-1">
-                <Phone />
+                <Phone aria-hidden="true" />
                 <div className="font-bold">تماس با ما</div>
               </div>
               <div>989962260723+</div>
             </div>
             <div>
               <div className="flex gap-2">
-                <Clock />
+                <Clock aria-hidden="true" />
                 <div className="font-bold">ساعات کاری</div>
               </div>
               <div className="mt-3">شنبه تا پنج‌شنبه: ۹ صبح تا ۵ عصر</div>
@@ -169,15 +171,16 @@ export const ContactSection: React.FC = () => {
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="grid w-full gap-4"
+                aria-label="فرم تماس با TsarSEO"
               >
                 <FormField
                   name="name"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>نام</FormLabel>
+                      <FormLabel htmlFor="name">نام</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} id="name" aria-label="نام شما" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -188,9 +191,14 @@ export const ContactSection: React.FC = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>ایمیل</FormLabel>
+                      <FormLabel htmlFor="email">ایمیل</FormLabel>
                       <FormControl>
-                        <Input type="email" {...field} />
+                        <Input
+                          {...field}
+                          id="email"
+                          type="email"
+                          aria-label="ایمیل شما"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -201,9 +209,13 @@ export const ContactSection: React.FC = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>دامنه (اختیاری)</FormLabel>
+                      <FormLabel htmlFor="domain">دامنه (اختیاری)</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input
+                          {...field}
+                          id="domain"
+                          aria-label="دامنه وب‌سایت شما"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -214,13 +226,14 @@ export const ContactSection: React.FC = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>موضوع</FormLabel>
+                      <FormLabel htmlFor="subject">موضوع</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        aria-label="موضوع پیام"
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger id="subject">
                             <SelectValue placeholder="انتخاب موضوع" />
                           </SelectTrigger>
                         </FormControl>
@@ -248,19 +261,20 @@ export const ContactSection: React.FC = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>پیام</FormLabel>
+                      <FormLabel htmlFor="message">پیام</FormLabel>
                       <FormControl>
                         <Textarea
                           rows={5}
                           className="resize-none"
                           {...field}
+                          id="message"
+                          aria-label="پیام شما"
+                          aria-live="polite"
                           onChange={(e) => {
                             const newValue = e.target.value;
-                            // اگر کاربر سعی کند پیام محافظت‌شده را حذف کند، آن را حفظ کن
                             if (newValue.startsWith(protectedMessage)) {
                               field.onChange(newValue);
                             } else {
-                              // پیام محافظت‌شده را دوباره اضافه کن
                               field.onChange(
                                 protectedMessage +
                                   newValue.slice(protectedMessage.length)
@@ -273,16 +287,15 @@ export const ContactSection: React.FC = () => {
                     </FormItem>
                   )}
                 />
-                <Button className="mt-4">ارسال پیام</Button>
+                <Button className="mt-4" aria-label="ارسال فرم تماس">
+                  ارسال پیام
+                </Button>
               </form>
             </Form>
             {submitMessage && (
               <p
-                className={`mt-4 text-center ${
-                  submitMessage.includes("موفقیت")
-                    ? "text-green-600"
-                    : "text-red-600"
-                }`}
+                className="mt-4 text-center text-green-700" // کنتراست بهتر
+                aria-live="polite"
               >
                 {submitMessage}
               </p>
