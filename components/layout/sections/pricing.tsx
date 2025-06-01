@@ -71,7 +71,7 @@ export const PricingSection: React.FC = () => {
   return (
     <section
       dir="rtl"
-      className="container font-kalameh py-16"
+      className="container font-kalameh font-extrabold py-16"
       style={{ position: "relative" }} // برای رفع خطای non-static position
     >
       <AnimatePresence>
@@ -136,7 +136,7 @@ export const PricingSection: React.FC = () => {
               </p>
             </div>
             <div>
-              <label className="block mb-2 text-base  sm:text-2xl md:text-4xl  font-kalameh font-bold text-muted-foreground">
+              <label className="block mb-2 text-base lg:text-1xl sm:text-2xl md:text-1xl  font-kalameh font-bold text-muted-foreground">
                 تعداد بازدید:
               </label>
               <Slider

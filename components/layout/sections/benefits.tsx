@@ -39,7 +39,7 @@ export const BenefitsSection: React.FC = () => {
     <section
       dir="rtl"
       id="benefits"
-      className="container font-kalameh py-12 sm:py-24 md:py-32"
+      className="container font-kalameh font-extrabold py-12 sm:py-24 md:py-32"
     >
       <hr className="border-secondary mb-8" />
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-24 place-items-center">

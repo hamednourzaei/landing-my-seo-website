@@ -121,7 +121,7 @@ export const ContactSection: React.FC = () => {
     <section
       dir="rtl"
       id="contact"
-      className="container font-kalameh py-10 sm:py-20 relative"
+      className="container font-kalameh font-semibold  py-10 sm:py-20 relative"
     >
       {/* انیمیشن پیام موفقیت */}
       <AnimatePresence>

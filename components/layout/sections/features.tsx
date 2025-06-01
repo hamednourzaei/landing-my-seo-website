@@ -81,7 +81,7 @@ export const FeaturesSection: React.FC = () => {
     <section
       dir="rtl"
       id="features"
-      className="container font-kalameh py-24 sm:py-32"
+      className="container font-kalameh font-extrabold  py-24 sm:py-32"
     >
       <h2 className="text-xl text-primary text-center mb-2 tracking-wider">
         ویژگی‌های TsarSEO
@@ -89,7 +89,7 @@ export const FeaturesSection: React.FC = () => {
       <h2 className="text-lg lg:text-3xl md:text-2xl text-center font-sans font-bold mb-4">
         ابزارهای حرفه‌ای برای فرمانروایی دیجیتال
       </h2>
-      <h3 className="text-base lg:text-3xl md:text-2xl text-center text-muted-foreground mb-8">
+      <h3 className="text-base lg:text-2xl md:text-xl text-center text-muted-foreground mb-8">
         با قابلیت‌های پیشرفته TsarSEO، تحلیل سئو و ترافیک سایت خود را به سطحی
         جدید ببرید.
       </h3>

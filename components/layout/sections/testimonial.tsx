@@ -106,7 +106,7 @@ export const TestimonialSection: React.FC = () => {
   };
 
   return (
-    <section id="success-stories" className="container py-24 sm:py-32">
+    <section id="success-stories" className="container font-kalameh font-semibold  py-24 sm:py-32">
     <hr className="border-secondary mb-8" />
     <div className="text-center mb-8 py-24">
       <h2 className="text-lg text-primary text-center mb-2 tracking-wider">

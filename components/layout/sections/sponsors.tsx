@@ -101,7 +101,7 @@ export const SponsorsSection = () => {
     <section
       id="features"
       ref={ref}
-      className="max-w-[90%] mx-auto font-kalameh "
+      className="max-w-[90%] mx-auto font-kalameh font-extrabold "
     >
       <motion.h1
         className="text-base sm:text-lg md:text-xl text-center text-primary"

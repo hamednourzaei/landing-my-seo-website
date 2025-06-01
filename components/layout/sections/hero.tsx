@@ -16,9 +16,9 @@ export const HeroSection = () => {
             <span className="mr-2 text-primary">
               <Badge>New</Badge>
             </span>
-            <span>سرویس حرفه‌ای برای رشد آنلاین</span>
+            <span className="font-kalameh font-extrabold">سرویس حرفه‌ای برای رشد آنلاین</span>
           </Badge>
-          <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-bold leading-tight">
+          <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-kalameh font-extrabold leading-tight">
   <h1>
     
     بازدید واقعی + تحلیل سئوی حرفه ای  
@@ -29,7 +29,7 @@ export const HeroSection = () => {
   </h1>
 </div>
 
-          <p dir="rtl" className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground text-right font-sans font-medium">تحلیل دقیق سئو برای متخصص ها  و بازدید واقعی برای سایت‌هایی که می‌خوان در گوگل دیده شن. گزارش حرفه‌ای بگیر – همین حالا شروع کن!  </p>
+          <p dir="rtl" className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground text-right font-kalameh font-extrabold">تحلیل دقیق سئو برای متخصص ها  و بازدید واقعی برای سایت‌هایی که می‌خوان در گوگل دیده شن. گزارش حرفه‌ای بگیر – همین حالا شروع کن!  </p>
 
           <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -40,13 +40,11 @@ export const HeroSection = () => {
       <motion.div whileHover={{ scale: 1.05 }}>
         <Link
           href="#contact"
-          className="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
-        >ببین
-         سایتت 
-         برای
-          گوگل
-           چقدر
-            آمادست؟                      <motion.span
+          className="inline-flex items-center justify-center px-6 py-3 text-lg font-kalameh font-extrabold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+        >
+          
+          ببین سایتت برای سئو چقدر آمادست            
+              <motion.span
             className="ml-2"
             initial={{ x: 0 }}
             whileHover={{ x: 5 }}
