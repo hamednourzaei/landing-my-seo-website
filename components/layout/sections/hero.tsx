@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -22,84 +22,39 @@ import {
   DialogTitle,
   DialogDescription,
   DialogTrigger,
-} from "@/components/ui/dialog"; // Ensure Dialog is imported correctly
-
-const stats = [
-  {
-    title: "تعداد بازدید وب‌سایت‌ها",
-    value: 1100000,
-    growth: 12,
-    chartData: [
-      { day: "شنبه", visits: 120000 },
-      { day: "یک‌شنبه", visits: 150000 },
-      { day: "دوشنبه", visits: 180000 },
-      { day: "سه‌شنبه", visits: 200000 },
-      { day: "چهارشنبه", visits: 170000 },
-      { day: "پنج‌شنبه", visits: 220000 },
-      { day: "جمعه", visits: 250000 },
-    ],
-  },
-  {
-    title: "وب‌سایت‌های زیرمجموعه",
-    value: 200,
-    growth: 5,
-    chartData: [
-      { day: "شنبه", visits: 20 },
-      { day: "یک‌شنبه", visits: 22 },
-      { day: "دوشنبه", visits: 25 },
-      { day: "سه‌شنبه", visits: 28 },
-      { day: "چهارشنبه", visits: 27 },
-      { day: "پنج‌شنبه", visits: 30 },
-      { day: "جمعه", visits: 32 },
-    ],
-  },
-  {
-    title: "سرورهای فعال",
-    value: 145,
-    growth: 3,
-    chartData: [
-      { day: "شنبه", visits: 140 },
-      { day: "یک‌شنبه", visits: 142 },
-      { day: "دوشنبه", visits: 143 },
-      { day: "سه‌شنبه", visits: 144 },
-      { day: "چهارشنبه", visits: 145 },
-      { day: "پنج‌شنبه", visits: 145 },
-      { day: "جمعه", visits: 145 },
-    ],
-  },
-  {
-    title: "تحلیل‌های امروز",
-    value: 30,
-    growth: 15,
-    chartData: [
-      { day: "شنبه", visits: 10 },
-      { day: "یک‌شنبه", visits: 12 },
-      { day: "دوشنبه", visits: 14 },
-      { day: "سه‌شنبه", visits: 18 },
-      { day: "چهارشنبه", visits: 25 },
-      { day: "پنج‌شنبه", visits: 27 },
-      { day: "جمعه", visits: 30 },
-    ],
-  },
-  {
-    title: "قطع همکاری‌های هفته اخیر",
-    value: 4,
-    growth: -10,
-    chartData: [
-      { day: "شنبه", visits: 1 },
-      { day: "یک‌شنبه", visits: 1 },
-      { day: "دوشنبه", visits: 0 },
-      { day: "سه‌شنبه", visits: 1 },
-      { day: "چهارشنبه", visits: 0 },
-      { day: "پنج‌شنبه", visits: 1 },
-      { day: "جمعه", visits: 0 },
-    ],
-  },
-];
+} from "@/components/ui/dialog";
 
 export const HeroSection = () => {
   const { theme } = useTheme();
+  const [stats, setStats] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [activeChartIndex, setActiveChartIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch(
+          "https://hamednourzaei.github.io/api-detail/data/stats.json"
+        );
+        const data = await res.json();
+        setStats(data);
+      } catch (error) {
+        console.error("خطا در واکشی داده‌ها:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="container font-kalameh w-full mx-auto text-center py-32">
+        <p className="text-xl font-bold">در حال بارگذاری اطلاعات...</p>
+      </section>
+    );
+  }
 
   return (
     <section className="container font-kalameh font-semibold w-full mx-auto">
@@ -159,8 +114,12 @@ export const HeroSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          {stats.map((stat, index) => (
-            <Dialog key={index} open={activeChartIndex === index} onOpenChange={(open) => setActiveChartIndex(open ? index : null)}>
+          {stats.map((stat: any, index: number) => (
+            <Dialog
+              key={index}
+              open={activeChartIndex === index}
+              onOpenChange={(open) => setActiveChartIndex(open ? index : null)}
+            >
               <DialogTrigger asChild>
                 <motion.div
                   className="relative bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-md border border-primary/10 transition-all hover:shadow-xl cursor-pointer min-w-0"
@@ -178,8 +137,8 @@ export const HeroSection = () => {
                       stat.growth >= 0 ? "text-green-500" : "text-red-500"
                     }`}
                   >
-                    {stat.growth >= 0 ? "↑" : "↓"} {Math.abs(stat.growth)}٪ نسبت به
-                    هفته پیش
+                    {stat.growth >= 0 ? "↑" : "↓"} {Math.abs(stat.growth)}٪ نسبت
+                    به هفته پیش
                   </p>
                 </motion.div>
               </DialogTrigger>
