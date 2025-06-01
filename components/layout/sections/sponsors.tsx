@@ -158,7 +158,7 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all delay-75 w-full min-w-[160px] max-w-[240px]">
+              <div className="flex items-center gap-1 px-3 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all delay-75 w-full min-w-[160px] max-w-[250px]">
                 <Icon
                   name={icon as keyof typeof icons}
                   size={18}
@@ -170,11 +170,11 @@ export const SponsorsSection = () => {
             </motion.div>
           ))
         ) : (
-          <div className="grid grid-cols-2 gap-4 justify-items-center p-4">
+          <div className="grid grid-cols-2 gap-4 justify-items-center ">
             {features.map(({ icon, name }, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-md w-full min-w-[160px] max-w-[240px]"
+                className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-md w-full min-w-[160px] max-w-[250px]"
               >
                 <Icon
                   name={icon as keyof typeof icons}
@@ -182,7 +182,7 @@ export const SponsorsSection = () => {
                   color="hsl(var(--primary))"
                   className="ml-2"
                 />
-                <span className="text-muted-foreground whitespace-nowrap">{name}</span>
+                <span className="text-muted-foreground size-6 whitespace-nowrap">{name}</span>
               </div>
             ))}
           </div>
