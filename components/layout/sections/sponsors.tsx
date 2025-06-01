@@ -158,7 +158,7 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all delay-75 w-full max-w-[200px]">
+              <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all delay-75 w-full min-w-[160px] max-w-[240px]">
                 <Icon
                   name={icon as keyof typeof icons}
                   size={18}
@@ -174,7 +174,7 @@ export const SponsorsSection = () => {
             {features.map(({ icon, name }, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-md w-full max-w-[200px]"
+                className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-md w-full min-w-[160px] max-w-[240px]"
               >
                 <Icon
                   name={icon as keyof typeof icons}
