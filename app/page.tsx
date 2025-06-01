@@ -6,7 +6,7 @@ import { FooterSection } from "@/components/layout/sections/footer";
 import { HeroSection } from "@/components/layout/sections/hero";
 import { PricingSection } from "@/components/layout/sections/pricing";
 import { SponsorsSection } from "@/components/layout/sections/sponsors";
-import { TestimonialSection } from "@/components/layout/sections/testimonial";
+import TestimonialSection from "@/components/layout/sections/testimonial";
 
 export const metadata = {
   title: "TsarSEO - Landing template",
