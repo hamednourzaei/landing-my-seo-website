@@ -55,7 +55,7 @@ export const StatsCardsClient = ({ stats }: { stats: any[] }) => {
                 </>
               ) : (
                 <>
-                  <p className="text-xl font-extrabold text-primary">
+                  <p className="text-base font-extrabold text-primary">
                     <CountUp end={stat.value} duration={2} separator="," />
                     {stat.title.includes("بازدید") && "+"}
                   </p>
