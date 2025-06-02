@@ -1,4 +1,3 @@
-// app/components/TestimonialCarousel.tsx
 "use client";
 
 import {
@@ -7,6 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselApi,
 } from "@/components/ui/carousel";
 import { motion } from "framer-motion";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
@@ -30,7 +30,7 @@ interface SuccessStoryProps {
   url?: string;
 }
 
-// کامپوننت کارت
+// کامپوننت کارت (بدون تغییر)
 const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
   const animation = useMemo(
     () => ({
@@ -76,10 +76,10 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
               rel="noopener noreferrer"
               className="text-blue-500 hover:underline"
             >
-              {`"${story.comment}"`}
+              {story.comment}
             </a>
           ) : (
-            `"${story.comment}"`
+            <p>{story.comment}</p>
           )}
         </CardContent>
         <CardHeader>
@@ -112,13 +112,16 @@ export default function TestimonialCarousel({
   stories: SuccessStoryProps[];
 }) {
   const [isMobile, setIsMobile] = useState(false);
+  const [api, setApi] = useState<CarouselApi | null>(null);
+  const [current, setCurrent] = useState(1);
+  const total = stories.length;
 
   const handleResize = useCallback(() => {
     let timeout: NodeJS.Timeout;
     return () => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        setIsMobile(window.innerWidth < 600);
+        setIsMobile(window.innerWidth < 800);
       }, 100);
     };
   }, []);
@@ -130,20 +133,44 @@ export default function TestimonialCarousel({
     return () => window.removeEventListener("resize", resizeHandler);
   }, [handleResize]);
 
+  useEffect(() => {
+    if (!api) return;
+
+    const updateCurrent = () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    };
+
+    updateCurrent();
+    api.on("select", updateCurrent);
+
+    return () => {
+      api.off("select", updateCurrent);
+    };
+  }, [api]);
+
   return (
-    <Carousel
-      opts={{ align: "start" }}
-      className="relative w-[80%] sm:w-[90%] lg:max-w-screen-xl mx-auto"
-    >
-      <CarouselContent>
-        {stories.map((story) => (
-          <CarouselItem key={story.id} className="md:basis-1/2 lg:basis-1/3">
-            <TestimonialCard story={story} />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+    <div className="relative">
+      <Carousel
+        setApi={setApi}
+        opts={{ align: "start" }}
+        className="relative w-[80%] sm:w-[90%] lg:max-w-screen-xl mx-auto"
+      >
+        <CarouselContent>
+          {stories.map((story, index) => (
+            <CarouselItem
+              key={story.id}
+              className="md:basis-1/2 lg:basis-1/3"
+            >
+              <TestimonialCard story={story} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+      <div className="text-center mt-4 font-semibold text-muted-foreground">
+        {current} / {total}
+      </div>
+    </div>
   );
 }

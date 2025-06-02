@@ -88,14 +88,14 @@ export const FAQSection: React.FC = () => {
       <div className="grid grid-cols-1 gap-8">
         <Card className="bg-muted/60 dark:bg-card">
           <CardHeader>
-            <CardTitle className="text-2xl">سوالات رایج</CardTitle>
+            <CardTitle className="text-2xl text-center">سوالات رایج</CardTitle>
           </CardHeader>
           <CardContent>
             <Accordion type="single" collapsible className="w-full">
               {faqList.map(({ question, answer }, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger>{question}</AccordionTrigger>
-                  <AccordionContent>{answer}</AccordionContent>
+                <AccordionItem key={index} value={`item-${index}`} >
+                  <AccordionTrigger className="text-xs md:text-xl lg:text-xl sm:text-xs  ">{question}</AccordionTrigger>
+                  <AccordionContent className="text-xs md:text-base lg:text-base sm:text-xs ">{answer}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
