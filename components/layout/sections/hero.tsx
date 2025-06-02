@@ -1,5 +1,3 @@
-// بدون "use client"
-
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -10,7 +8,7 @@ export const HeroSection = async () => {
   const res = await fetch(
     "https://hamednourzaei.github.io/api-detail/data/stats.json",
     {
-      next: { revalidate: 60 }, // ISR: هر 60 ثانیه بازسازی می‌شود
+      next: { revalidate: 3600 }, // ISR: هر 3600 ثانیه (1 ساعت) بازسازی می‌شود
     }
   );
 
