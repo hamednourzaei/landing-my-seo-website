@@ -1,16 +1,15 @@
 import { Separator } from "@/components/ui/separator";
-import { ChevronsDownIcon } from "lucide-react";
+import { ChevronsDownIcon, Twitter, Instagram, MessageSquare, Send } from "lucide-react";
 import Link from "next/link";
 
 export const FooterSection = () => {
   return (
-    <footer id="footer" className="container font-kalameh font-semibold  py-24 sm:py-32">
+    <footer id="footer" className="container font-kalameh font-semibold py-24 sm:py-32">
       <div className="p-10 bg-card border border-secondary rounded-2xl">
         <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8">
           <div className="col-span-full xl:col-span-2">
             <Link href="#" className="flex font-sans font-bold items-center">
               <ChevronsDownIcon className="w-9 h-9 mr-2 bg-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg border border-secondary" />
-
               <h3 className="text-2xl">TsarSEO</h3>
             </Link>
           </div>
@@ -18,29 +17,30 @@ export const FooterSection = () => {
           <div className="flex flex-col gap-2">
             <h3 className="font-sans font-bold text-lg">Contact</h3>
 
-        
             <div>
               <Link
                 target="_blank"
-                href="https://www.instagram.com/tsarpremiumstream?igsh=MXNhMm5hb2R6aWFoOQ%3D%3D&utm_source=qr"
-                className="opacity-60 hover:opacity-100"
+                href="https://t.me/tsarpremiumstream"
+                className="opacity-60 hover:opacity-100 flex items-center gap-2"
               >
+                <Send className="w-5 h-5" />
                 Telegram
               </Link>
             </div>
             <div>
               <Link
                 target="_blank"
-                href="https://www.instagram.com/tsarpremiumstream?igsh=MXNhMm5hb2R6aWFoOQ%3D%3D&utm_source=qr"
-                className="opacity-60 hover:opacity-100"
+                href="https://wa.me/1234567890"
+                className="opacity-60 hover:opacity-100 flex items-center gap-2"
               >
-                whatsapp
+                <MessageSquare className="w-5 h-5" />
+                WhatsApp
               </Link>
             </div>
           </div>
 
           <div className="flex flex-col gap-2">
-            <h3 className=" font-sans font-bold text-lg">Help</h3>
+            <h3 className="font-sans font-bold text-lg">Help</h3>
             <div>
               <Link href="#contact" className="opacity-60 hover:opacity-100">
                 Contact Us
@@ -55,13 +55,14 @@ export const FooterSection = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <h3 className=" font-sans font-bold text-lg">Socials</h3>
+            <h3 className="font-sans font-bold text-lg">Socials</h3>
             <div>
               <Link
                 target="_blank"
                 href="https://x.com/tsarseo_org?s=21"
-                className="opacity-60 hover:opacity-100"
+                className="opacity-60 hover:opacity-100 flex items-center gap-2"
               >
+                <Twitter className="w-5 h-5" />
                 X (Twitter)
               </Link>
             </div>
@@ -69,19 +70,19 @@ export const FooterSection = () => {
             <div>
               <Link
                 target="_blank"
-                href="https://www.instagram.com/tsarpremiumstream?igsh=MXNhMm5hb2R6aWFoOQ%3D%3D&utm_source=qr"
-                className="opacity-60 hover:opacity-100"
+                href="https://www.instagram.com/tsarpremiumstream"
+                className="opacity-60 hover:opacity-100 flex items-center gap-2"
               >
+                <Instagram className="w-5 h-5" />
                 Instagram
               </Link>
             </div>
-        
           </div>
         </div>
 
         <Separator className="my-6" />
-        <section className="">
-          <h3 className="">
+        <section>
+          <h3>
             &copy; 2025 Designed and developed and copyright by*
             <Link
               target="_blank"
