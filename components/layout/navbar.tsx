@@ -1,15 +1,13 @@
 "use client";
 
-import { ChevronsDown, Github, Menu } from "lucide-react";
+import { ChevronsDown, Github, Menu, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sheet,
   SheetContent,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -48,6 +46,26 @@ const featureList = [
   },
 ];
 
+// انیمیشن برای منوی موبایل
+const menuVariants = {
+  closed: {
+    y: "-100%",
+    opacity: 0,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+};
+
+// انیمیشن برای آیتم‌های منو
+const itemVariants = {
+  closed: { opacity: 0, y: 20 },
+  open: { opacity: 1, y: 0, transition: { duration: 0.2 } },
+};
+
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string>("");
@@ -60,7 +78,7 @@ export const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <header className="shadow-inner font-kalameh font-extrabold  bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
+    <header className="shadow-inner font-kalameh font-extrabold bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
       <Link href="/" className="font-bold text-lg flex items-center">
         <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
         TsarSEO
@@ -70,41 +88,64 @@ export const Navbar: React.FC = () => {
       <div className="flex items-center lg:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Menu className="cursor-pointer lg:hidden" />
+            <Button variant="ghost" className="p-0">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={isOpen ? "close" : "open"}
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: isOpen ? 90 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </motion.div>
+              </AnimatePresence>
+            </Button>
           </SheetTrigger>
 
-          <SheetContent className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary">
-            <div>
-              <SheetHeader className="mb-4 mr-4">
-                <SheetTitle className="flex items-center">
-                  <Link href="/" className="flex items-center">
-                    <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
-                    TsarSEO
-                  </Link>
-                </SheetTitle>
-              </SheetHeader>
+          <SheetContent
+            side="top"
+            className="w-full h-full bg-gradient-to-b from-primary/10 to-card border-none rounded-b-2xl"
+          >
+            <SheetHeader className="mb-6">
+              <SheetTitle className="flex items-center justify-center">
+                <Link href="/" className="flex items-center">
+                  <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
+                  TsarSEO
+                </Link>
+              </SheetTitle>
+            </SheetHeader>
 
-              <div className="flex flex-col gap-2">
-                {routeList.map(({ href, label }) => (
+            <motion.div
+              className="flex flex-col items-center gap-4"
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              {routeList.map(({ href, label }, index) => (
+                <motion.div
+                  key={href}
+                  variants={itemVariants}
+                  initial="closed"
+                  animate="open"
+                  transition={{ delay: index * 0.1 }}
+                >
                   <Button
-                    key={href}
                     onClick={() => setIsOpen(false)}
                     asChild
                     variant="ghost"
-                    className={`justify-start text-base ${
-                      activeHash === href ? "bg-primary/20" : ""
-                    }`}
+                    className={`text-lg font-semibold w-full justify-center py-2 ${
+                      activeHash === href ? "bg-primary/20 text-primary" : ""
+                    } hover:bg-primary/10 transition-all`}
                   >
                     <Link href={href}>{label}</Link>
                   </Button>
-                ))}
-              </div>
-            </div>
-
-            <SheetFooter className="flex-col items-start">
-              <Separator className="mb-2" />
-              <ToggleTheme />
-            </SheetFooter>
+                </motion.div>
+              ))}
+              <motion.div variants={itemVariants} transition={{ delay: routeList.length * 0.1 }}>
+                <ToggleTheme />
+              </motion.div>
+            </motion.div>
           </SheetContent>
         </Sheet>
       </div>
@@ -119,7 +160,7 @@ export const Navbar: React.FC = () => {
             <NavigationMenuContent>
               <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
                 <Image
-                rel="preload"
+                  rel="preload"
                   src="/images/tsarseo-future-features.jpg"
                   alt="ویژگی‌های آینده TsarSEO"
                   className="h-full w-full rounded-md object-cover"
