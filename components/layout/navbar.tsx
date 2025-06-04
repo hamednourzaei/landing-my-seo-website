@@ -1,3 +1,4 @@
+
 "use client";
 
 import { ChevronsDown, Github, Menu, X } from "lucide-react";
@@ -58,7 +59,7 @@ const menuVariants = {
       damping: 20,
       mass: 0.8,
       when: "afterChildren",
-      staggerChildren: 0.05,
+      staggerChildren: 0.1,
       staggerDirection: -1,
     },
   },
@@ -71,7 +72,7 @@ const menuVariants = {
       damping: 20,
       mass: 0.8,
       when: "beforeChildren",
-      staggerChildren: 0.12,
+      staggerChildren: 0.15,
       staggerDirection: 1,
     },
   },
@@ -83,9 +84,24 @@ const itemVariants = {
   open: { opacity: 1, x: 0 },
 };
 
+// انیمیشن برای هدر
+const headerVariants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 120, damping: 15, mass: 0.6 },
+  },
+  hidden: {
+    opacity: 0,
+    y: -20,
+    transition: { type: "spring", stiffness: 120, damping: 15, mass: 0.6 },
+  },
+};
+
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string>("");
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
   useEffect(() => {
     setActiveHash(window.location.hash);
@@ -94,8 +110,21 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
+  useEffect(() => {
+    // با تأخیر اندک، هدر را مخفی یا نمایش می‌دهیم
+    const timer = setTimeout(() => {
+      setIsHeaderVisible(!isOpen);
+    }, isOpen ? 100 : 0); // تأخیر 0.1 ثانیه هنگام باز شدن منو
+    return () => clearTimeout(timer);
+  }, [isOpen]);
+
   return (
-    <header className="shadow-inner font-kalameh font-extrabold bg-opacity-90 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
+    <motion.header
+      className="shadow-inner font-kalameh font-extrabold bg-opacity-90 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card"
+      variants={headerVariants}
+      initial="visible"
+      animate={isHeaderVisible ? "visible" : "hidden"}
+    >
       <Link href="/" className="font-bold text-lg flex items-center">
         <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
         TsarSEO
@@ -237,6 +266,6 @@ export const Navbar: React.FC = () => {
           </Link>
         </Button>
       </div>
-    </header>
+    </motion.header>
   );
 };
