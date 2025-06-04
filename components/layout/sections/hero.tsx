@@ -1,11 +1,10 @@
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton"; // وارد کردن Skeleton
+import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { StatsCardsClient } from "./StatsCardsClient";
 
-// داده‌های پیش‌فرض
 const fallbackStats = [
   {
     title: "تعداد بازدید وب‌سایت‌ها",
@@ -93,18 +92,18 @@ const fallbackStats = [
   },
 ];
 
-// کامپوننت Skeleton برای کارت‌های آماری
+
 const StatsCardsSkeleton = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
       {[...Array(6)].map((_, index) => (
         <div
           key={index}
-          className="p-4 border rounded-lg shadow-sm bg-background"
+          className="p-4 border rounded-xl shadow-sm bg-background"
         >
-          <Skeleton className="h-6 w-3/4 mb-2" /> {/* Placeholder برای عنوان */}
-          <Skeleton className="h-8 w-1/2 mb-4" /> {/* Placeholder برای مقدار */}
-          <Skeleton className="h-32 w-full" /> {/* Placeholder برای نمودار */}
+          <Skeleton className="h-6 w-3/4 mb-2" />
+          <Skeleton className="h-8 w-1/2 mb-4" />
+          <Skeleton className="h-32 w-full" />
         </div>
       ))}
     </div>
@@ -114,151 +113,100 @@ const StatsCardsSkeleton = () => {
 export const HeroSection = async () => {
   try {
     const res = await fetch(
-      
       "https://hamednourzaei.github.io/api-detail/data/stats.json",
       {
         next: { revalidate: 3600 },
       }
-      
     );
-
-    if (!res.ok) {
-      console.error(`خطای HTTP: ${res.status} ${res.statusText}`);
-      return (
-        <section className="container font-kalameh font-semibold w-full mx-auto">
-          <div className="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:py-32">
-            <div className="text-center space-y-8">
-              <Badge variant="outline" className="text-sm py-2">
-                <span className="mr-2 text-primary">
-                  <Badge>New</Badge>
-                </span>
-                <span className="font-extrabold">
-                  سرویس حرفه‌ای برای رشد آنلاین
-                </span>
-              </Badge>
-              <div className="text-4xl md:text-6xl font-extrabold leading-tight">
-                <h1>
-                  بازدید واقعی + تحلیل سئوی حرفه‌ای{" "}
-                  <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text mt-5 border-b-2 border-b-[#af4c00]">
-                    فقط با یک کلیک
-                  </span>
-                </h1>
-              </div>
-              <p className="max-w-screen-sm mx-auto text-lg lg:text-lg md:text-xl text-muted-foreground text-right font-extrabold">
-                تحلیل دقیق سئو برای متخصص‌ها و بازدید واقعی برای سایت‌هایی که
-                می‌خوان در گوگل دیده شن.
-              </p>
-              <div className="text-center mt-8">
-                <Link
-                  href="#contact"
-                  className="inline-flex items-center justify-center px-6 py-3 text-lg font-extrabold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
-                >
-                  ببین سایتت برای سئو چقدر آمادست
-                  <ArrowRight className="ml-2 size-5" />
-                </Link>
-              </div>
-            </div>
-            <Suspense fallback={<StatsCardsSkeleton />}>
-              <StatsCardsClient stats={fallbackStats} />
-            </Suspense>
-          </div>
-        </section>
-      );
-    }
 
     const text = await res.text();
     let stats;
+
     try {
       stats = JSON.parse(text);
-    } catch (error: unknown) {
-      let errorMessage = "خطای ناشناخته";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      console.error("خطای تجزیه JSON:", errorMessage);
+    } catch (error) {
+      console.error("خطای تجزیه JSON:", error);
       stats = fallbackStats;
     }
 
     return (
-      <section className="container font-kalameh font-semibold w-full mx-auto">
-        <div className="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:py-32">
+      <section className="container w-full mx-auto font-kalameh font-semibold">
+        <div className="grid place-items-center lg:max-w-screen-xl gap-10 mx-auto py-20 md:py-32 px-4">
           <div className="text-center space-y-8">
-            <Badge variant="outline" className="text-sm py-2">
-              <span className="mr-2 text-primary">
-                <Badge>New</Badge>
-              </span>
+            <Badge variant="outline" className="text-sm py-1.5 px-4 rounded-md">
+              <span className="text-primary font-extrabold">New</span>
+              <span className="mx-2">|</span>
               <span className="font-extrabold">
                 سرویس حرفه‌ای برای رشد آنلاین
               </span>
             </Badge>
-            <div className="text-4xl md:text-6xl font-extrabold leading-tight">
-              <h1>
-                بازدید واقعی + تحلیل سئوی حرفه‌ای{" "}
-                <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text mt-5 border-b-2 border-b-[#af4c00]">
-                  فقط با یک کلیک
-                </span>
-              </h1>
-            </div>
-            <p className="max-w-screen-sm mx-auto text-lg lg:text-lg md:text-xl text-muted-foreground text-right font-extrabold">
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+              بازدید واقعی + تحلیل سئوی حرفه‌ای{" "}
+              <span className="inline-block mt-4 text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
+                فقط با یک کلیک
+              </span>
+            </h1>
+
+            <p className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground font-extrabold text-right leading-relaxed">
               تحلیل دقیق سئو برای متخصص‌ها و بازدید واقعی برای سایت‌هایی که
               می‌خوان در گوگل دیده شن.
             </p>
-            <div className="text-center mt-8">
+
+            <div className="mt-10">
               <Link
                 href="#contact"
-                className="inline-flex items-center justify-center px-6 py-3 text-lg font-extrabold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+                className="inline-flex items-center gap-2 px-6 py-3 text-lg font-extrabold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
               >
                 ببین سایتت برای سئو چقدر آمادست
-                <ArrowRight className="ml-2 size-5" />
+                <ArrowRight className="size-5" />
               </Link>
             </div>
           </div>
+
           <Suspense fallback={<StatsCardsSkeleton />}>
             <StatsCardsClient stats={stats} />
           </Suspense>
         </div>
       </section>
     );
-  } catch (error: unknown) {
-    let errorMessage = "خطای ناشناخته";
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    }
-    console.error("خطا در HeroSection:", errorMessage);
+  } catch (error) {
+    console.error("خطا در HeroSection:", error);
     return (
-      <section className="container font-kalameh font-semibold w-full mx-auto">
-        <div className="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:py-32">
+      <section className="container w-full mx-auto font-kalameh font-semibold">
+        <div className="grid place-items-center lg:max-w-screen-xl gap-10 mx-auto py-20 md:py-32 px-4">
           <div className="text-center space-y-8">
-            <Badge variant="outline" className="text-sm py-2">
-              <span className="mr-2 text-primary">
-                <Badge>New</Badge>
-              </span>
+            <Badge variant="outline" className="text-sm py-1.5 px-4 rounded-md">
+              <span className="text-primary font-extrabold">New</span>
+              <span className="mx-2">|</span>
               <span className="font-extrabold">
                 سرویس حرفه‌ای برای رشد آنلاین
               </span>
             </Badge>
-            <div className="text-4xl md:text-6xl font-extrabold leading-tight">
-              <h1>
-                بازدید واقعی + تحلیل سئوی حرفه‌ای{" "}
-                <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text mt-5 border-b-2 border-b-[#af4c00]">
-                  فقط با یک کلیک
-                </span>
-              </h1>
-            </div>
-            <p className="max-w-screen-sm mx-auto text-lg lg:text-lg md:text-xl text-muted-foreground text-right font-extrabold">
+
+            <h1 className="text-5xl sm:text-5xl md:sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+              بازدید واقعی + تحلیل سئوی حرفه‌ای{" "}
+              <span className="inline-block mt-4 text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
+                فقط با یک کلیک
+              </span>
+            </h1>
+
+            <p className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground font-extrabold text-right leading-relaxed">
               تحلیل دقیق سئو برای متخصص‌ها و بازدید واقعی برای سایت‌هایی که
               می‌خوان در گوگل دیده شن.
             </p>
-            <div className="text-center mt-8">
+
+            <div className="mt-10">
               <Link
                 href="#contact"
-                className="inline-flex items-center justify-center px-6 py-3 text-lg font-extrabold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+                className="inline-flex items-center gap-2 px-6 py-3 text-lg font-extrabold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
               >
                 ببین سایتت برای سئو چقدر آمادست
-                <ArrowRight className="ml-2 size-5" />
+                <ArrowRight className="size-5" />
               </Link>
             </div>
           </div>
+
           <Suspense fallback={<StatsCardsSkeleton />}>
             <StatsCardsClient stats={fallbackStats} />
           </Suspense>

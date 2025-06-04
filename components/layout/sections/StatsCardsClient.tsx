@@ -26,12 +26,11 @@ export const StatsCardsClient = ({ stats }: { stats: any[] }) => {
   const [activeChartIndex, setActiveChartIndex] = useState<number | null>(null);
 
   const isLoading = !stats || stats.length === 0;
-
   const skeletonArray = Array.from({ length: 6 });
-  console.log("loading skeleton"); // برای تست
+
   return (
     <motion.div
-      className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-16 text-center w-full"
+      className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-16 w-full"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
@@ -44,42 +43,44 @@ export const StatsCardsClient = ({ stats }: { stats: any[] }) => {
         >
           <DialogTrigger asChild>
             <motion.div
-              className="relative bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-md border border-primary/10 transition-all hover:shadow-xl cursor-pointer min-w-0"
-              whileHover={{ scale: 1.03 }}
+              className="relative bg-white dark:bg-zinc-900 rounded-2xl p-5 shadow-sm border border-border hover:shadow-lg transition-all duration-300 cursor-pointer"
+              whileHover={{ scale: 1.02 }}
             >
               {isLoading ? (
                 <>
-                  <Skeleton className="h-6 w-24 mx-auto mb-2" />
-                  <Skeleton className="h-4 w-32 mx-auto mb-1" />
-                  <Skeleton className="h-3 w-24 mx-auto" />
+                  <Skeleton className="h-6 w-24 mx-auto mb-3" />
+                  <Skeleton className="h-4 w-32 mx-auto mb-2" />
+                  <Skeleton className="h-3 w-20 mx-auto" />
                 </>
               ) : (
-                <>
-                  <p className="text-base font-extrabold text-primary">
+                <div className="text-center font-kalameh">
+                  <p className="text-xs sm:md:text-xl md:text-xl lg:text-2xl font-bold text-primary mb-1">
                     <CountUp end={stat.value} duration={2} separator="," />
-                    {stat.title.includes("بازدید") && "+"}
+                    {stat.title.includes("بازدید") && ""}
                   </p>
-                  <p className="text-xs mt-2 text-muted-foreground">
+                  <p className="text-xs sm:md:text-xl md:text-xl lg:text-2xl font-semibold text-muted-foreground mb-1">
                     {stat.title}
                   </p>
                   <p
-                    className={`mt-1 text-xs ${
+                    className={`text-xs sm:md:text-base md:text-base lg:text-xl font-bold ${
                       stat.growth >= 0 ? "text-green-500" : "text-red-500"
                     }`}
                   >
                     {stat.growth >= 0 ? "↑" : "↓"} {Math.abs(stat.growth)}٪ نسبت
                     به هفته پیش
                   </p>
-                </>
+                </div>
               )}
             </motion.div>
           </DialogTrigger>
 
           {!isLoading && (
-            <DialogContent className="w-full max-w-md p-6">
+            <DialogContent className="w-full max-w-md p-6 font-kalameh text-right">
               <DialogHeader>
-                <DialogTitle>{stat.title}</DialogTitle>
-                <DialogDescription>
+                <DialogTitle className="text-xl font-extrabold">
+                  {stat.title}
+                </DialogTitle>
+                <DialogDescription className="text-sm text-muted-foreground">
                   نمودار عملکرد {stat.title} در هفته گذشته
                 </DialogDescription>
               </DialogHeader>
@@ -95,8 +96,8 @@ export const StatsCardsClient = ({ stats }: { stats: any[] }) => {
                       dataKey="visits"
                       stroke="#D247BF"
                       strokeWidth={2}
-                      dot={{ r: 4 }}
-                      activeDot={{ r: 6 }}
+                      dot={{ r: 3 }}
+                      activeDot={{ r: 5 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
