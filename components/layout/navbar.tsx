@@ -12,7 +12,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import { Separator } from "../ui/separator";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -24,6 +23,7 @@ import {
 import { Button } from "../ui/button";
 import { ToggleTheme } from "./toogle-theme";
 
+// مسیرهای منو
 const routeList = [
   { href: "#success-stories", label: "نظرات شما" },
   { href: "#features", label: "ویژگی‌های ما" },
@@ -31,6 +31,7 @@ const routeList = [
   { href: "#faq", label: "سوالات متداول" },
 ];
 
+// ویژگی‌ها
 const featureList = [
   {
     title: "تحلیل هوشمند رقبا با AI",
@@ -49,21 +50,37 @@ const featureList = [
 // انیمیشن برای منوی موبایل
 const menuVariants = {
   closed: {
-    y: "-100%",
+    x: "90%",
     opacity: 0,
-    transition: { duration: 1.4, ease: "easeInOut" },
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20,
+      mass: 0.8,
+      when: "afterChildren",
+      staggerChildren: 0.05,
+      staggerDirection: -1,
+    },
   },
   open: {
-    y: 0,
+    x: 0,
     opacity: 1,
-    transition: { duration: 1.4, ease: "easeInOut" },
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20,
+      mass: 0.8,
+      when: "beforeChildren",
+      staggerChildren: 0.12,
+      staggerDirection: 1,
+    },
   },
 };
 
 // انیمیشن برای آیتم‌های منو
 const itemVariants = {
-  closed: { opacity: 0, y: 20 },
-  open: { opacity: 1, y: 0, transition: { duration: 0.2 } },
+  closed: { opacity: 0, x: 20 },
+  open: { opacity: 1, x: 0 },
 };
 
 export const Navbar: React.FC = () => {
@@ -84,7 +101,7 @@ export const Navbar: React.FC = () => {
         TsarSEO
       </Link>
 
-      {/* Mobile */}
+      {/* موبایل */}
       <div className="flex items-center lg:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
@@ -103,54 +120,54 @@ export const Navbar: React.FC = () => {
           </SheetTrigger>
 
           <SheetContent
-            side="top"
-            className="w-full h-full bg-gray-00/50 backdrop-blur-md border-none rounded-b-2xl z-50"
+            side="right"
+            className="w-[80%] h-full bg-gray-00/50 backdrop-blur-md border-none rounded-l-2xl z-50 overflow-hidden"
+            dir="rtl"
           >
             <SheetHeader className="mb-6 relative z-10">
               <SheetTitle className="flex items-center justify-center">
                 <Link href="/" className="flex items-center">
-                  <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
+                  <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 ml-2 border text-white" />
                   TsarSEO
                 </Link>
               </SheetTitle>
             </SheetHeader>
 
-            <motion.div
-              className="flex flex-col items-center gap-4 relative z-10"
-              variants={menuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-            >
-              {routeList.map(({ href, label }, index) => (
+            <AnimatePresence>
+              {isOpen && (
                 <motion.div
-                  key={href}
-                  variants={itemVariants}
+                  className="flex flex-col items-center gap-4 relative z-10"
+                  variants={menuVariants}
                   initial="closed"
                   animate="open"
-                  transition={{ delay: index * 0.1 }}
+                  exit="closed"
+                  style={{ originX: 1 }}
                 >
-                  <Button
-                    onClick={() => setIsOpen(false)}
-                    asChild
-                    variant="ghost"
-                    className={`text-lg font-semibold w-full justify-center py-2 ${
-                      activeHash === href ? "bg-primary/20 text-primary" : ""
-                    } hover:bg-primary/10 transition-all`}
-                  >
-                    <Link href={href}>{label}</Link>
-                  </Button>
+                  {routeList.map(({ href, label }) => (
+                    <motion.div key={href} variants={itemVariants}>
+                      <Button
+                        onClick={() => setIsOpen(false)}
+                        asChild
+                        variant="ghost"
+                        className={`text-lg font-semibold w-full justify-center py-2 ${
+                          activeHash === href ? "bg-primary/20 text-primary" : ""
+                        } hover:bg-primary/10 transition-all`}
+                      >
+                        <Link href={href}>{label}</Link>
+                      </Button>
+                    </motion.div>
+                  ))}
+                  <motion.div variants={itemVariants}>
+                    <ToggleTheme />
+                  </motion.div>
                 </motion.div>
-              ))}
-              <motion.div variants={itemVariants} transition={{ delay: routeList.length * 0.1 }}>
-                <ToggleTheme />
-              </motion.div>
-            </motion.div>
+              )}
+            </AnimatePresence>
           </SheetContent>
         </Sheet>
       </div>
 
-      {/* Desktop */}
+      {/* دسکتاپ */}
       <NavigationMenu dir="rtl" className="hidden lg:block mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
