@@ -142,11 +142,14 @@ export const HeroSection = async () => {
             </Badge>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
-              بازدید واقعی + تحلیل سئوی حرفه‌ای{" "}
-              <span className="inline-block mt-4 text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
-                فقط با یک کلیک
-              </span>
-            </h1>
+
+
+  بازدید واقعی + تحلیل سئوی حرفه‌ای
+  <br />
+  <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
+    فقط با یک کلیک
+  </span>
+</h1>
 
             <p className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground font-extrabold text-right leading-relaxed">
               تحلیل دقیق سئو برای متخصص‌ها و بازدید واقعی برای سایت‌هایی که

@@ -24,6 +24,9 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        'custom': '736px', // تعریف breakpoint سفارشی
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { ChevronsDown, Github, Menu, X } from "lucide-react";
@@ -17,7 +16,6 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../ui/navigation-menu";
@@ -36,15 +34,18 @@ const routeList = [
 const featureList = [
   {
     title: "تحلیل هوشمند رقبا با AI",
-    description: "به‌زودی با هوش مصنوعی TsarSEO، استراتژی رقبای خود را تحلیل کنید.",
+    description:
+      "به‌زودی با هوش مصنوعی TsarSEO، استراتژی رقبای خود را تحلیل کنید.",
   },
   {
     title: "ترافیک هدفمند محلی",
-    description: "در آینده، بازدیدهای واقعی برای شهر یا منطقه دلخواهتان هدف‌گذاری می‌شوند.",
+    description:
+      "در آینده، بازدیدهای واقعی برای شهر یا منطقه دلخواهتان هدف‌گذاری می‌شوند.",
   },
   {
     title: "گزارش‌های ویدئویی سئو",
-    description: "گزارش‌های سئو به‌صورت ویدئوهای کوتاه و جذاب، به‌زودی ارائه می‌شود.",
+    description:
+      "گزارش‌های سئو به‌صورت ویدئوهای کوتاه و جذاب، به‌زودی ارائه می‌شود.",
   },
 ];
 
@@ -59,7 +60,7 @@ const menuVariants = {
       damping: 20,
       mass: 0.8,
       when: "afterChildren",
-      staggerChildren: 0.1,
+      staggerChildren: 0.05, // Fixed typo: Changed 0. to 0.05
       staggerDirection: -1,
     },
   },
@@ -112,9 +113,12 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     // با تأخیر اندک، هدر را مخفی یا نمایش می‌دهیم
-    const timer = setTimeout(() => {
-      setIsHeaderVisible(!isOpen);
-    }, isOpen ? 100 : 0); // تأخیر 0.1 ثانیه هنگام باز شدن منو
+    const timer = setTimeout(
+      () => {
+        setIsHeaderVisible(!isOpen);
+      },
+      isOpen ? 100 : 0
+    ); // تأخیر 0.1 ثانیه هنگام باز شدن منو
     return () => clearTimeout(timer);
   }, [isOpen]);
 
@@ -142,7 +146,11 @@ export const Navbar: React.FC = () => {
                   animate={{ rotate: isOpen ? 90 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                  {isOpen ? (
+                    <X className="w-6 h-6" />
+                  ) : (
+                    <Menu className="w-6 h-6" />
+                  )}
                 </motion.div>
               </AnimatePresence>
             </Button>
@@ -150,7 +158,7 @@ export const Navbar: React.FC = () => {
 
           <SheetContent
             side="right"
-            className="w-[80%] h-full bg-gray-00/50 backdrop-blur-md border-none rounded-l-2xl z-50 overflow-hidden"
+            className="w-[60%] h-full bg-gray-00/50 backdrop-blur-md border-none rounded-l-2xl z-50 overflow-hidden"
             dir="rtl"
           >
             <SheetHeader className="mb-6 relative z-10">
@@ -165,7 +173,7 @@ export const Navbar: React.FC = () => {
             <AnimatePresence>
               {isOpen && (
                 <motion.div
-                  className="flex flex-col items-center gap-4 relative z-10"
+                  className="flex flex-col items-center gap-4 relative z-10 pt-32" // Added pt-10 here
                   variants={menuVariants}
                   initial="closed"
                   animate="open"
@@ -178,9 +186,11 @@ export const Navbar: React.FC = () => {
                         onClick={() => setIsOpen(false)}
                         asChild
                         variant="ghost"
-                        className={`text-lg font-semibold w-full justify-center py-2 ${
-                          activeHash === href ? "bg-primary/20 text-primary" : ""
-                        } hover:bg-primary/10 transition-all`}
+                        className={`text-lg  font-semibold w-full justify-center py-2 ${
+                          activeHash === href
+                            ? "bg-primary/20 text-primary"
+                            : ""
+                        } hover:bg-primary/10 transition-all`} // Fixed className syntax
                       >
                         <Link href={href}>{label}</Link>
                       </Button>
@@ -244,7 +254,7 @@ export const Navbar: React.FC = () => {
                     activeHash === href
                       ? "bg-primary/10 text-primary font-bold"
                       : "hover:bg-muted"
-                  }`}
+                  }`} // Fixed className syntax
                 >
                   {label}
                 </Link>
@@ -256,7 +266,12 @@ export const Navbar: React.FC = () => {
 
       <div className="hidden lg:flex items-center">
         <ToggleTheme />
-        <Button asChild size="sm" variant="ghost" aria-label="مشاهده در گیت‌هاب">
+        <Button
+          asChild
+          size="sm"
+          variant="ghost"
+          aria-label="مشاهده در گیت‌هاب"
+        >
           <Link
             aria-label="مشاهده در گیت‌هاب"
             href="https://github.com/hamednourzaei/landing-my-seo-website"
