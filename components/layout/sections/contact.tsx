@@ -153,10 +153,10 @@ export const ContactSection: React.FC = () => {
           <h2 className="text-lg text-primary mb-2 tracking-wider">
             تماس با ما
           </h2>
-          <h3 className="text-3xl md:text-4xl font-sans font-bold">
+          <h3 className="text-3xl md:text-4xl  font-semibold">
             با TsarSEO در ارتباط باشید
           </h3>
-          <p className="mb-8 text-muted-foreground lg:w-5/6">
+          <p className="mb-8 text-muted-foreground font-light lg:w-5/6">
             برای دریافت مشاوره رایگان یا اطلاعات بیشتر درباره تحلیل سئو و ترافیک
             واقعی، با ما تماس بگیرید.
           </p>
