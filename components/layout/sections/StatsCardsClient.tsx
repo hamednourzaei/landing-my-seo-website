@@ -1,5 +1,6 @@
 "use client";
 
+import useSWR from "swr";
 import { useState } from "react";
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
@@ -22,10 +23,16 @@ import {
 } from "recharts";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const StatsCardsClient = ({ stats }: { stats: any[] }) => {
+// فانکشن fetcher برای دریافت داده‌ها
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export const StatsCardsClient = () => {
   const [activeChartIndex, setActiveChartIndex] = useState<number | null>(null);
 
-  const isLoading = !stats || stats.length === 0;
+  // استفاده از SWR برای دریافت داده
+  const { data: stats, isLoading } = useSWR("/api/stats", fetcher);
+
+  // آرایه‌ای برای اسکلتون‌ها (6 تا اسکلتون برای کارت‌ها)
   const skeletonArray = Array.from({ length: 6 });
 
   return (
