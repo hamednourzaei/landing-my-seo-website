@@ -38,7 +38,7 @@ export const SponsorsSection = () => {
           ? Math.min(w * 0.9, 900)
           : Math.max(200, w < 900 ? 650 : 750)
         : Math.max(200, w * 0.9);
-      const height = isLarge ? Math.max(150, width * 0.5) : 450;
+        const height = isLarge ? Math.max(150, width * 0.5) : Math.max(200, width * 0.6);
       setWindowSize({ width, height });
       setIsLargeScreen(isLarge);
     };
@@ -101,19 +101,21 @@ export const SponsorsSection = () => {
     <section
       id="features"
       ref={ref}
-      className="max-w-[90%] mx-auto font-kalameh font-light "
+      className="mx-auto  max-w-7xl px-4 sm:px-6 lg:px-8 font-kalameh font-light"
     >
       <motion.h1
-        className="text-base sm:text-lg md:text-xl font-semibold text-center text-primary"
+        className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-8"
         style={{ y: yOffset, scale }}
       >
-        چرا باید{" "}
-        <span className="inline-block text-primary">TsarSEO</span>{" "}
-        را انتخاب کنید؟
+          را انتخاب کنید؟ 
+        <span className="text-primary">         TsarSEO 
+   </span>
+                      چرا باید  
+
       </motion.h1>
 
       <div
-        className="relative mx-auto rounded-xl overflow-hidden transition-all delay-75"
+        className="relative mx-auto rounded-xl overflow-hidden transition-all duration-75 bg-muted/10 dark:bg-card/50 shadow-lg shadow-orange-900/50"
         style={{
           width: isLargeScreen ? `${windowSize.width}px` : "100%",
           height: `${windowSize.height}px`,
@@ -145,7 +147,7 @@ export const SponsorsSection = () => {
           features.map(({ icon, name }, index) => (
             <motion.div
               key={index}
-              className="absolute flex items-center text-xs sm:text-sm md:text-base font-light z-10"
+              className="absolute flex items-center text-sm md:text-base font-light z-10"
               animate={
                 currentAssignments[index] !== undefined
                   ? {
@@ -158,7 +160,7 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-1 px-3 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all delay-75 w-full min-w-[160px] max-w-[250px]">
+              <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all duration-75 w-full min-w-[160px] max-w-[250px]">
                 <Icon
                   name={icon as keyof typeof icons}
                   size={18}
@@ -170,11 +172,11 @@ export const SponsorsSection = () => {
             </motion.div>
           ))
         ) : (
-          <div className="grid grid-cols-2 gap-4 justify-items-center ">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 justify-items-center p-4">
             {features.map(({ icon, name }, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 px-3 py-2 bg-muted/50 dark:bg-card rounded-md w-full min-w-[160px] max-w-[250px]"
+                className="flex items-center gap-2 px-4 py-2 bg-muted/50 dark:bg-card rounded-lg w-full max-w-[250px] hover:bg-background transition-all duration-75"
               >
                 <Icon
                   name={icon as keyof typeof icons}
@@ -182,7 +184,7 @@ export const SponsorsSection = () => {
                   color="hsl(var(--primary))"
                   className="ml-2"
                 />
-                <span className="text-muted-foreground size-6 whitespace-nowrap">{name}</span>
+                <span className="text-muted-foreground text-sm sm:text-base whitespace-nowrap">{name}</span>
               </div>
             ))}
           </div>

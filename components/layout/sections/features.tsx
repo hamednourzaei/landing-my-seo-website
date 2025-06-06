@@ -94,7 +94,7 @@ export const FeaturesSection: React.FC = () => {
         جدید ببرید.
       </h3>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3 gap-4">
         {featureList.map(({ icon, title, description }, index) => (
           <motion.div
             key={index}
@@ -102,8 +102,10 @@ export const FeaturesSection: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={isMobile ? { ...animation, opacity: 1 } : { opacity: 1 }}
             whileHover={!isMobile ? animation : undefined}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
           >
-            <Card className="h-full bg-background border-0 shadow-none m-0.5">
+            <Card className="h-full bg-background hover:shadow-lg hover:shadow-[#c1d5ef] transition-all duration-300 cursor-pointer border-0 shadow-none m-0.5">
               <CardHeader className="flex justify-center items-center">
                 <div className="bg-primary/20 p-2 rounded-full ring-8 ring-primary/10 mb-4">
                   <Icon

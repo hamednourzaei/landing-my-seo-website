@@ -49,43 +49,25 @@ const featureList = [
   },
 ];
 
-// انیمیشن برای منوی موبایل
+// انیمیشن‌های framer-motion
 const menuVariants = {
   closed: {
     x: "90%",
     opacity: 0,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 20,
-      mass: 0.8,
-      when: "afterChildren",
-      staggerChildren: 0.05, // Fixed typo: Changed 0. to 0.05
-      staggerDirection: -1,
-    },
+    transition: { type: "spring", stiffness: 100, damping: 20, mass: 0.8 },
   },
   open: {
     x: 0,
     opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 20,
-      mass: 0.8,
-      when: "beforeChildren",
-      staggerChildren: 0.15,
-      staggerDirection: 1,
-    },
+    transition: { type: "spring", stiffness: 100, damping: 20, mass: 0.8 },
   },
 };
 
-// انیمیشن برای آیتم‌های منو
 const itemVariants = {
   closed: { opacity: 0, x: 20 },
   open: { opacity: 1, x: 0 },
 };
 
-// انیمیشن برای هدر
 const headerVariants = {
   visible: {
     opacity: 1,
@@ -103,7 +85,34 @@ export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string>("");
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
+  // مدیریت تغییرات اسکرول برای نمایش بوردر موقت
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (Math.abs(currentScrollY - lastScrollY) > 5) {
+        setIsScrolling(true);
+        setLastScrollY(currentScrollY);
+      }
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 200);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, [lastScrollY]);
+
+  // مدیریت فعال بودن لینک فعلی
   useEffect(() => {
     setActiveHash(window.location.hash);
     const onHashChange = () => setActiveHash(window.location.hash);
@@ -111,20 +120,19 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
+  // کنترل انیمیشن نمایش/عدم نمایش هدر هنگام باز بودن منوی موبایل
   useEffect(() => {
-    // با تأخیر اندک، هدر را مخفی یا نمایش می‌دهیم
-    const timer = setTimeout(
-      () => {
-        setIsHeaderVisible(!isOpen);
-      },
-      isOpen ? 100 : 0
-    ); // تأخیر 0.1 ثانیه هنگام باز شدن منو
+    const timer = setTimeout(() => {
+      setIsHeaderVisible(!isOpen);
+    }, isOpen ? 100 : 0);
     return () => clearTimeout(timer);
   }, [isOpen]);
 
   return (
     <motion.header
-      className="shadow-inner font-kalameh font-extrabold bg-opacity-90 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card"
+      className={`shadow-inner font-kalameh font-extrabold bg-opacity-90 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky z-40 rounded-2xl flex justify-between items-center px-4 py-2 bg-card transition-all duration-75 ${
+        isScrolling ? "border-[0.01rem] border-orange-500" : ""
+      }`}
       variants={headerVariants}
       initial="visible"
       animate={isHeaderVisible ? "visible" : "hidden"}
@@ -158,7 +166,7 @@ export const Navbar: React.FC = () => {
 
           <SheetContent
             side="right"
-            className="w-[60%] h-full bg-gray-00/50 backdrop-blur-md border-none rounded-l-2xl z-50 overflow-hidden"
+            className="w-[60%] h-full bg-gray-100/50 dark:bg-gray-900/50 backdrop-blur-md border-none rounded-l-2xl z-50 overflow-hidden"
             dir="rtl"
           >
             <SheetHeader className="mb-6 relative z-10">
@@ -173,7 +181,7 @@ export const Navbar: React.FC = () => {
             <AnimatePresence>
               {isOpen && (
                 <motion.div
-                  className="flex flex-col items-center gap-4 relative z-10 pt-32" // Added pt-10 here
+                  className="flex flex-col items-center gap-4 relative z-10 pt-32"
                   variants={menuVariants}
                   initial="closed"
                   animate="open"
@@ -186,11 +194,11 @@ export const Navbar: React.FC = () => {
                         onClick={() => setIsOpen(false)}
                         asChild
                         variant="ghost"
-                        className={`text-lg  font-semibold w-full justify-center py-2 ${
+                        className={`text-lg font-semibold w-full justify-center py-2 transition-all ${
                           activeHash === href
                             ? "bg-primary/20 text-primary"
-                            : ""
-                        } hover:bg-primary/10 transition-all`} // Fixed className syntax
+                            : "hover:bg-primary/10"
+                        }`}
                       >
                         <Link href={href}>{label}</Link>
                       </Button>
@@ -254,7 +262,7 @@ export const Navbar: React.FC = () => {
                     activeHash === href
                       ? "bg-primary/10 text-primary font-bold"
                       : "hover:bg-muted"
-                  }`} // Fixed className syntax
+                  }`}
                 >
                   {label}
                 </Link>
@@ -264,7 +272,7 @@ export const Navbar: React.FC = () => {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="hidden lg:flex items-center">
+      <div className="hidden lg:flex items-center gap-2">
         <ToggleTheme />
         <Button
           asChild
@@ -284,3 +292,5 @@ export const Navbar: React.FC = () => {
     </motion.header>
   );
 };
+
+export default Navbar;
