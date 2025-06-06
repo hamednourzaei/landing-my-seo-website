@@ -1,12 +1,4 @@
-// app/components/TestimonialSection.tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import { Star } from "lucide-react";
 import TestimonialCarousel from "./TestimonialCarousel";
 

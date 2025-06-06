@@ -10,12 +10,12 @@ export const FooterSection = () => {
           <div className="col-span-full xl:col-span-2">
             <Link href="#" className="flex font-sans font-bold items-center">
               <ChevronsDownIcon className="w-9 h-9 mr-2 bg-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg border border-secondary" />
-              <h3 className="text-2xl">TsarSEO</h3>
+              <h3 className="text-2xl font-normal">TsarSEO</h3>
             </Link>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <h3 className="font-sans font-bold text-lg">Contact</h3>
+          <div className="flex flex-col gap-2 font-light">
+            <h3 className=" font-normal text-lg">Contact</h3>
 
             <div>
               <Link
@@ -39,8 +39,8 @@ export const FooterSection = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <h3 className="font-sans font-bold text-lg">Help</h3>
+          <div className="flex flex-col gap-2 font-light">
+            <h3 className="font-sans font-normal text-lg">Help</h3>
             <div>
               <Link href="#contact" className="opacity-60 hover:opacity-100">
                 Contact Us
@@ -54,9 +54,9 @@ export const FooterSection = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <h3 className="font-sans font-bold text-lg">Socials</h3>
-            <div>
+          <div className="flex flex-col gap-2 ">
+            <h3 className="font-sans font-normal text-lg">Socials</h3>
+            <div className="font-light">
               <Link
                 target="_blank"
                 href="https://x.com/tsarseo_org?s=21"
@@ -67,7 +67,7 @@ export const FooterSection = () => {
               </Link>
             </div>
 
-            <div>
+            <div className="font-light">
               <Link
                 target="_blank"
                 href="https://www.instagram.com/tsarpremiumstream"

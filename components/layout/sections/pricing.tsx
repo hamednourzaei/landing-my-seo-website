@@ -71,7 +71,7 @@ export const PricingSection: React.FC = () => {
   return (
     <section
       dir="rtl"
-      className="container font-kalameh font-extrabold py-16"
+      className="container font-kalameh font-thin py-16"
       style={{ position: "relative" }} // برای رفع خطای non-static position
     >
       <AnimatePresence>
@@ -89,7 +89,7 @@ export const PricingSection: React.FC = () => {
               exit={{ scale: 0.8, opacity: 0 }}
               className="bg-background p-8 rounded-xl shadow-xl text-center text-lg border border-primary"
             >
-              <div className="animate-pulse mb-4 text-primary font-bold">
+              <div className="animate-pulse mb-4 text-primary font-thin">
                 در حال ثبت سفارش...
               </div>
               <div>{successMessage}</div>
@@ -111,7 +111,7 @@ export const PricingSection: React.FC = () => {
         با TsarSEO به قله‌های گوگل برسید
       </motion.h2>
       <motion.h3
-        className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14"
+        className="md:w-1/2 mx-auto text-xl text-center font-thin text-muted-foreground pb-14"
         style={{ position: "relative" }}
       >
         تعداد بازدید موردنظرتان را انتخاب کنید و با تحلیل‌های دقیق سئو،
@@ -121,14 +121,14 @@ export const PricingSection: React.FC = () => {
       <motion.div className="max-w-4xl mx-auto" style={{ position: "relative" }}>
         <Card className="text-right border-[1.5px] border-primary drop-shadow-md">
           <CardHeader>
-            <CardTitle className="text-lg text-center sm:text-2xl md:text-4xl  font-kalameh font-bold">پلن سفارشی</CardTitle>
-            <CardDescription className="py-2 text-sm text-center sm:text-xl md:text-2xl font-kalameh font-bold ">
+            <CardTitle className="text-lg text-center sm:text-2xl md:text-4xl  font-kalameh font-bold">خرید بازدید سایت</CardTitle>
+            <CardDescription className="py-2 text-sm text-center sm:text-xl md:text-2xl font-kalameh font-thin ">
               ترافیک و گزارش سئو بر اساس نیاز شما
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="text-center">
-              <p className="text-3xl font-bold text-primary">
+              <p className="text-3xl font-thin text-primary">
                 {totalPrice.toLocaleString()} تومان
               </p>
               <p className="text-muted-foreground">
@@ -136,7 +136,7 @@ export const PricingSection: React.FC = () => {
               </p>
             </div>
             <div>
-              <label className="block mb-2 text-base lg:text-1xl sm:text-2xl md:text-1xl  font-kalameh font-bold text-muted-foreground">
+              <label className="block mb-2 text-base lg:text-1xl sm:text-2xl md:text-1xl  font-kalameh font-thin text-muted-foreground">
                 تعداد بازدید:
               </label>
               <Slider

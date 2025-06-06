@@ -130,28 +130,28 @@ export const HeroSection = () => {
   });
 
   return (
-    <section className="container w-full mx-auto font-kalameh font-semibold">
+    <section className="container w-full mx-auto ">
       <div className="grid place-items-center lg:max-w-screen-xl gap-10 mx-auto py-20 md:py-32 px-4">
         <div className="text-center space-y-8">
-          <Badge variant="outline" className="text-sm py-1.5 px-4 rounded-md">
-            <span className="text-primary font-extrabold">New</span>
+          <Badge variant="outline" className="text-sm py-1.5 px-4 rounded-lg">
+            <span className="text-primary font-medium">New</span>
             <span className="mx-2">|</span>
-            <span className="font-extrabold">سرویس حرفه‌ای برای رشد آنلاین</span>
+            <span className="font-light">سرویس حرفه‌ای برای رشد آنلاین</span>
           </Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight tracking-tight">
             بازدید واقعی + تحلیل سئوی حرفه‌ای
             <br />
-            <span className="inline-block text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
+            <span className="inline-block  text-transparent font-light bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
               فقط با یک کلیک
             </span>
           </h1>
-          <p className="max-w-screen-sm mx-auto text-lg md:text-xl text-muted-foreground font-extrabold text-right leading-relaxed">
-            تحلیل دقیق سئو برای متخصص‌ها و بازدید واقعی برای سایت‌هایی که می‌خوان در گوگل دیده شن.
+          <p className="max-w-screen-sm mx-auto text-lg md:text-xl  text-muted-foreground font-light text-center leading-relaxed">
+            تحلیل دقیق سئو و بازدید واقعی برای سایت‌هایی که می‌خوان در گوگل دیده شن
           </p>
           <div className="mt-10">
             <Link
               href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 text-lg font-extrabold bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3 text-lg font-light bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
             >
               ببین سایتت برای سئو چقدر آمادست
               <ArrowRight className="size-5" />

@@ -66,7 +66,7 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
       animate={{ opacity: 1, ...animation }}
       style={{ willChange: "opacity, background" }}
     >
-      <Card className="h-full bg-muted/50 dark:bg-card overflow-hidden">
+      <Card className="h-full bg-muted/50  dark:bg-card overflow-hidden border-[1px] border-orange-800 shadow-xl shadow-orange-400/30">
         <CardContent className="pt-6 pb-0">
           <div className="flex gap-1 pb-6">{stars}</div>
           {story.url ? (
@@ -74,12 +74,12 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
               href={story.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
+              className=" font-medium hover:underline"
             >
               {story.comment}
             </a>
           ) : (
-            <p>{story.comment}</p>
+            <p className="font-light">{story.comment}</p>
           )}
         </CardContent>
         <CardHeader>
@@ -94,8 +94,8 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <CardTitle className="text-lg">{story.name}</CardTitle>
-              <CardDescription>{story.role}</CardDescription>
+              <CardTitle className="text-lg font-light">{story.name}</CardTitle>
+              <CardDescription className="font-light">{story.role}</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -168,7 +168,7 @@ export default function TestimonialCarousel({
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-      <div className="text-center mt-4 font-semibold text-muted-foreground">
+      <div className="text-center mt-4 font-light text-muted-foreground">
         {current} / {total}
       </div>
     </div>

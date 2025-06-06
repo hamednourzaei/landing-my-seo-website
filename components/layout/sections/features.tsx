@@ -81,7 +81,7 @@ export const FeaturesSection: React.FC = () => {
     <section
       dir="rtl"
       id="features"
-      className="container font-kalameh font-extrabold  py-24 sm:py-32"
+      className="container font-kalameh font-light  py-24 sm:py-32"
     >
       <h2 className="text-xl text-primary text-center mb-2 tracking-wider">
         ویژگی‌های TsarSEO

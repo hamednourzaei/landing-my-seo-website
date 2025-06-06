@@ -15,7 +15,7 @@ import {
 
 interface FAQProps {
   question: string;
-  answer: string;
+  answer: string | string[];
 }
 
 const faqList: FAQProps[] = [
@@ -69,6 +69,15 @@ const faqList: FAQProps[] = [
     answer:
       "پس از پرداخت پلن و ثبت درخواست، گزارش‌های سئو در قالب JSON، PDF، و داشبورد تعاملی HTML به شما تحویل داده می‌شود. این گزارش‌ها شامل تحلیل جامع و پیشنهادات عملی هستند و می‌توانید آن‌ها را به‌راحتی با تیم خود به اشتراک بگذارید.",
   },
+  {
+    question: "چرا خدمت سفارش تحقیق کلمه کلیدی TsarSEO برای شما ضروری است؟",
+    answer: [
+      "بهینه سازی دقیق تر محتوا: کلمات کلیدی ارائه شده به طور کامل با محتوای صفحه شما هماهنگ هستند و باعث بهبود ارتباط محتوای سایت با جستجوهای کاربران می شوند.",
+      "تمرکز بر نیازهای بازار ایران: این خدمت با تحلیل رفتار جستجوی کاربران فارسی زبان، کلماتی را ارائه می دهد که مستقیما با نیازهای مخاطبان ایرانی سازگار هستند.",
+      "صرفه جویی در وقت و هزینه: تحقیق دستی کلمات کلیدی می تواند بسیار وقت گیر باشد. ما این فرآیند را سریع و کارآمد کرده ایم.",
+      "افزایش بازدیدهای هدفمند: با استفاده از کلمات کلیدی مناسب می توانید مخاطبانی را جذب کنید که به طور خاص به دنبال محصولات یا خدمات شما هستند."
+    ],
+  }
 ];
 
 export const FAQSection: React.FC = () => {
@@ -86,16 +95,26 @@ export const FAQSection: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-8">
-        <Card className="bg-muted/60 dark:bg-card">
+      <Card className="bg-muted/60 dark:bg-card  shadow-2xl shadow-orange-900/80">
+
           <CardHeader>
-            <CardTitle className="text-2xl text-center">سوالات رایج</CardTitle>
+            <CardTitle className="text-2xl text-center font-medium">سوالات رایج</CardTitle>
           </CardHeader>
-          <CardContent>
-            <Accordion type="single" collapsible className="w-full">
+          <CardContent >
+            <Accordion type="single" collapsible className="w-full ">
               {faqList.map(({ question, answer }, index) => (
-                <AccordionItem key={index} value={`item-${index}`} >
-                  <AccordionTrigger className="text-xs md:text-xl lg:text-xl sm:text-xs  ">{question}</AccordionTrigger>
-                  <AccordionContent className="text-xs md:text-base lg:text-base sm:text-xs ">{answer}</AccordionContent>
+                <AccordionItem key={index} value={`item-${index}`} className="border-[1px] border-orange-800 shadow-xl shadow-orange-400/10" >
+                  <AccordionTrigger className="text-xs md:text-xl lg:text-xl sm:text-xs font-medium  ">{question}</AccordionTrigger>
+                  <AccordionContent className="text-xs md:text-base font-light lg:text-lg sm:text-xs ">
+  {Array.isArray(answer) ? (
+    answer.map((line, i) => (
+      <p key={i} className="mb-2 leading-relaxed">{line}</p>
+    ))
+  ) : (
+    <p className="leading-relaxed">{answer}</p>
+  )}
+</AccordionContent>
+
                 </AccordionItem>
               ))}
             </Accordion>

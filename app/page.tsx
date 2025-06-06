@@ -14,7 +14,6 @@ export const metadata = {
   description: " TsarSEO landing page for people",
   openGraph: {
     type: "website",
-    url: "https://github.com/nobruf/shadcn-landing-page.git",
     title: "TsarSEO - Landing template",
     description: " TsarSEO landing page for people",
     images: [

@@ -54,15 +54,15 @@ export const StatsCardsClient = ({ stats }: { stats: any[] }) => {
                 </>
               ) : (
                 <div className="text-center font-kalameh">
-                  <p className="text-xs sm:md:text-xl md:text-xl lg:text-2xl font-bold text-primary mb-1">
+                  <p className="text-xs sm:md:text-xl md:text-xl lg:text-2xl font-light text-primary mb-1">
                     <CountUp end={stat.value} duration={2} separator="," />
                     {stat.title.includes("بازدید") && ""}
                   </p>
-                  <p className="text-xs sm:md:text-xl md:text-xl lg:text-2xl font-semibold text-muted-foreground mb-1">
+                  <p className="text-xs sm:md:text-xl md:text-xl lg:text-2xl font-light text-muted-foreground mb-1">
                     {stat.title}
                   </p>
                   <p
-                    className={`text-xs sm:md:text-base md:text-base lg:text-xl font-bold ${
+                    className={`text-xs sm:md:text-base md:text-base lg:text-xl font-light ${
                       stat.growth >= 0 ? "text-green-500" : "text-red-500"
                     }`}
                   >
@@ -77,7 +77,7 @@ export const StatsCardsClient = ({ stats }: { stats: any[] }) => {
           {!isLoading && (
             <DialogContent className="w-full max-w-md p-6 font-kalameh text-right">
               <DialogHeader>
-                <DialogTitle className="text-xl font-extrabold">
+                <DialogTitle className="text-xl font-light">
                   {stat.title}
                 </DialogTitle>
                 <DialogDescription className="text-sm text-muted-foreground">

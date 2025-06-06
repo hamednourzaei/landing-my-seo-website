@@ -101,10 +101,10 @@ export const SponsorsSection = () => {
     <section
       id="features"
       ref={ref}
-      className="max-w-[90%] mx-auto font-kalameh font-extrabold "
+      className="max-w-[90%] mx-auto font-kalameh font-light "
     >
       <motion.h1
-        className="text-base sm:text-lg md:text-xl text-center text-primary"
+        className="text-base sm:text-lg md:text-xl font-semibold text-center text-primary"
         style={{ y: yOffset, scale }}
       >
         چرا باید{" "}
@@ -145,7 +145,7 @@ export const SponsorsSection = () => {
           features.map(({ icon, name }, index) => (
             <motion.div
               key={index}
-              className="absolute flex items-center text-xs sm:text-sm md:text-base font-sans font-semibold z-10"
+              className="absolute flex items-center text-xs sm:text-sm md:text-base font-light z-10"
               animate={
                 currentAssignments[index] !== undefined
                   ? {

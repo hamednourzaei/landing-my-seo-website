@@ -18,13 +18,13 @@ const benefitList: BenefitsProps[] = [
   },
   {
     icon: "Users",
-    title: "تبدیل بازدید به مشتری",
+    title: "افزایش بازدید سایت",
     description: "استراتژی‌های بهینه‌سازی برای جذب مخاطبان واقعی و افزایش فروش.",
   },
   {
     icon: "Gauge",
-    title: "رابط کاربری ساده و قدرتمند",
-    description: "مدیریت آسان کمپین‌های سئو از طریق داشبورد حرفه‌ای ما.",
+    title: "ترافیک‌سازی از  شبکه های اجتماعی",
+    description: "به سادگی کمپین‌های سئوی خود را با تیم حرفه‌ای و قدرتمند ما مدیریت کنید",
   },
   {
     icon: "ShieldCheck",
@@ -44,13 +44,13 @@ export const BenefitsSection: React.FC = () => {
       <hr className="border-secondary mb-8" />
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-24 place-items-center">
         <div className="max-w-lg">
-          <h2 className="text-base sm:text-2xl md:text-4xl text-primary text-center mb-3 tracking-wide">
+          <h2 className="text-base font-thin sm:text-2xl md:text-4xl text-primary text-center mb-3 tracking-wide">
             مزایای TsarSEO
           </h2>
           <h1 className="text-base sm:text-2xl md:text-4xl font-kalameh font-bold text-center mb-4">
             با TsarSEO پادشاه رشد آنلاین شوید
           </h1>
-          <p className="text-base sm:text-lg text-muted-foreground text-center mb-8">
+          <p className="text-base sm:text-lg font-extralight text-muted-foreground text-center mb-8">
             ابزارهای حرفه‌ای ما به شما کمک می‌کنند تا با تحلیل‌های دقیق و ترافیک واقعی، در دنیای دیجیتال بدرخشید.
           </p>
         </div>
@@ -82,9 +82,9 @@ export const BenefitsSection: React.FC = () => {
                       {index + 1}
                     </span>
                   </div>
-                  <CardTitle className="text-base sm:text-lg md:text-xl">{title}</CardTitle>
+                  <CardTitle className="text-base font-light sm:text-lg md:text-xl">{title}</CardTitle>
                 </CardHeader>
-                <CardContent className="text-muted-foreground text-sm sm:text-base md:text-lg">
+                <CardContent className="text-muted-foreground font-thin text-sm sm:text-base md:text-lg">
                   {description}
                 </CardContent>
               </Card>

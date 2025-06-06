@@ -129,7 +129,7 @@ export const Navbar: React.FC = () => {
       initial="visible"
       animate={isHeaderVisible ? "visible" : "hidden"}
     >
-      <Link href="/" className="font-bold text-lg flex items-center">
+      <Link href="/" className="font-normal text-lg flex items-center">
         <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
         TsarSEO
       </Link>
