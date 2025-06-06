@@ -1,3 +1,4 @@
+
 import { BenefitsSection } from "@/components/layout/sections/benefits";
 import { ContactSection } from "@/components/layout/sections/contact";
 import { FAQSection } from "@/components/layout/sections/faq";
