@@ -1,10 +1,10 @@
 "use client";
 
-import { ChevronsDown, Menu, X } from "lucide-react";
+import { ChevronsDown, Github, Menu, X } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sheet,
   SheetContent,
@@ -58,22 +58,17 @@ const FEATURE_LIST: Feature[] = [
 ];
 
 const menuVariants = {
-  closed: { x: "90%", opacity: 0 },
+  closed: { x: "100%", opacity: 0 },
   open: {
     x: 0,
     opacity: 1,
-    transition: { type: "spring", stiffness: 100, damping: 20 },
+    transition: { type: "spring", stiffness: 150, damping: 25, duration: 0.3 },
   },
 };
 
 const itemVariants = {
   closed: { opacity: 0, x: 20 },
-  open: { opacity: 1, x: 0, transition: { delay: 0.1 } },
-};
-
-const headerVariants = {
-  visible: { opacity: 1, y: 0 },
-  hidden: { opacity: 0, y: 0 }, // y ثابت، فقط opacity تغییر می‌کند
+  open: { opacity: 1, x: 0, transition: { delay: 0.1, duration: 0.2 } },
 };
 
 const useScrollHandler = () => {
@@ -128,23 +123,16 @@ SafeToggleTheme.displayName = "SafeToggleTheme";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const headerControls = useAnimation();
   const isScrolling = useScrollHandler();
   const activeHash = useActiveHash();
 
-  useEffect(() => {
-    headerControls.start(isOpen ? "hidden" : "visible");
-  }, [isOpen, headerControls]);
-
   return (
-    <motion.header
+    <header
       className={cn(
         "sticky top-5 z-40 mx-auto w-[90%] md:w-[70%] lg:w-[75%] max-w-screen-xl rounded-2xl bg-card/90 px-4 py-2 shadow-inner transition-all duration-75",
         { "border border-orange-500": isScrolling }
       )}
-      variants={headerVariants}
-      initial="visible"
-      animate={headerControls}
+      style={{ willChange: "border-color" }}
       aria-label="نوار ناوبری اصلی"
     >
       <div className="flex items-center justify-between">
@@ -298,7 +286,7 @@ const Navbar: React.FC = () => {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-    </motion.header>
+    </header>
   );
 };
 
