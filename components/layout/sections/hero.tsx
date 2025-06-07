@@ -110,7 +110,7 @@ const fetchStats = async () => {
 
 const StatsCardsSkeleton = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  w-full">
       {[...Array(6)].map((_, index) => (
         <div key={index} className="p-4 border rounded-xl shadow-sm bg-background">
           <Skeleton className="h-6 w-3/4 mb-2" />
@@ -130,7 +130,7 @@ export const HeroSection = () => {
   });
 
   return (
-    <section className="container w-full mx-auto ">
+    <section className="container w-full mt-7 mx-auto ">
       <div className="grid place-items-center lg:max-w-screen-xl gap-10 mx-auto py-20 md:py-32 px-4">
         <div className="text-center space-y-8">
           <Badge variant="outline" className="text-sm py-1.5 px-4 rounded-lg">
