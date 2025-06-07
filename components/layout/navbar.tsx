@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronsDown, Github, Menu, X } from "lucide-react";
+import { ChevronsDown, Menu, X } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -71,6 +71,11 @@ const itemVariants = {
   open: { opacity: 1, x: 0, transition: { delay: 0.1 } },
 };
 
+const headerVariants = {
+  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 0 }, // y ثابت، فقط opacity تغییر می‌کند
+};
+
 const useScrollHandler = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const lastScrollY = useRef(0);
@@ -137,7 +142,7 @@ const Navbar: React.FC = () => {
         "sticky top-5 z-40 mx-auto w-[90%] md:w-[70%] lg:w-[75%] max-w-screen-xl rounded-2xl bg-card/90 px-4 py-2 shadow-inner transition-all duration-75",
         { "border border-orange-500": isScrolling }
       )}
-      variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: -20 } }}
+      variants={headerVariants}
       initial="visible"
       animate={headerControls}
       aria-label="نوار ناوبری اصلی"
