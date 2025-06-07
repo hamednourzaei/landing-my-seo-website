@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronsDown, Github, Menu, X } from "lucide-react";
-import React, { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
@@ -59,7 +59,11 @@ const FEATURE_LIST: Feature[] = [
 
 const menuVariants = {
   closed: { x: "90%", opacity: 0 },
-  open: { x: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 20 } },
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 100, damping: 20 },
+  },
 };
 
 const itemVariants = {
@@ -71,36 +75,31 @@ const useScrollHandler = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const lastScrollY = useRef(0);
 
-  // تابع debounce برای مخفی کردن بوردر بعد از 2 ثانیه توقف
-  const hideBorder = useCallback(
-    debounce(() => {
-      setIsScrolling(false);
-    }, 2000),
-    []
-  );
-
-  const handleScroll = useCallback(
-    throttle(() => {
-      const currentScrollY = window.scrollY;
-      // اگر اسکرول به بالا یا پایین انجام شده، بوردر رو نشون بده
-      if (Math.abs(currentScrollY - lastScrollY.current) > 5) {
-        setIsScrolling(true);
-        hideBorder(); 
-
-      }
-      lastScrollY.current = currentScrollY;
-    }, 100),
-    [hideBorder]
-  );
+  const hideBorderRef = useRef<ReturnType<typeof debounce>>();
+  const handleScrollRef = useRef<ReturnType<typeof throttle>>();
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    hideBorderRef.current = debounce(() => {
+      setIsScrolling(false);
+    }, 2000);
+
+    handleScrollRef.current = throttle(() => {
+      const currentScrollY = window.scrollY;
+      if (Math.abs(currentScrollY - lastScrollY.current) > 5) {
+        setIsScrolling(true);
+        hideBorderRef.current?.();
+      }
+      lastScrollY.current = currentScrollY;
+    }, 100);
+
+    window.addEventListener("scroll", handleScrollRef.current, { passive: true });
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      handleScroll.cancel();
-      hideBorder.cancel();
+      window.removeEventListener("scroll", handleScrollRef.current!);
+      handleScrollRef.current?.cancel();
+      hideBorderRef.current?.cancel();
     };
-  }, [handleScroll, hideBorder]);
+  }, []);
 
   return isScrolling;
 };
@@ -120,6 +119,7 @@ const useActiveHash = () => {
 };
 
 const SafeToggleTheme = React.memo(() => <ToggleTheme />);
+SafeToggleTheme.displayName = "SafeToggleTheme";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -130,8 +130,6 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     headerControls.start(isOpen ? "hidden" : "visible");
   }, [isOpen, headerControls]);
-
-  const memoizedRouteList = useMemo(() => ROUTE_LIST, []);
 
   return (
     <motion.header
@@ -185,7 +183,10 @@ const Navbar: React.FC = () => {
               aria-describedby="mobile-menu-title"
             >
               <SheetHeader className="mb-6">
-                <SheetTitle id="mobile-menu-title" className="flex items-center justify-center">
+                <SheetTitle
+                  id="mobile-menu-title"
+                  className="flex items-center justify-center"
+                >
                   <Link href="/" className="flex items-center" aria-label="صفحه اصلی TsarSEO">
                     <ChevronsDown
                       className="ml-2 h-9 w-9 rounded-lg border border-secondary bg-gradient-to-tr from-primary via-primary/70 to-primary text-white"
@@ -207,7 +208,7 @@ const Navbar: React.FC = () => {
                     role="navigation"
                     aria-label="منوی موبایل"
                   >
-                    {memoizedRouteList.map(({ href, label }) => (
+                    {ROUTE_LIST.map(({ href, label }) => (
                       <motion.div key={href} variants={itemVariants}>
                         <Button
                           onClick={() => setIsOpen(false)}
@@ -215,7 +216,9 @@ const Navbar: React.FC = () => {
                           variant="ghost"
                           className={cn(
                             "w-full justify-center py-2 text-lg font-semibold transition-all",
-                            activeHash === href ? "bg-primary/20 text-primary" : "hover:bg-primary/10"
+                            activeHash === href
+                              ? "bg-primary/20 text-primary"
+                              : "hover:bg-primary/10"
                           )}
                           aria-current={activeHash === href ? "page" : undefined}
                         >
@@ -267,41 +270,28 @@ const Navbar: React.FC = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            {memoizedRouteList.map(({ href, label }) => (
+            {ROUTE_LIST.map(({ href, label }) => (
               <NavigationMenuItem key={href}>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                <Link
+                  href={href}
+                  className={cn(
+                    "inline-block rounded-md px-3 py-2 text-sm font-semibold no-underline outline-none transition-colors hover:bg-muted focus:bg-muted",
+                    activeHash === href
+                      ? "bg-primary/20 text-primary"
+                      : "text-foreground"
+                  )}
+                  aria-current={activeHash === href ? "page" : undefined}
                 >
-                  <Link
-                    href={href}
-                    className={cn(
-                      "rounded-md px-3 py-1 text-base transition-all",
-                      activeHash === href ? "bg-primary/10 text-primary font-bold" : "hover:bg-muted"
-                    )}
-                    aria-current={activeHash === href ? "page" : undefined}
-                  >
-                    {label}
-                  </Link>
-                </motion.div>
+                  {label}
+                </Link>
               </NavigationMenuItem>
             ))}
+
+            <NavigationMenuItem>
+              <SafeToggleTheme />
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-
-        <div className="hidden lg:flex items-center gap-2">
-          <SafeToggleTheme />
-          <Button
-            asChild
-            size="sm"
-            variant="ghost"
-            aria-label="مشاهده کد منبع در گیت‌هاب"
-          >
-            <Link href="https://github.com/hamednourzaei/landing-my-seo-website" target="_blank">
-              <Github className="h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
       </div>
     </motion.header>
   );
