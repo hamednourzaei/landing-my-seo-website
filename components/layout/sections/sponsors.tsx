@@ -1,14 +1,16 @@
 "use client";
 
-import { Icon } from "@/components/ui/icon";
+import  Icon  from "@/components/ui/icon";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { icons } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+type IconName = "BarChart2" | "Users" | "Zap" | "Trophy" | "Server" | "Globe" | "CircleDot";
 
 interface FeatureProps {
-  icon: string;
+  icon: IconName;
   name: string;
 }
+
+
 
 const features: FeatureProps[] = [
   { icon: "BarChart2", name: "تحلیل پیشرفته سئو" },
@@ -17,7 +19,7 @@ const features: FeatureProps[] = [
   { icon: "Trophy", name: "بهبود رتبه گوگل" },
   { icon: "Server", name: "در ۵۸۸ سایت انلاین" },
   { icon: "Globe", name: "پشتیبانی چندزبانه" },
-  { icon: "Circle", name: " 1 میلیون بازدید " },
+  { icon: "CircleDot", name: "۱ میلیون بازدید" },
 ];
 
 export const SponsorsSection = () => {
@@ -38,7 +40,9 @@ export const SponsorsSection = () => {
           ? Math.min(w * 0.9, 900)
           : Math.max(200, w < 900 ? 650 : 750)
         : Math.max(200, w * 0.9);
-        const height = isLarge ? Math.max(150, width * 0.5) : Math.max(200, width * 0.6);
+      const height = isLarge
+        ? Math.max(150, width * 0.5)
+        : Math.max(200, width * 0.6);
       setWindowSize({ width, height });
       setIsLargeScreen(isLarge);
     };
@@ -63,8 +67,14 @@ export const SponsorsSection = () => {
       const angle = (i / total) * 2 * Math.PI;
       let x = centerX + a * Math.cos(angle);
       let y = centerY + b * Math.sin(angle);
-      x = Math.max(itemWidth / 2 + margin, Math.min(width - itemWidth / 2 - margin, x));
-      y = Math.max(itemHeight / 2 + margin, Math.min(height - itemHeight / 2 - margin, y));
+      x = Math.max(
+        itemWidth / 2 + margin,
+        Math.min(width - itemWidth / 2 - margin, x)
+      );
+      y = Math.max(
+        itemHeight / 2 + margin,
+        Math.min(height - itemHeight / 2 - margin, y)
+      );
       positions.push({ x, y });
     }
 
@@ -91,7 +101,9 @@ export const SponsorsSection = () => {
   useEffect(() => {
     if (isLargeScreen) {
       const interval = setInterval(() => {
-        setAssignments(shuffleArray(Array.from({ length: features.length }, (_, i) => i)));
+        setAssignments(
+          shuffleArray(Array.from({ length: features.length }, (_, i) => i))
+        );
       }, 5000);
       return () => clearInterval(interval);
     }
@@ -101,17 +113,13 @@ export const SponsorsSection = () => {
     <section
       id="features"
       ref={ref}
-      className="mx-auto  max-w-7xl px-4 sm:px-6 lg:px-8 font-kalameh font-light"
+      className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 font-kalameh font-light"
     >
       <motion.h1
         className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-8"
         style={{ y: yOffset, scale }}
       >
-          را انتخاب کنید؟ 
-        <span className="text-primary">         TsarSEO 
-   </span>
-                      چرا باید  
-
+        چرا باید <span className="text-primary">TsarSEO</span> را انتخاب کنید؟
       </motion.h1>
 
       <div
@@ -126,7 +134,8 @@ export const SponsorsSection = () => {
             {basePositions.length === features.length &&
               features.map((_, i) => {
                 const start = basePositions[currentAssignments[i]];
-                const end = basePositions[currentAssignments[(i + 1) % features.length]];
+                const end =
+                  basePositions[currentAssignments[(i + 1) % features.length]];
                 return (
                   <motion.path
                     key={i}
@@ -162,12 +171,14 @@ export const SponsorsSection = () => {
             >
               <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all duration-75 w-full min-w-[160px] max-w-[250px]">
                 <Icon
-                  name={icon as keyof typeof icons}
+                  name={icon}
                   size={18}
                   color="hsl(var(--primary))"
                   className="ml-2"
                 />
-                <span className="text-muted-foreground whitespace-nowrap">{name}</span>
+                <span className="text-muted-foreground whitespace-nowrap">
+                  {name}
+                </span>
               </div>
             </motion.div>
           ))
@@ -179,12 +190,14 @@ export const SponsorsSection = () => {
                 className="flex items-center gap-2 px-4 py-2 bg-muted/50 dark:bg-card rounded-lg w-full max-w-[250px] hover:bg-background transition-all duration-75"
               >
                 <Icon
-                  name={icon as keyof typeof icons}
+                  name={icon}
                   size={18}
                   color="hsl(var(--primary))"
                   className="ml-2"
                 />
-                <span className="text-muted-foreground text-sm sm:text-base whitespace-nowrap">{name}</span>
+                <span className="text-muted-foreground text-sm sm:text-base whitespace-nowrap">
+                  {name}
+                </span>
               </div>
             ))}
           </div>

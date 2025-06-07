@@ -1,11 +1,11 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Icon } from "@/components/ui/icon";
+import Icon, { IconName } from "@/components/ui/icon"; // ایمپورت IconName
 import { motion } from "framer-motion";
 
 interface BenefitsProps {
-  icon: keyof typeof import("lucide-react").icons;
+  icon: IconName; // استفاده از IconName به‌جای keyof typeof import("lucide-react").icons
   title: string;
   description: string;
 }
@@ -23,7 +23,7 @@ const benefitList: BenefitsProps[] = [
   },
   {
     icon: "Gauge",
-    title: "ترافیک‌سازی از  شبکه های اجتماعی",
+    title: "ترافیک‌سازی از شبکه‌های اجتماعی",
     description: "به سادگی کمپین‌های سئوی خود را با تیم حرفه‌ای و قدرتمند ما مدیریت کنید",
   },
   {
@@ -32,7 +32,6 @@ const benefitList: BenefitsProps[] = [
     description: "با زیرساخت‌های امن و پشتیبانی شبانه‌روزی، اعتماد کاربران را جلب کنید.",
   },
 ];
-
 
 export const BenefitsSection: React.FC = () => {
   return (
@@ -64,7 +63,7 @@ export const BenefitsSection: React.FC = () => {
               whileHover={{
                 borderColor: "rgba(255, 108, 0, 0.7)",
                 boxShadow: "0 0 35px rgba(255, 108, 0, 0.5)",
-                transition: { duration: 0.5, ease: "easeInOut" }
+                transition: { duration: 0.5, ease: "easeInOut" },
               }}
             >
               <Card
@@ -82,7 +81,9 @@ export const BenefitsSection: React.FC = () => {
                       {index + 1}
                     </span>
                   </div>
-                  <CardTitle className="text-base font-light sm:text-lg md:text-xl">{title}</CardTitle>
+                  <CardTitle className="text-base font-light sm:text-lg md:text-xl">
+                    {title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="text-muted-foreground font-thin text-sm sm:text-base md:text-lg">
                   {description}

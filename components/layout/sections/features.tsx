@@ -1,12 +1,12 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Icon } from "@/components/ui/icon";
+import Icon, { IconName } from "@/components/ui/icon"; // وارد کردن IconName
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface FeaturesProps {
-  icon: keyof typeof import("lucide-react").icons;
+  icon: IconName; // استفاده از IconName به جای string
   title: string;
   description: string;
 }
@@ -15,38 +15,32 @@ const featureList: FeaturesProps[] = [
   {
     icon: "Search",
     title: "کشف فرصت‌های طلایی",
-    description:
-      "تحلیل کلمات کلیدی برای پیدا کردن بهترین فرصت‌ها جهت رشد در نتایج جستجو.",
+    description: "تحلیل کلمات کلیدی برای پیدا کردن بهترین فرصت‌ها جهت رشد در نتایج جستجو.",
   },
   {
     icon: "Users",
     title: "افزایش بازدید هدفمند",
-    description:
-      "جذب کاربرانی که واقعاً به خدمات شما نیاز دارند با بهینه‌سازی هوشمند.",
+    description: "جذب کاربرانی که واقعاً به خدمات شما نیاز دارند با بهینه‌سازی هوشمند.",
   },
   {
     icon: "LineChart",
     title: "آمار دقیق لحظه‌ای",
-    description:
-      "دریافت گزارش‌های زنده از عملکرد سایت و بررسی مسیر پیشرفت سئو.",
+    description: "دریافت گزارش‌های زنده از عملکرد سایت و بررسی مسیر پیشرفت سئو.",
   },
   {
     icon: "Globe",
     title: "حضور جهانی قدرتمند",
-    description:
-      "عرضه خدمات سئو برای بازارهای بین‌المللی با پشتیبانی چندزبانه.",
+    description: "عرضه خدمات سئو برای بازارهای بین‌المللی با پشتیبانی چندزبانه.",
   },
   {
     icon: "Zap",
     title: "پاسخ‌دهی سریع و دقیق",
-    description:
-      "آنالیز جامع سایت تنها در چند دقیقه با الگوریتم‌های پیشرفته ما.",
+    description: "آنالیز جامع سایت تنها در چند دقیقه با الگوریتم‌های پیشرفته ما.",
   },
   {
     icon: "Lock",
     title: "اطمینان در امنیت",
-    description:
-      "نگهداری امن اطلاعات شما با سیستم‌های رمزنگاری و نظارت پیشرفته.",
+    description: "نگهداری امن اطلاعات شما با سیستم‌های رمزنگاری و نظارت پیشرفته.",
   },
 ];
 
@@ -81,7 +75,7 @@ export const FeaturesSection: React.FC = () => {
     <section
       dir="rtl"
       id="features"
-      className="container font-kalameh font-light  py-24 sm:py-32"
+      className="container font-kalameh font-light py-24 sm:py-32"
     >
       <h2 className="text-xl text-primary text-center mb-2 tracking-wider">
         ویژگی‌های TsarSEO
@@ -90,11 +84,10 @@ export const FeaturesSection: React.FC = () => {
         ابزارهای حرفه‌ای برای فرمانروایی دیجیتال
       </h2>
       <h3 className="text-base lg:text-2xl md:text-xl text-center text-muted-foreground mb-8">
-        با قابلیت‌های پیشرفته TsarSEO، تحلیل سئو و ترافیک سایت خود را به سطحی
-        جدید ببرید.
+        با قابلیت‌های پیشرفته TsarSEO، تحلیل سئو و ترافیک سایت خود را به سطحی جدید ببرید.
       </h3>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {featureList.map(({ icon, title, description }, index) => (
           <motion.div
             key={index}
