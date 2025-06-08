@@ -119,7 +119,11 @@ export const SponsorsSection = () => {
         className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-8"
         style={{ y: yOffset, scale }}
       >
-        چرا باید <span className="text-primary">TsarSEO</span> را انتخاب کنید؟
+        را انتخاب کنید؟
+        <span className="text-primary">TsarSEO</span> 
+        چرا باید 
+
+       
       </motion.h1>
 
       <div
