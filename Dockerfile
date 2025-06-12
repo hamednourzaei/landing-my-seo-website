@@ -1,16 +1,29 @@
-FROM node:18-alpine AS build
+# مرحله اول: بیلد پروژه
+FROM node:18-alpine AS builder
 
-WORKDIR /app
+WORKDIR /
 
 COPY package*.json ./
-RUN npm install
+
+RUN npm ci
 
 COPY . .
-RUN npm set fetch-retries 5 && npm ci
 
-# تولید نسخه پروداکشن (اگر دارید از next export استفاده می‌کنید، تغییر دارد)
-# RUN npm run export  # فقط اگر سایت استاتیک می‌خوای بسازی
+RUN npm run build
+
+# مرحله دوم: اجرای پروژه
+FROM node:18-alpine
+
+WORKDIR /
+
+COPY package*.json ./
+RUN npm ci --production
+
+COPY --from=builder /.next /.next
+COPY --from=builder /public /public
+COPY --from=builder /next.config.js /next.config.js
+COPY --from=builder /node_modules /node_modules
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
