@@ -99,13 +99,13 @@ export const PricingSection: React.FC = () => {
       </AnimatePresence>
 
       <motion.h2
-        className="text-lg text-primary text-center mb-2 tracking-wider"
+        className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-3 tracking-wide"
         style={{ position: "relative" }}
       >
         پلن‌های TsarSEO
       </motion.h2>
       <motion.h2
-        className="text-3xl md:text-4xl text-center font-bold mb-4"
+        className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center  mb-3 tracking-wide"
         style={{ position: "relative" }}
       >
         با TsarSEO به قله‌های گوگل برسید
@@ -122,8 +122,8 @@ export const PricingSection: React.FC = () => {
         <Card className="text-right border-[1.5px] border-primary drop-shadow-md">
           <CardHeader>
             <CardTitle className="text-lg text-center sm:text-2xl md:text-4xl  font-kalameh font-bold">خرید بازدید سایت</CardTitle>
-            <CardDescription className="py-2 text-sm text-center sm:text-xl md:text-2xl font-kalameh font-thin ">
-              ترافیک و گزارش سئو بر اساس نیاز شما
+            <CardDescription className="py-2 text-sm text-center sm:text-xl md:text-2xl lg:text-2xl font-medium  ">
+              ترافیک وگزارش سئو بر اساس نیاز شما
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
