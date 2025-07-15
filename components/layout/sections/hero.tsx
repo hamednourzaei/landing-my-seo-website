@@ -151,7 +151,7 @@ export const HeroSection = () => {
           <div className="mt-10">
             <Link
               href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 text-lg font-light bg-gradient-to-r from-[#D247BF] to-primary text-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-1 text-md font-kalameh bg-gradient-to-r from-[#D247BF] to-primary text-[#e3e3e3] rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
             >
               ببین سایتت برای سئو چقدر آمادست
               <ArrowRight className="size-5" />
