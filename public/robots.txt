@@ -1,0 +1,25 @@
+User-agent: *
+# اجازه به ایندکس تمام صفحات مهم و اجازه به خزیدن در تمام سایت
+Allow: /
+
+# جلوگیری از ایندکس صفحات حساس یا تکراری (مثال)
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /privacy-policy/
+Disallow: /terms-of-service/
+
+# جلوگیری از خزیدن فایل‌های سیستمی و تنظیمات
+Disallow: /node_modules/
+Disallow: /tmp/
+Disallow: /config/
+
+# جلوگیری از خزیدن فایل‌های متفرقه و غیر ضروری
+Disallow: /*?*
+
+# لینک به سایت‌مپ (حتما آدرس رو با سایت‌مپ واقعی‌ت تنظیم کن)
+Sitemap: https://tsarseo.online/sitemap.xml
+
+
