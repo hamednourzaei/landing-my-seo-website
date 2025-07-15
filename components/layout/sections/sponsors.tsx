@@ -142,7 +142,7 @@ export const SponsorsSection = () => {
               features.map((_, i) => {
                 const start = basePositions[currentAssignments[i]];
                 const end =
-                  basePositions[currentAssignments[(i + 1) % features.length]];
+                  basePositions[currentAssignments[(i + 1) % features.length]]; 
                 return (
                   <motion.path
                     key={i}
