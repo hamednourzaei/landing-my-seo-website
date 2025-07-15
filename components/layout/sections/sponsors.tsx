@@ -119,9 +119,12 @@ export const SponsorsSection = () => {
         className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-8"
         style={{ y: yOffset, scale }}
       >
+        
+       
         را انتخاب کنید؟
+        {" "}
         <span className="text-primary">TsarSEO</span> 
-        چرا باید 
+        {" "}چرا باید 
 
        
       </motion.h1>
@@ -134,7 +137,7 @@ export const SponsorsSection = () => {
         }}
       >
         {isLargeScreen && (
-          <svg className="absolute inset-0 z-0" width="100%" height="100%">
+          <svg className="absolute inset-0 z-0 " width="100%" height="100%">
             {basePositions.length === features.length &&
               features.map((_, i) => {
                 const start = basePositions[currentAssignments[i]];
@@ -187,15 +190,15 @@ export const SponsorsSection = () => {
             </motion.div>
           ))
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 justify-items-center p-4">
+          <div className="grid md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-4 justify-items-center p-4">
             {features.map(({ icon, name }, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 px-4 py-2 bg-muted/50 dark:bg-card rounded-lg w-full max-w-[250px] hover:bg-background transition-all duration-75"
+                className="flex items-center gap-2 px-4 py-1 bg-muted/50 dark:bg-card rounded-lg w-full max-w-[250px] hover:bg-background transition-all duration-75"
               >
                 <Icon
                   name={icon}
-                  size={18}
+                  size={15}
                   color="hsl(var(--primary))"
                   className="ml-2"
                 />
