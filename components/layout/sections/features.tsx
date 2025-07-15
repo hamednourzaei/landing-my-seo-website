@@ -1,12 +1,12 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Icon, { IconName } from "@/components/ui/icon"; // وارد کردن IconName
+import Icon, { IconName } from "@/components/ui/icon";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface FeaturesProps {
-  icon: IconName; // استفاده از IconName به جای string
+  icon: IconName;
   title: string;
   description: string;
 }
@@ -54,71 +54,38 @@ export const FeaturesSection: React.FC = () => {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const animation = {
-    background: [
-      "linear-gradient(45deg, rgba(255, 108, 0, 0.2), rgba(255, 108, 0, 0.1))",
-      "linear-gradient(135deg, rgba(255, 108, 0, 0.3), rgba(255, 108, 0, 0.15))",
-      "linear-gradient(225deg, rgba(255, 108, 0, 0.2), rgba(255, 108, 0, 0.05))",
-    ],
-    boxShadow: [
-      "0 0 5px rgba(255, 108, 0, 0.2)",
-      "0 0 15px rgba(255, 108, 0, 0.4)",
-      "0 0 5px rgba(255, 108, 0, 0.2)",
-    ],
-    transition: {
-      background: { duration: 3, repeat: Infinity, ease: "linear" },
-      boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-    },
-  };
-
   return (
     <section
       dir="rtl"
       id="features"
-      className="container font-kalameh font-light py-24 sm:py-32"
+      className="container max-w-6xl mx-auto py-28 font-kalameh text-white"
     >
-      <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-3 tracking-wide">
-        ویژگی‌های TsarSEO
-      </h2>
-      <h2 className="text-base lg:text-xl md:text-xl text-center font-sans font-bold mb-4">
-        ابزارهای حرفه‌ای برای فرمانروایی دیجیتال
-      </h2>
-      <h3 className="text-sm lg:text-2xl md:text-xl sm:text-xl text-center text-muted-foreground mb-8">
-        با قابلیت‌های پیشرفته TsarSEO، تحلیل سئو و ترافیک سایت خود را به سطحی جدید ببرید.
-      </h3>
+      <header className="mb-14 max-w-xl mx-auto text-center">
+        <h2 className="text-3xl font-extrabold text-primary mb-2 tracking-tight">
+          ویژگی‌های TsarSEO
+        </h2>
+        <p className="text-gray-400 text-lg">
+          ابزارهای حرفه‌ای برای فرمانروایی دیجیتال با تحلیل دقیق و ترافیک واقعی.
+        </p>
+      </header>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-        {featureList.map(({ icon, title, description }, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        {featureList.map(({ icon, title, description }, i) => (
           <motion.div
-            key={index}
-            className="relative rounded-lg"
-            initial={{ opacity: 0 }}
-            animate={isMobile ? { ...animation, opacity: 1 } : { opacity: 1 }}
-            whileHover={!isMobile ? animation : undefined}
+            key={i}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.3 }}
+            className="group cursor-pointer bg-[#121212] rounded-xl p-8 flex flex-col items-center text-center border border-transparent hover:border-orange-500"
           >
-            <Card className="h-full bg-background hover:shadow-lg hover:shadow-[#c1d5ef] transition-all duration-300 cursor-pointer border-0 shadow-none m-0.5">
-              <CardHeader className="flex justify-center items-center">
-                <div className="bg-primary/20 p-2 rounded-full ring-8 ring-primary/10 mb-4">
-                  <Icon
-                    name={icon}
-                    size={24}
-                    color="hsl(var(--primary))"
-                    className="text-primary"
-                  />
-                </div>
-                <CardTitle className="lg:text-3xl md:text-2xl text-xs">
-                  {title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent
-                dir="rtl"
-                className="text-muted-foreground lg:text-xl md:text-xl text-xs text-center line-clamp-4"
-              >
-                {description}
-              </CardContent>
-            </Card>
+            <div className="mb-5 p-3 rounded-full ring-4 ring-orange-400/20 group-hover:ring-orange-500 transition">
+              <Icon name={icon} size={32} color="rgb(255 108 0)" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">{title}</h3>
+            <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
+            <div className="mt-4 w-10 h-1 bg-transparent group-hover:bg-orange-500 rounded transition-all"></div>
           </motion.div>
         ))}
       </div>
