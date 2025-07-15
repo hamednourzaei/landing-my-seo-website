@@ -10,31 +10,29 @@ import { SponsorsSection } from "@/components/layout/sections/sponsors";
 import TestimonialSection from "@/components/layout/sections/testimonial";
 
 export const metadata = {
-  title: "TsarSEO - Landing template",
-  description: " TsarSEO landing page for people",
+  title: "TsarSEO | سئوی سایتت رو راحت و سریع انجام بده!",
+  description:
+    "دیگه لازم نیست متخصص باشی! TsarSEO بهت کمک می‌کنه ترافیک سایتت رو بیشتر کنی، نرخ کلیک رو بالا ببری و رتبه‌ات رو توی گوگل بهتر کنی؛ فقط با چند کلیک و بدون پیچیدگی.",
   openGraph: {
-    type: "website",
-    title: "TsarSEO - Landing template",
-    description: " TsarSEO landing page for people",
+    title: "TsarSEO | سئوی ساده و سریع برای بیشتر دیده شدن",
+    description:
+      "افزایش بازدید، بهبود نرخ کلیک و رشد رتبه سایت در گوگل، بدون نیاز به دانش فنی. همین الان شروع کن؛ نتیجه‌اش رو زود می‌بینی.",
     images: [
       {
         url: "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
         width: 1200,
         height: 630,
-        alt: "TsarSEO - Landing template",
+        alt: "TsarSEO - سئوی آسان و سریع",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    site: "https://github.com/nobruf/shadcn-landing-page.git",
-    title: "TsarSEO - Landing template",
-    description: "Free TsarSEO landing page for people",
-    images: [
-      "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
-    ],
+    title: "TsarSEO | بازدید و کلیک سایتت رو بیشتر کن",
+    description:
+      "با TsarSEO هم رتبه سایتت بهتر میشه، هم ترافیک و نرخ کلیک بالا میره. بدون دردسر، فقط با چند کلیک.",
   },
 };
+
 
 export default function Home() {
   return (
