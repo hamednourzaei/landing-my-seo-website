@@ -91,7 +91,7 @@ const fallbackStats = [
 export async function GET() {
   try {
     const res = await fetch(
-      "https://hamednourzaei.github.io/api-detail/data/stats.json",
+      "https://hamednourzaei.github.io/api-landing/data/stats.json",
       {
         next: { revalidate: 60 }, // کش برای 1 ساعت
       }
