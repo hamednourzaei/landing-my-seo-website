@@ -1,4 +1,3 @@
-
 import { Star } from "lucide-react";
 import TestimonialCarousel from "./TestimonialCarousel";
 
@@ -44,11 +43,9 @@ export default async function TestimonialSection() {
     >
       <hr className="border-secondary mb-8" />
       <div className="text-center mb-8 py-24">
-        <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-          نظرات موفقیت آمیز مشتریان
-        </h2>
-        <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-          TsarSEO موفقیت مشتریان
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-3 tracking-wide">
+        TsarSEO
+          نظرات موفقیت آمیز مشتریان 
         </h2>
       </div>
 
