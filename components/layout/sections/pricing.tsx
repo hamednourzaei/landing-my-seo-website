@@ -42,37 +42,31 @@ export const PricingSection: React.FC = () => {
   }, []);
 
   const benefits = [
-    "بهینه‌سازی کلمات کلیدی با رشد تا ۷۰٪ در نتایج جست‌وجودر ماه های اولیه – هدف‌گیری دقیق بر اساس موقعیت مکانی شما",
-    "گزارش سئو با تحلیل رقبا و پیشنهاد کلمات کلیدی (PDF + داشبورد)",
-    "راه‌اندازی در ۵ دقیقه بدون نیاز به دانش فنی",
-    "قابلیت انتخاب بازدید در چند مسیر سایت شما",
-    "نمونه گزارش رایگان با تحلیل سایت شما",
+    "بهینه‌سازی کلمات کلیدی با رشد تا ۷۰٪",
+    "گزارش سئو با تحلیل رقبا (PDF + داشبورد)",
+    "راه‌اندازی در ۵ دقیقه بدون نیاز فنی",
+    "انتخاب بازدید برای مسیرهای سایت",
+    "نمونه گزارش رایگان با تحلیل سایت",
   ];
 
   const handleSubmit = () => {
     if (!visits) return alert("لطفاً تعداد بازدید را وارد کنید.");
     setLoading(true);
-    setSuccessMessage(
-      `درخواست شما برای ${visits.toLocaleString()} بازدید ثبت شد.`
-    );
+    setSuccessMessage(`درخواست شما برای ${visits.toLocaleString()} بازدید ثبت شد.`);
     setTimeout(() => {
       setLoading(false);
       window.location.hash = `contact?visits=${visits}`;
-      // اسکرول صریح به بخش #contact
       const contactSection = document.getElementById("contact");
       if (contactSection) {
         contactSection.scrollIntoView({ behavior: "smooth" });
-      } else {
-        console.error("Element with id 'contact' not found");
       }
-    }, 2500);
+    }, 2000);
   };
 
   return (
     <section
       dir="rtl"
-      className="container font-kalameh font-thin py-16"
-      style={{ position: "relative" }} // برای رفع خطای non-static position
+      className="container font-kalameh font-thin py-10 sm:py-12 text-muted-foreground"
     >
       <AnimatePresence>
         {loading && (
@@ -81,15 +75,15 @@ export const PricingSection: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            style={{ position: "fixed" }}
+            transition={{ duration: 0.2 }}
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-background p-8 rounded-xl shadow-xl text-center text-lg border border-primary"
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-card p-4 rounded-lg shadow-md text-center text-base border border-primary"
             >
-              <div className="animate-pulse mb-4 text-primary font-thin">
+              <div className="animate-pulse mb-1 text-primary font-thin">
                 در حال ثبت سفارش...
               </div>
               <div>{successMessage}</div>
@@ -99,44 +93,56 @@ export const PricingSection: React.FC = () => {
       </AnimatePresence>
 
       <motion.h2
-        className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-3 tracking-wide"
-        style={{ position: "relative" }}
+        className="text-base sm:text-base font-semibold text-primary mb-2 text-center"
+        initial={{ y: 10, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
       >
         پلن‌های TsarSEO
       </motion.h2>
       <motion.h2
-        className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center  mb-3 tracking-wide"
-        style={{ position: "relative" }}
+        className="text-base sm:text-base font-semibold text-primary mb-3 text-center"
+        initial={{ y: 10, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
       >
         با TsarSEO به قله‌های گوگل برسید
       </motion.h2>
       <motion.h3
-        className="md:w-1/2 mx-auto text-xl text-center font-thin text-muted-foreground pb-14"
-        style={{ position: "relative" }}
+        className="text-base sm:text-sm text-center text-muted-foreground mb-6 max-w-xs mx-auto"
+        initial={{ y: 10, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
       >
-        تعداد بازدید موردنظرتان را انتخاب کنید و با تحلیل‌های دقیق سئو،
-        کسب‌وکارتان را رشد دهید.
+        تعداد بازدید موردنظرتان را انتخاب کنید و کسب‌وکارتان را رشد دهید.
       </motion.h3>
 
-      <motion.div className="max-w-4xl mx-auto" style={{ position: "relative" }}>
-        <Card className="text-right border-[1.5px] border-primary drop-shadow-md">
+      <motion.div
+        className="max-w-2xl mx-auto"
+        initial={{ y: 20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, delay: 0.3 }}
+      >
+        <Card className="bg-card border border-primary rounded-2xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader>
-            <CardTitle className="text-lg text-center sm:text-2xl md:text-4xl  font-kalameh font-bold">خرید بازدید سایت</CardTitle>
-            <CardDescription className="py-2 text-sm text-center sm:text-xl md:text-2xl lg:text-2xl font-medium  ">
-              ترافیک وگزارش سئو بر اساس نیاز شما
+            <CardTitle className="text-base sm:text-base font-bold text-primary text-center">
+              خرید بازدید سایت
+            </CardTitle>
+            <CardDescription className="text-xs text-muted-foreground text-center">
+              ترافیک و گزارش سئو بر اساس نیاز شما
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-4">
             <div className="text-center">
-              <p className="text-3xl font-thin text-primary">
+              <p className="text-lg sm:text-xl font-thin text-primary">
                 {totalPrice.toLocaleString()} تومان
               </p>
-              <p className="text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 برای {visits.toLocaleString()} بازدید ماهانه
               </p>
             </div>
-            <div>
-              <label className="block mb-2 text-base lg:text-1xl sm:text-2xl md:text-1xl  font-kalameh font-thin text-muted-foreground">
+            <div className="text-center">
+              <label className="block mb-1 text-xs text-muted-foreground">
                 تعداد بازدید:
               </label>
               <Slider
@@ -145,35 +151,38 @@ export const PricingSection: React.FC = () => {
                 min={100}
                 max={20000}
                 step={100}
-                className="mb-4"
+                className="mb-2 w-2/3 mx-auto"
               />
               <Input
                 type="number"
                 min={100}
                 value={visits}
                 onChange={(e) => setVisits(Number(e.target.value))}
-                className="p-3 rounded-lg border border-gray-300 w-full"
+                className="p-2 rounded-md border border-muted text-xs w-1/3 mx-auto text-center"
                 placeholder="مثلاً 3500"
               />
             </div>
-            <div className="space-y-2">
-              {benefits.map((benefit) => (
-                <div
-                  key={benefit}
-                  className="flex items-center text-muted-foreground"
-                >
-                  <Check className="text-primary ml-2" size={18} />
-                  <span>{benefit}</span>
-                </div>
-              ))}
-            </div>
-            <div className="text-center text-red-600 font-bold">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:md:grid-cols-2 gap-2 mt-4">
+  {benefits.map((benefit) => (
+    <div
+      key={benefit}
+      className="flex items-center text-muted-foreground text-xs"
+    >
+      <Check className="text-primary mr-1" size={14} />
+      {benefit}
+    </div>
+  ))}
+</div>
+
+
+            <div className="text-center text-red-500 text-base font-medium mt-4">
               تخفیف ۲۰٪ فقط تا: {timeLeft}
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col gap-4">
+          <CardFooter className="flex flex-col gap-2">
             <Button
-              className="w-full"
+              className="w-full bg-primary hover:bg-primary/90 text-white text-base rounded-xl"
               onClick={handleSubmit}
               disabled={loading}
             >
@@ -181,7 +190,7 @@ export const PricingSection: React.FC = () => {
             </Button>
             <Button
               variant="outline"
-              className="w-full"
+              className="w-full text-primary border-primary hover:bg-primary/10 text-base rounded-xl"
               onClick={() => (window.location.hash = "#success-stories")}
             >
               نمونه گزارش سئو
