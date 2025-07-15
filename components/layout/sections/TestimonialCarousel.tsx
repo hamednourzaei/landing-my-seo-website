@@ -30,17 +30,16 @@ interface SuccessStoryProps {
   url?: string;
 }
 
-// کامپوننت کارت (بدون تغییر)
 const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
   const animation = useMemo(
     () => ({
       background: [
-        "linear-gradient(45deg, rgba(255, 108, 0, 0.2), rgba(255, 108, 0, 0.1))",
-        "linear-gradient(135deg, rgba(255, 108, 0, 0.3), rgba(255, 108, 0, 0.15))",
-        "linear-gradient(225deg, rgba(255, 108, 0, 0.2), rgba(255, 108, 0, 0.05))",
+        "linear-gradient(45deg, rgba(255, 108, 0, 0.1), rgba(255, 108, 0, 0.05))",
+        "linear-gradient(135deg, rgba(255, 108, 0, 0.15), rgba(255, 108, 0, 0.05))",
+        "linear-gradient(225deg, rgba(255, 108, 0, 0.1), transparent)",
       ],
       transition: {
-        background: { duration: 1, repeat: 0, ease: "linear" },
+        background: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
       },
     }),
     []
@@ -52,41 +51,41 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
     return (
       <>
         {Array.from({ length: fullStars }).map((_, i) => (
-          <Star key={i} className="size-4 fill-primary text-primary" />
+          <Star key={i} className="size-3 sm:size-4 md:size-5 lg:size-6 fill-primary text-primary" />
         ))}
-        {hasHalfStar && <Star className="size-4 text-primary" />}
+        {hasHalfStar && <Star className="size-3 sm:size-4 md:size-5 lg:size-6 text-primary" />}
       </>
     );
   }, [story.rating]);
 
   return (
     <motion.div
-      className="h-full rounded-lg overflow-visible"
+      className="h-full rounded-md sm:rounded-lg overflow-visible"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, ...animation }}
       style={{ willChange: "opacity, background" }}
     >
-      <Card className="h-full bg-muted/50  dark:bg-card overflow-hidden border-[1px] border-orange-800 shadow-xl shadow-orange-400/30">
-        <CardContent className="pt-6 pb-0">
-          <div className="flex gap-1 pb-6">{stars}</div>
+      <Card className="h-full bg-muted/50 dark:bg-card overflow-hidden border border-orange-800 shadow-md">
+        <CardContent className="pt-2 sm:pt-3 md:pt-4 lg:pt-5 pb-0">
+          <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 pb-2 sm:pb-3 md:pb-4 lg:pb-5">{stars}</div>
           {story.url ? (
             <a
               href={story.url}
               target="_blank"
               rel="noopener noreferrer"
-              className=" font-medium hover:underline"
+              className="font-light hover:underline text-xs sm:text-sm md:text-base lg:text-lg"
             >
               {story.comment}
             </a>
           ) : (
-            <p className="font-light">{story.comment}</p>
+            <p className="font-light text-xs sm:text-sm md:text-base lg:text-lg">{story.comment}</p>
           )}
         </CardContent>
-        <CardHeader>
-          <div className="flex flex-row items-center my-5 gap-4">
-            <Avatar>
+        <CardHeader className="p-2 sm:p-3 md:p-4 lg:p-5">
+          <div className="flex flex-row items-center gap-2 sm:gap-3 md:gap-4 lg:gap-5">
+            <Avatar className="w-8 sm:w-10 md:w-12 lg:w-14 h-8 sm:h-10 md:h-12 lg:h-14">
               <AvatarImage src={story.image} alt={story.name} loading="lazy" />
-              <AvatarFallback>
+              <AvatarFallback className="text-xs sm:text-sm md:text-base lg:text-lg">
                 {story.name
                   .split(" ")
                   .map((n) => n[0])
@@ -94,8 +93,8 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <CardTitle className="text-lg font-light">{story.name}</CardTitle>
-              <CardDescription className="font-light">{story.role}</CardDescription>
+              <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl font-light">{story.name}</CardTitle>
+              <CardDescription className="text-xs sm:text-sm md:text-base lg:text-lg font-light">{story.role}</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -105,7 +104,6 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
 });
 TestimonialCard.displayName = "TestimonialCard";
 
-// Client Component برای Carousel
 export default function TestimonialCarousel({
   stories,
 }: {
@@ -153,7 +151,7 @@ export default function TestimonialCarousel({
       <Carousel
         setApi={setApi}
         opts={{ align: "start" }}
-        className="relative w-[80%] sm:w-[90%] lg:max-w-screen-xl mx-auto"
+        className="relative w-[85%] sm:w-[90%] md:w-[90%] lg:max-w-screen-xl mx-auto"
       >
         <CarouselContent>
           {stories.map((story, index) => (
@@ -168,7 +166,7 @@ export default function TestimonialCarousel({
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-      <div className="text-center mt-4 font-light text-muted-foreground">
+      <div className="text-center mt-2 sm:mt-3 md:mt-4 lg:mt-5 font-light text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground">
         {current} / {total}
       </div>
     </div>
