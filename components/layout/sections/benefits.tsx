@@ -43,13 +43,13 @@ export const BenefitsSection: React.FC = () => {
       <hr className="border-gray-700 mb-6" />
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 place-items-center">
         <div className="max-w-md text-center">
-          <h2 className="text-sm sm:text-base md:text-lg font-medium text-orange-600 mb-2">
+          <h2 className="text-sm sm:text-base md:text-4xl font-kalameh text-orange-600 mb-2">
             مزایای TsarSEO
           </h2>
-          <h3 className="text-xs sm:text-sm md:text-lg font-light text-gray-300 mb-3">
+          <h3 className="text-lg sm:text-sm md:text-lg font-light text-gray-300 mb-3">
             با TsarSEO پادشاه رشد آنلاین شوید
           </h3>
-          <p className="text-xs sm:text-sm font-light text-gray-400 mb-6">
+          <p className="text-lg sm:text-sm font-light text-gray-400 mb-6">
             ابزارهای حرفه‌ای ما با تحلیل دقیق و ترافیک واقعی، شما را برجسته می‌کند.
           </p>
         </div>
