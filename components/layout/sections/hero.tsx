@@ -138,20 +138,18 @@ export const HeroSection = () => {
             <span className="mx-2">|</span>
             <span className="font-light">سرویس حرفه‌ای برای رشد آنلاین</span>
           </Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight tracking-tight">
+          <h1 className="text-lg sm:text-4xl md:text-4xl lg:text-4xl font-light leading-tight tracking-tight">
             بازدید واقعی + تحلیل سئوی حرفه‌ای
             <br />
-            <span className="inline-block  text-transparent font-light bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
+            <span className="inline-block mt-2 text-transparent font-light bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
               فقط با یک کلیک
             </span>
           </h1>
-          <p className="max-w-screen-sm mx-auto text-lg md:text-xl  text-muted-foreground font-light text-center leading-relaxed">
-            تحلیل دقیق سئو و بازدید واقعی برای سایت‌هایی که می‌خوان در گوگل دیده شن
-          </p>
+         
           <div className="mt-10">
             <Link
               href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-1 text-md font-kalameh bg-gradient-to-r from-[#D247BF] to-primary text-[#e3e3e3] rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-2 text-sm sm:text-base md:text-lg lg:text-lg font-kalameh bg-gradient-to-r from-[#D247BF] to-primary text-[#e3e3e3] rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
             >
               ببین سایتت برای سئو چقدر آمادست
               <ArrowRight className="size-5" />
