@@ -1,4 +1,10 @@
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger, NavigationMenuContent } from "../ui/navigation-menu";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+} from "../ui/navigation-menu";
 import Link from "next/link";
 import Image from "next/image";
 import cn from "classnames";
@@ -20,12 +26,13 @@ export const DesktopMenu: React.FC = () => {
           <NavigationMenuContent>
             <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
               <Image
-                src="/images/tsarseo-future-features.jpg"
+                src="/demo-img.jpg"
                 alt="ویژگی‌های آینده TsarSEO"
-                className="h-full w-full rounded-md object-cover"
+                className="h-full w-full rounded-md "
                 width={600}
                 height={600}
                 priority
+
               />
               <ul className="flex flex-col gap-2" role="list">
                 {FEATURE_LIST.map(({ title, description }) => (
@@ -34,10 +41,12 @@ export const DesktopMenu: React.FC = () => {
                     className="rounded-md p-3 text-sm hover:bg-muted"
                     role="listitem"
                   >
-                    <p className="mb-1 font-kalameh font-semibold leading-none text-foreground">
+                    <p className="mb-1 font-kalameh font-extralight leading-none text-foreground">
                       {title}
                     </p>
-                    <p className="line-clamp-2 text-muted-foreground">{description}</p>
+                    <p className="line-clamp-2 text-muted-foreground">
+                      {description}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -50,8 +59,10 @@ export const DesktopMenu: React.FC = () => {
             <Link
               href={href}
               className={cn(
-                "inline-block rounded-md px-3 py-2 text-sm font-semibold no-underline outline-none transition-colors hover:bg-muted focus:bg-muted",
-                activeHash === href ? "bg-primary/20 text-primary" : "text-foreground"
+                "inline-block rounded-md px-3 py-2 text-md font-kalameh no-underline outline-none transition-colors hover:bg-muted focus:bg-muted",
+                activeHash === href
+                  ? "bg-primary/20 text-primary"
+                  : "text-foreground"
               )}
               aria-current={activeHash === href ? "page" : undefined}
             >
