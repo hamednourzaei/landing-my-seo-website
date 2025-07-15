@@ -66,7 +66,7 @@ export const PricingSection: React.FC = () => {
   return (
     <section
       dir="rtl"
-      className="container font-kalameh font-thin py-10 sm:py-12 text-muted-foreground"
+      className="container font-kalameh font-thin py-6 sm:py-8 md:py-10 lg:py-12 text-muted-foreground"
     >
       <AnimatePresence>
         {loading && (
@@ -81,7 +81,7 @@ export const PricingSection: React.FC = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-card p-4 rounded-lg shadow-md text-center text-base border border-primary"
+              className="bg-card p-2 sm:p-3 md:p-4 lg:p-5 rounded-md sm:rounded-lg shadow-sm text-center text-xs sm:text-sm md:text-base lg:text-lg border border-primary"
             >
               <div className="animate-pulse mb-1 text-primary font-thin">
                 در حال ثبت سفارش...
@@ -93,24 +93,24 @@ export const PricingSection: React.FC = () => {
       </AnimatePresence>
 
       <motion.h2
-        className="text-base sm:text-base font-semibold text-primary mb-2 text-center"
-        initial={{ y: 10, opacity: 0 }}
+        className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-primary mb-1 sm:mb-2 md:mb-3 lg:mb-4 text-center"
+        initial={{ y: 5, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        پلن‌های TsarSEO
+        پلن‌های ما
       </motion.h2>
       <motion.h2
-        className="text-base sm:text-base font-semibold text-primary mb-3 text-center"
-        initial={{ y: 10, opacity: 0 }}
+        className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-primary mb-2 sm:mb-3 md:mb-4 lg:mb-5 text-center"
+        initial={{ y: 5, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
         با TsarSEO به قله‌های گوگل برسید
       </motion.h2>
       <motion.h3
-        className="text-base sm:text-sm text-center text-muted-foreground mb-6 max-w-xs mx-auto"
-        initial={{ y: 10, opacity: 0 }}
+        className="text-xs sm:text-sm md:text-base lg:text-lg text-center text-muted-foreground mb-4 sm:mb-5 md:mb-6 lg:mb-8 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto"
+        initial={{ y: 5, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
@@ -118,31 +118,24 @@ export const PricingSection: React.FC = () => {
       </motion.h3>
 
       <motion.div
-        className="max-w-2xl mx-auto"
-        initial={{ y: 20, opacity: 0 }}
+        className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto"
+        initial={{ y: 10, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.3 }}
       >
-        <Card className="bg-card border border-primary rounded-2xl shadow-sm hover:shadow-md transition-all duration-200">
-          <CardHeader>
-            <CardTitle className="text-base sm:text-base font-bold text-primary text-center">
-              خرید بازدید سایت
-            </CardTitle>
-            <CardDescription className="text-xs text-muted-foreground text-center">
-              ترافیک و گزارش سئو بر اساس نیاز شما
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <Card className="bg-card border border-primary rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm hover:shadow-md transition-all duration-200">
+       
+          <CardContent className="p-2 sm:p-3 md:p-4 lg:p-5 space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-5">
             <div className="text-center">
-              <p className="text-lg sm:text-xl font-thin text-primary">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl font-thin text-primary">
                 {totalPrice.toLocaleString()} تومان
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground">
                 برای {visits.toLocaleString()} بازدید ماهانه
               </p>
             </div>
             <div className="text-center">
-              <label className="block mb-1 text-xs text-muted-foreground">
+              <label className="block mb-1 sm:mb-2 md:mb-3 lg:mb-4 text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground">
                 تعداد بازدید:
               </label>
               <Slider
@@ -151,38 +144,35 @@ export const PricingSection: React.FC = () => {
                 min={100}
                 max={20000}
                 step={100}
-                className="mb-2 w-2/3 mx-auto"
+                className="mb-1 sm:mb-2 md:mb-3 lg:mb-4 w-1/2 sm:w-2/3 md:w-3/4 lg:w-full mx-auto"
               />
               <Input
                 type="number"
                 min={100}
                 value={visits}
                 onChange={(e) => setVisits(Number(e.target.value))}
-                className="p-2 rounded-md border border-muted text-xs w-1/3 mx-auto text-center"
+                className="p-1 sm:p-2 md:p-3 lg:p-4 rounded-md border border-muted text-xs sm:text-sm md:text-base lg:text-lg w-1/4 sm:w-1/3 md:w-1/2 lg:w-2/3 mx-auto text-center"
                 placeholder="مثلاً 3500"
               />
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:md:grid-cols-2 gap-2 mt-4">
-  {benefits.map((benefit) => (
-    <div
-      key={benefit}
-      className="flex items-center text-muted-foreground text-xs"
-    >
-      <Check className="text-primary mr-1" size={14} />
-      {benefit}
-    </div>
-  ))}
-</div>
-
-
-            <div className="text-center text-red-500 text-base font-medium mt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-1 sm:gap-2 md:gap-3 lg:gap-4">
+              {benefits.map((benefit) => (
+                <div
+                  key={benefit}
+                  className="flex items-center text-muted-foreground text-sm sm:text-sm md:text-xs lg:text-sm"
+                >
+                  <Check className="text-primary ml-1 sm:mr-2 md:mr-3 lg:mr-4" size={10} />
+                  {benefit}
+                </div>
+              ))}
+            </div>
+            <div className="text-center text-red-500 text-xs sm:text-sm md:text-base lg:text-lg mt-2 sm:mt-3 md:mt-4 lg:mt-5">
               تخفیف ۲۰٪ فقط تا: {timeLeft}
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col gap-2">
+          <CardFooter className="p-2 sm:p-3 md:p-4 lg:p-5 flex flex-col gap-1 sm:gap-2 md:gap-3 lg:gap-4">
             <Button
-              className="w-full bg-primary hover:bg-primary/90 text-white text-base rounded-xl"
+              className="w-full bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm md:text-base lg:text-lg rounded-md sm:rounded-lg md:rounded-xl lg:rounded-2xl"
               onClick={handleSubmit}
               disabled={loading}
             >
@@ -190,7 +180,7 @@ export const PricingSection: React.FC = () => {
             </Button>
             <Button
               variant="outline"
-              className="w-full text-primary border-primary hover:bg-primary/10 text-base rounded-xl"
+              className="w-full text-primary border-primary hover:bg-primary/10 text-xs sm:text-sm md:text-base lg:text-lg rounded-md sm:rounded-lg md:rounded-xl lg:rounded-2xl"
               onClick={() => (window.location.hash = "#success-stories")}
             >
               نمونه گزارش سئو
