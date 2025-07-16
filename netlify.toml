@@ -1,3 +1,9 @@
 [build]
-  command = "npm run build"
-  publish = ".next" 
+  command = "npm run build"  # دستور ساخت پروژه
+  publish = ".next"         # ریشه انتشار خروجی Next.js
+
+[[redirects]]
+  from = "/.well-known/acme-challenge/*"
+  to = "/.next/static/.well-known/acme-challenge/:splat"
+  status = 200
+  force = true
