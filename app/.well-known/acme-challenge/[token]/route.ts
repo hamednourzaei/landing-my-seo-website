@@ -1,6 +1,4 @@
-// app/.well-known/acme-challenge/[token]/route.ts
-
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 const tokens: Record<string, string> = {
   "ZS3WaHHPY1V0BqHGpxjlNdP2olZtkKRUI17b-iLwMcA":
@@ -10,21 +8,23 @@ const tokens: Record<string, string> = {
 };
 
 export async function GET(
-  _request: Request,
-  { params }: { params: { token: string } }
+  request: Request,
+  context: { params: Promise<{ token: string }> }
 ) {
-  const token = params.token;
+  // منتظر params بمان
+  const params = await context.params;
+  const { token } = params;
 
   const responseText = tokens[token];
 
   if (!responseText) {
-    return new NextResponse('Token not found', { status: 404 });
+    return new NextResponse("Token not found", { status: 404 });
   }
 
   return new NextResponse(responseText, {
     status: 200,
     headers: {
-      'Content-Type': 'text/plain',
+      "Content-Type": "text/plain",
     },
   });
 }
