@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   description:
     "TsarSEO ابزار سئوی سریع، آسان و هوشمند برای افزایش رتبه گوگل، جذب ترافیک بیشتر، و بهبود نرخ کلیک سایت بدون نیاز به دانش تخصصی.",
   manifest: "/manifest.json",
+  metadataBase: new URL("https://www.tsarseo.online"),
   keywords: [
     "سئو",
     "افزایش بازدید سایت",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     title: "TsarSEO | ابزار سئو برای رشد واقعی سایت",
     description:
       "با TsarSEO بدون پیچیدگی سئوی سایتت رو مدیریت کن. رتبه بهتر، ترافیک بیشتر، و حضور قوی‌تر در گوگل با چند کلیک ساده.",
-    url: "https://www.tsarseo.com",
+    url: "https://www.tsarseo.online",
     type: "website",
     locale: "fa_IR",
     images: [

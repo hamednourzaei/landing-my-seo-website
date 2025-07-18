@@ -78,7 +78,7 @@ export async function GET(request: Request) {
       },
     },
     display_override: ["window-controls-overlay", "standalone"],
-    related_applications: [{ platform: "webapp", url: "https://www.tsarseo.com/" }],
+    related_applications: [{ platform: "webapp", url: "https://www.tsarseo.online/" }],
     prefer_related_applications: false,
   };
 
