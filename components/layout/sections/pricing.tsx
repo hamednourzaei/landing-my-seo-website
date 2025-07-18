@@ -125,9 +125,9 @@ export const PricingSection: React.FC = () => {
       >
         <Card className="bg-card border border-primary rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm hover:shadow-md transition-all duration-200">
        
-          <CardContent className="p-2 sm:p-3 md:p-4 lg:p-5 space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-5">
-            <div className="text-center">
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl font-thin text-primary">
+          <CardContent className="p-3 sm:p-4 md:p-5 lg:p-5 space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
+            <div className="text-center ">
+              <p className="text-sm sm:text-base p-2 md:text-lg lg:text-xl font-thin text-primary">
                 {totalPrice.toLocaleString()} تومان
               </p>
               <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground">
@@ -135,7 +135,7 @@ export const PricingSection: React.FC = () => {
               </p>
             </div>
             <div className="text-center">
-              <label className="block mb-1 sm:mb-2 md:mb-3 lg:mb-4 text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground">
+              <label className="block mb-3 sm:mb-4 md:mb-4 lg:mb-4 text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground">
                 تعداد بازدید:
               </label>
               <Slider
@@ -144,7 +144,7 @@ export const PricingSection: React.FC = () => {
                 min={100}
                 max={20000}
                 step={100}
-                className="mb-1 sm:mb-2 md:mb-3 lg:mb-4 w-1/2 sm:w-2/3 md:w-3/4 lg:w-full mx-auto"
+                className="mb-3 sm:mb-2 md:mb-4 lg:mb-4 w-1/2 sm:w-2/3 md:w-3/4 lg:w-full mx-auto"
               />
               <Input
                 type="number"

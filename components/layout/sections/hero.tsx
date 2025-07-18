@@ -141,7 +141,7 @@ export const HeroSection = () => {
           <h1 className="text-lg sm:text-4xl md:text-4xl lg:text-4xl font-light leading-tight tracking-tight">
             بازدید واقعی + تحلیل سئوی حرفه‌ای
             <br />
-            <span className="inline-block mt-2 text-transparent font-light bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text border-b-2 border-b-[#af4c00]">
+            <span className="inline-block mt-2 text-transparent font-light bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text pb-2 border-b-2 border-b-[#af4c00]">
               فقط با یک کلیک
             </span>
           </h1>

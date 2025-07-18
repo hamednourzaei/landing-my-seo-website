@@ -118,13 +118,13 @@ export const FAQSection: React.FC = () => {
                   <AccordionTrigger className="text-xs sm:text-sm md:text-base lg:text-lg font-kalameh hover:text-primary/80 transition-colors">
                     {question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-xs sm:text-sm md:text-base lg:text-lg font-light leading-relaxed text-muted-foreground mt-1 sm:mt-2 md:mt-3 lg:mt-4">
+                  <AccordionContent className="text-sm sm:text-sm md:text-base lg:text-lg font-light leading-relaxed text-muted-foreground mt-1 sm:mt-2 md:mt-3 lg:mt-4">
                     {Array.isArray(answer) ? (
                       answer.map((line, i) => (
-                        <p key={i} className="mb-1">{line}</p>
+                        <h1 key={i} className="mb-1 text-xs">{line}</h1>
                       ))
                     ) : (
-                      <p>{answer}</p>
+                      <h2>{answer}</h2>
                     )}
                   </AccordionContent>
                 </AccordionItem>

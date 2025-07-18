@@ -75,11 +75,11 @@ export const BenefitsSection: React.FC = () => {
                       color="#af4c00"
                       className="text-orange-600"
                     />
-                    <span className="text-lg text-gray-500 font-kalameh transition-all duration-200 hover:text-gray-400">
+                    <span className="text-lg text-gray-500 font-bold transition-all duration-200 hover:text-gray-400">
                       {index + 1}
                     </span>
                   </div>
-                  <CardTitle className="text-sm sm:text-base font-light text-gray-200">
+                  <CardTitle className="text-sm sm:text-base font-medium text-gray-200">
                     {title}
                   </CardTitle>
                 </CardHeader>
