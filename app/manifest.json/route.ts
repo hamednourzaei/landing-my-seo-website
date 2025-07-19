@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     start_url: "/?utm_source=pwa&utm_medium=app",
     display: "standalone",
     background_color: "#252B39", // برگرفته از رنگ background تم تاریک (hsl(252 27% 9%))
-    theme_color: "#F7A400", // رنگ نارنجی پریماری (hsl(24.6 95% 53.1%)) تبدیل شده به هگز (تقریبی)
+    theme_color: "#2b2b2b",
     lang: locale,
     dir: isFa ? "rtl" : "ltr",
     orientation: "any",
@@ -43,7 +43,7 @@ export async function GET(request: Request) {
       "web development",
     ],
     icons: [
-      { src: "/icons/Logo.png", sizes: "192x192", type: "image/png" },
+      { src: "/icons/Logo.png", sizes: "213x214", type: "image/png" },
       { src: "/icons/Logo.png", sizes: "512x512", type: "image/png" },
       {
         src: "/icons/Logo.png",
@@ -61,7 +61,7 @@ export async function GET(request: Request) {
         icons: [
           {
             src: "/icons/Logo.png",
-            sizes: "192x192",
+            sizes: "213x214",
             type: "image/png",
           },
         ],
@@ -78,7 +78,9 @@ export async function GET(request: Request) {
       },
     },
     display_override: ["window-controls-overlay", "standalone"],
-    related_applications: [{ platform: "webapp", url: "https://www.tsarseo.online/" }],
+    related_applications: [
+      { platform: "webapp", url: "https://www.tsarseo.online/" },
+    ],
     prefer_related_applications: false,
   };
 
