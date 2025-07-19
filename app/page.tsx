@@ -8,7 +8,7 @@ import { HeroSection } from "@/components/layout/sections/hero";
 import { PricingSection } from "@/components/layout/sections/pricing";
 import { SponsorsSection } from "@/components/layout/sections/sponsors";
 import TestimonialSection from "@/components/layout/sections/testimonial";
-import Script from "next/script";
+import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "TsarSEO | سئوی سایتت رو راحت و سریع انجام بده!",
@@ -43,22 +43,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-     {/* Google Analytics */}
-     <Script
-        strategy="afterInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-GCZ5L77F5F"
-      />
-      <Script
-        id="gtag-init"
-        strategy="afterInteractive"
-      >
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-GCZ5L77F5F');
-        `}
-      </Script>
+      <GoogleAnalytics />
       <HeroSection />
       <SponsorsSection />
       <BenefitsSection />
