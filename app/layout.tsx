@@ -91,7 +91,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
+    <html lang="fa-IR"  suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background")}>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
