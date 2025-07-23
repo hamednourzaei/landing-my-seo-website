@@ -1,17 +1,9 @@
 "use client";
 
-import Icon from "@/components/ui/icon";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-
-type IconName =
-  | "BarChart2"
-  | "Users"
-  | "Zap"
-  | "Trophy"
-  | "Server"
-  | "Globe"
-  | "CircleDot";
+import Icon, { IconName } from "@/components/ui/icon";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import Head from "next/head";
 
 interface FeatureProps {
   icon: IconName;
@@ -23,195 +15,113 @@ const features: FeatureProps[] = [
   { icon: "Users", name: "بازدید انسانی" },
   { icon: "Zap", name: "تحلیل سریع و دقیق" },
   { icon: "Trophy", name: "بهبود رتبه گوگل" },
-  { icon: "Server", name: "در ۵۸۸ سایت آنلاین" },
+  { icon: "Server", name: "فعال در ۵۸۸ سایت " },
   { icon: "Globe", name: "پشتیبانی چندزبانه" },
-  { icon: "CircleDot", name: "۱ میلیون بازدید" },
 ];
 
-export const SponsorsSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref });
-  const yOffset = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-
-  const [windowSize, setWindowSize] = useState({ width: 900, height: 500 });
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+export const SponsorsSection: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      const w = window.innerWidth;
-      const isLarge = w >= 800;
-      const width = isLarge
-        ? w >= 1024
-          ? Math.min(w * 0.9, 900)
-          : Math.max(200, w < 900 ? 650 : 750)
-        : Math.max(200, w * 0.9);
-      const height = isLarge
-        ? Math.max(150, width * 0.5)
-        : Math.max(200, width * 0.6);
-      setWindowSize({ width, height });
-      setIsLargeScreen(isLarge);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const update = () => setIsMobile(window.innerWidth < 600);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
 
-  const getFixedPositions = (width: number, height: number) => {
-    const total = features.length;
-    const centerX = width / 2;
-    const centerY = height / 2;
-    const itemWidth = 180;
-    const itemHeight = 40;
-    const margin = 46;
-    const a = (width - itemWidth - 2 * margin) / 2;
-    const b = (height - itemHeight - 2 * margin) / 2;
-    const positions = [];
-
-    for (let i = 0; i < total; i++) {
-      const angle = (i / total) * 2 * Math.PI;
-      let x = centerX + a * Math.cos(angle);
-      let y = centerY + b * Math.sin(angle);
-      x = Math.max(
-        itemWidth / 2 + margin,
-        Math.min(width - itemWidth / 2 - margin, x)
-      );
-      y = Math.max(
-        itemHeight / 2 + margin,
-        Math.min(height - itemHeight / 2 - margin, y)
-      );
-      positions.push({ x, y });
-    }
-
-    return positions;
-  };
-
-  const basePositions = isLargeScreen
-    ? getFixedPositions(windowSize.width, windowSize.height)
-    : [];
-
-  const [currentAssignments, setAssignments] = useState<number[]>(
-    Array.from({ length: features.length }, (_, i) => i)
-  );
-
-  const shuffleArray = (array: number[]) => {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  };
-
-  useEffect(() => {
-    if (isLargeScreen) {
-      const interval = setInterval(() => {
-        setAssignments(
-          shuffleArray(Array.from({ length: features.length }, (_, i) => i))
-        );
-      }, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [isLargeScreen]);
-
   return (
-    <section
-      id="features"
-      ref={ref}
-      className="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8 font-kalameh font-light"
-    >
-      <motion.h1
-        className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-8"
-        style={{ y: yOffset, scale }}
+    <>
+      <Head>
+        <title>چرا TsarSEO؟</title>
+        <meta
+          name="description"
+          content="ویژگی‌های کلیدی TsarSEO شامل تحلیل پیشرفته سئو، بازدید انسانی، بهبود رتبه گوگل و پشتیبانی چندزبانه."
+        />
+        <meta
+          name="keywords"
+          content="TsarSEO, تحلیل سئو, بازدید انسانی, بهبود رتبه گوگل, پشتیبانی چندزبانه"
+        />
+        <meta property="og:title" content="چرا TsarSEO؟" />
+        <meta
+          property="og:description"
+          content="ویژگی‌های کلیدی TsarSEO شامل تحلیل پیشرفته سئو، بازدید انسانی، بهبود رتبه گوگل و پشتیبانی چندزبانه."
+        />
+        <meta property="og:image" content="https://tsarseo.com/feature-image.jpg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Service",
+              name: "چرا TsarSEO؟",
+              description:
+                "TsarSEO ارائه‌دهنده ویژگی‌های پیشرفته سئو شامل تحلیل پیشرفته، بازدید انسانی، بهبود رتبه گوگل و پشتیبانی چندزبانه.",
+              provider: {
+                "@type": "Organization",
+                name: "TsarSEO",
+                url: "https://tsarseo.com",
+              },
+            }),
+          }}
+        />
+      </Head>
+
+      <section
+        dir="rtl"
+        id="features"
+        className="container max-w-6xl mx-auto py-20 font-kalameh text-white"
+        aria-labelledby="features-heading"
       >
-       را انتخاب کنید؟ <span className="text-primary">TsarSEO</span> 
+        <header className="mb-12 max-w-2xl mx-auto text-center">
+          <motion.h2
+            id="features-heading"
+            className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-700 mb-3 tracking-tight"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            چرا <span className="font-bold">TsarSEO</span>؟
+          </motion.h2>
+          <p className="text-gray-300 text-base font-extralight sm:text-lg leading-relaxed">
+            ابزارهای حرفه‌ای برای تسلط بر فضای دیجیتال با تحلیل دقیق و عملکرد بی‌نظیر
+          </p>
+        </header>
 
-        چرا باید
-      </motion.h1>
-
-      <div
-        className="relative mx-auto rounded-xl overflow-hidden transition-all duration-75 bg-muted/10 dark:bg-card/50 shadow-lg shadow-orange-900/50"
-        style={{
-          width: isLargeScreen ? `${windowSize.width}px` : "100%",
-          height: `${windowSize.height}px`,
-        }}
-      >
-        {isLargeScreen && (
-          <svg className="absolute inset-0 z-0 " width="100%" height="100%">
-            {basePositions.length === features.length &&
-              features.map((_, i) => {
-                const start = basePositions[currentAssignments[i]];
-                const end =
-                  basePositions[currentAssignments[(i + 1) % features.length]];
-                return (
-                  <motion.path
-                    key={i}
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, ease: "easeInOut" }}
-                    d={`M${start.x},${start.y} L${end.x},${end.y}`}
-                    stroke="#af4c00"
-                    strokeWidth="2"
-                    strokeOpacity="0.7"
-                  />
-                );
-              })}
-          </svg>
-        )}
-
-        {isLargeScreen ? (
-          features.map(({ icon, name }, index) => (
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-6">
+          {features.map(({ icon, name }, index) => (
             <motion.div
               key={index}
-              className="absolute flex items-center text-sm md:text-base font-light z-10"
-              animate={
-                currentAssignments[index] !== undefined
-                  ? {
-                      x: basePositions[currentAssignments[index]].x - 90,
-                      y: basePositions[currentAssignments[index]].y - 20,
-                    }
-                  : { x: 0, y: 0 }
-              }
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: isMobile ? 1 : 1.05, y: isMobile ? 0 : -5 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="group cursor-pointer bg-gradient-to-br from-[#121212] to-[#1a1a1a] rounded-2xl p-5 sm:p-6 flex flex-col items-center text-center border border-orange-500/20 hover:border-orange-600/50 shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
+              role="article"
+              aria-label={`ویژگی ${name}`}
             >
-              <div className="flex items-center gap-2 px-2 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all duration-75 w-full min-w-[160px] max-w-[250px]">
-                <Icon
-                  name={icon}
-                  size={18}
-                  color="hsl(var(--primary))"
-                  className="ml-2"
-                />
-                <span className="text-muted-foreground whitespace-nowrap">
-                  {name}
-                </span>
-              </div>
-            </motion.div>
-          ))
-        ) : (
-          <div className="grid md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-2 justify-items-center p-4">
-            {features.map(({ icon, name }, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-1  py-1 bg-muted/50 dark:bg-card rounded-lg w-full max-w-[250px] hover:bg-background transition-all duration-75"
+              <motion.div
+                className="mb-4 p-3 rounded-full bg-orange-500/10 group-hover:bg-orange-500/20 transition-colors duration-300"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.3 }}
               >
                 <Icon
                   name={icon}
-                  size={15}
-                  color="hsl(var(--primary))"
-                  className="ml-2"
+                  size={26}
+                  color="rgb(255 108 0)"
+                  aria-hidden="true"
                 />
-                <span className="text-muted-foreground text-sm sm:text-base whitespace-nowrap">
-                  {name}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
+              </motion.div>
+              <span className="text-sm sm:text-base font-thin text-gray-200 group-hover:text-orange-400 transition-colors duration-300 text-nowrap">
+                {name}
+              </span>
+              <div className="mt-3 w-10 h-0.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent group-hover:scale-x-125 transition-transform duration-300"></div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 
