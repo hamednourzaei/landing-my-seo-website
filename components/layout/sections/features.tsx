@@ -1,9 +1,11 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon, { IconName } from "@/components/ui/icon";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 interface FeaturesProps {
   icon: IconName;
@@ -55,40 +57,82 @@ export const FeaturesSection: React.FC = () => {
   }, []);
 
   return (
-    <section
-      dir="rtl"
-      id="features"
-      className="container max-w-6xl mx-auto py-28 font-kalameh text-white"
-    >
-      <header className="mb-14 max-w-xl mx-auto text-center">
-        <h2 className="text-3xl font-extrabold text-primary mb-2 tracking-tight">
-          ویژگی‌های TsarSEO
-        </h2>
-        <p className="text-gray-400 text-lg">
-          ابزارهای حرفه‌ای برای فرمانروایی دیجیتال با تحلیل دقیق و ترافیک واقعی.
-        </p>
-      </header>
+    <>
+      <Head>
+        <title>ویژگی‌های TsarSEO</title>
+        <meta
+          name="description"
+          content="ویژگی‌های کلیدی TsarSEO شامل تحلیل کلمات کلیدی، افزایش بازدید هدفمند، آمار لحظه‌ای و خدمات سئو جهانی."
+        />
+        <meta
+          name="keywords"
+          content="TsarSEO, ویژگی‌های سئو, تحلیل کلمات کلیدی, بازدید هدفمند, آمار لحظه‌ای, سئو جهانی, امنیت داده"
+        />
+        <meta property="og:title" content="ویژگی‌های TsarSEO" />
+        <meta
+          property="og:description"
+          content="ویژگی‌های کلیدی TsarSEO شامل تحلیل کلمات کلیدی، افزایش بازدید هدفمند، آمار لحظه‌ای و خدمات سئو جهانی."
+        />
+        <meta property="og:image" content="https://tsarseo.com/feature-image.jpg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "name": "ویژگی‌های TsarSEO",
+              "description": "TsarSEO ارائه‌دهنده ویژگی‌های پیشرفته سئو شامل تحلیل کلمات کلیدی، بازدید هدفمند، آمار لحظه‌ای و خدمات جهانی.",
+              "provider": {
+                "@type": "Organization",
+                "name": "TsarSEO",
+                "url": "https://tsarseo.com",
+              },
+            }),
+          }}
+        />
+      </Head>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-        {featureList.map(({ icon, title, description }, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.03 }}
-            transition={{ duration: 0.3 }}
-            className="group cursor-pointer bg-[#121212] rounded-xl p-8 flex flex-col items-center text-center border border-transparent hover:border-orange-500"
+      <section
+        dir="rtl"
+        id="features"
+        className="container max-w-6xl mx-auto py-28 font-kalameh text-white"
+        aria-labelledby="features-heading"
+      >
+        <header className="mb-14 max-w-xl mx-auto text-center">
+          <h2
+            id="features-heading"
+            className="text-3xl font-extrabold text-primary mb-2 tracking-tight"
           >
-            <div className="mb-5 p-3 rounded-full ring-4 ring-orange-400/20 group-hover:ring-orange-500 transition">
-              <Icon name={icon} size={32} color="rgb(255 108 0)" />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">{title}</h3>
-            <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
-            <div className="mt-4 w-10 h-1 bg-transparent group-hover:bg-orange-500 rounded transition-all"></div>
-          </motion.div>
-        ))}
-      </div>
-    </section>
+            ویژگی‌های TsarSEO
+          </h2>
+          <p className="text-gray-400 text-lg">
+            ابزارهای حرفه‌ای برای فرمانروایی دیجیتال با تحلیل دقیق و ترافیک واقعی.
+          </p>
+        </header>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+          {featureList.map(({ icon, title, description }, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: isMobile ? 1 : 1.03 }}
+              transition={{ duration: 0.3 }}
+              className="group cursor-pointer bg-[#121212] rounded-xl p-8 flex flex-col items-center text-center border border-transparent hover:border-orange-500"
+              role="article"
+              aria-label={`ویژگی: ${title}`}
+            >
+              <div className="mb-5 p-3 rounded-full ring-4 ring-orange-400/20 group-hover:ring-orange-500 transition">
+                <Icon name={icon} size={32} color="rgb(255 108 0)" aria-hidden="true" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{title}</h3>
+              <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
+              <div className="mt-4 w-10 h-1 bg-transparent group-hover:bg-orange-500 rounded transition-all"></div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    </>
   );
 };

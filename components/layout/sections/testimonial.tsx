@@ -44,13 +44,14 @@ export default async function TestimonialSection() {
       <hr className="border-secondary mb-8" />
       <div className="text-center mb-8 py-24">
         <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-3 tracking-wide">
-        TsarSEO
-          نظرات موفقیت آمیز مشتریان 
+          TsarSEO - نظرات موفقیت آمیز مشتریان
         </h2>
       </div>
 
       {stories.length === 0 ? (
-        <div className="text-center">هیچ نظری یافت نشد.</div>
+        <div role="alert" className="text-center">
+          هیچ نظری یافت نشد.
+        </div>
       ) : (
         <TestimonialCarousel stories={stories.slice(0, 90)} />
       )}

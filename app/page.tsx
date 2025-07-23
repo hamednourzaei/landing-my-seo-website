@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { BenefitsSection } from "@/components/layout/sections/benefits";
 import { ContactSection } from "@/components/layout/sections/contact";
@@ -11,32 +12,41 @@ import TestimonialSection from "@/components/layout/sections/testimonial";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
 
 export const metadata: Metadata = {
-  title: "TsarSEO | سئوی سایتت رو راحت و سریع انجام بده!",
+  title: "TsarSEO | سئوی ساده و سریع برای بهبود رتبه سایت",
   description:
-    "دیگه لازم نیست متخصص باشی! TsarSEO بهت کمک می‌کنه ترافیک سایتت رو بیشتر کنی، نرخ کلیک رو بالا ببری و رتبه‌ات رو توی گوگل بهتر کنی؛ فقط با چند کلیک و بدون پیچیدگی.",
-  keywords: ["سئو", "افزایش بازدید سایت", "بهینه‌سازی سایت", "TsarSEO"],
+    "با TsarSEO بدون نیاز به تخصص، ترافیک سایت خود را افزایش دهید، نرخ کلیک را بهبود بخشید و رتبه سایت خود را در گوگل ارتقا دهید.",
+  keywords: [
+    "TsarSEO",
+    "سئو",
+    "افزایش بازدید سایت",
+    "بهینه‌سازی سایت",
+    "تحلیل سئو",
+    "ترافیک واقعی",
+    "بهبود رتبه گوگل",
+  ],
   robots: "index, follow",
   openGraph: {
     title: "TsarSEO | سئوی ساده و سریع برای بیشتر دیده شدن",
     description:
-      "افزایش بازدید، بهبود نرخ کلیک و رشد رتبه سایت در گوگل، بدون نیاز به دانش فنی. همین الان شروع کن؛ نتیجه‌اش رو زود می‌بینی.",
-    url: "https://www.tsarseo.com",
+      "با TsarSEO رتبه سایت خود را در گوگل بهبود دهید، ترافیک واقعی جذب کنید و نرخ کلیک را افزایش دهید. بدون پیچیدگی، با چند کلیک شروع کنید.",
+    url: "https://tsarseo.com",
     type: "website",
     locale: "fa_IR",
     images: [
       {
-        url: "/icons/metadata.png",
+        url: "https://tsarseo.com/icons/metadata.png",
         width: 1200,
         height: 630,
-        alt: "TsarSEO - سئوی آسان و سریع",
+        alt: "TsarSEO - ابزار سئوی آسان و سریع",
       },
     ],
   },
   twitter: {
-    title: "TsarSEO | بازدید و کلیک سایتت رو بیشتر کن",
+    card: "summary_large_image",
+    title: "TsarSEO | بهبود رتبه و افزایش بازدید سایت",
     description:
-      "با TsarSEO هم رتبه سایتت بهتر میشه، هم ترافیک و نرخ کلیک بالا میره. بدون دردسر، فقط با چند کلیک.",
-    images: "/icons/metadata.png",
+      "با TsarSEO ترافیک واقعی، نرخ کلیک بالا و رتبه بهتر در گوگل داشته باشید. سئوی ساده با نتایج سریع.",
+    images: "https://tsarseo.com/icons/metadata.png",
   },
 };
 

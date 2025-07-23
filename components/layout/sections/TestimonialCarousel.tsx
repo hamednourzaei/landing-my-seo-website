@@ -51,9 +51,18 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
     return (
       <>
         {Array.from({ length: fullStars }).map((_, i) => (
-          <Star key={i} className="size-3 sm:size-4 md:size-5 lg:size-6 fill-primary text-primary" />
+          <Star
+            key={i}
+            aria-hidden="true"
+            className="size-3 sm:size-4 md:size-5 lg:size-6 fill-primary text-primary"
+          />
         ))}
-        {hasHalfStar && <Star className="size-3 sm:size-4 md:size-5 lg:size-6 text-primary" />}
+        {hasHalfStar && (
+          <Star
+            aria-hidden="true"
+            className="size-3 sm:size-4 md:size-5 lg:size-6 text-primary"
+          />
+        )}
       </>
     );
   }, [story.rating]);
@@ -67,24 +76,33 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
     >
       <Card className="h-full bg-muted/50 dark:bg-card overflow-hidden border border-orange-800 shadow-md">
         <CardContent className="pt-2 sm:pt-3 md:pt-4 lg:pt-5 pb-0">
-          <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 pb-2 sm:pb-3 md:pb-4 lg:pb-5">{stars}</div>
+          <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 pb-2 sm:pb-3 md:pb-4 lg:pb-5">
+            {stars}
+          </div>
           {story.url ? (
             <a
               href={story.url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`نظری از ${story.name}`}
               className="font-light hover:underline text-xs sm:text-sm md:text-base lg:text-lg"
             >
               {story.comment}
             </a>
           ) : (
-            <p className="font-light text-xs sm:text-sm md:text-base lg:text-lg">{story.comment}</p>
+            <p className="font-light text-xs sm:text-sm md:text-base lg:text-lg">
+              {story.comment}
+            </p>
           )}
         </CardContent>
         <CardHeader className="p-2 sm:p-3 md:p-4 lg:p-5">
           <div className="flex flex-row items-center gap-2 sm:gap-3 md:gap-4 lg:gap-5">
             <Avatar className="w-8 sm:w-10 md:w-12 lg:w-14 h-8 sm:h-10 md:h-12 lg:h-14">
-              <AvatarImage src={story.image} alt={story.name} loading="lazy" />
+              <AvatarImage
+                src={story.image}
+                alt={`تصویر ${story.name}`}
+                loading="lazy"
+              />
               <AvatarFallback className="text-xs sm:text-sm md:text-base lg:text-lg">
                 {story.name
                   .split(" ")
@@ -93,8 +111,12 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl font-light">{story.name}</CardTitle>
-              <CardDescription className="text-xs sm:text-sm md:text-base lg:text-lg font-light">{story.role}</CardDescription>
+              <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl font-light">
+                {story.name}
+              </CardTitle>
+              <CardDescription className="text-xs sm:text-sm md:text-base lg:text-lg font-light">
+                {story.role}
+              </CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -148,17 +170,17 @@ export default function TestimonialCarousel({
 
   return (
     <div className="relative">
+      <h2 className="text-center text-xl font-semibold mb-4">
+        نظرات موفقیت‌آمیز مشتریان
+      </h2>
       <Carousel
         setApi={setApi}
         opts={{ align: "start" }}
         className="relative w-[85%] sm:w-[90%] md:w-[90%] lg:max-w-screen-xl mx-auto"
       >
         <CarouselContent>
-          {stories.map((story, index) => (
-            <CarouselItem
-              key={story.id}
-              className="md:basis-1/2 lg:basis-1/3"
-            >
+          {stories.map((story) => (
+            <CarouselItem key={story.id} className="md:basis-1/2 lg:basis-1/3">
               <TestimonialCard story={story} />
             </CarouselItem>
           ))}

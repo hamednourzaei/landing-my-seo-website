@@ -1,23 +1,29 @@
 "use client";
 
-import  Icon  from "@/components/ui/icon";
+import Icon from "@/components/ui/icon";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-type IconName = "BarChart2" | "Users" | "Zap" | "Trophy" | "Server" | "Globe" | "CircleDot";
+
+type IconName =
+  | "BarChart2"
+  | "Users"
+  | "Zap"
+  | "Trophy"
+  | "Server"
+  | "Globe"
+  | "CircleDot";
 
 interface FeatureProps {
   icon: IconName;
   name: string;
 }
 
-
-
 const features: FeatureProps[] = [
   { icon: "BarChart2", name: "تحلیل پیشرفته سئو" },
   { icon: "Users", name: "بازدید انسانی" },
   { icon: "Zap", name: "تحلیل سریع و دقیق" },
   { icon: "Trophy", name: "بهبود رتبه گوگل" },
-  { icon: "Server", name: "در ۵۸۸ سایت انلاین" },
+  { icon: "Server", name: "در ۵۸۸ سایت آنلاین" },
   { icon: "Globe", name: "پشتیبانی چندزبانه" },
   { icon: "CircleDot", name: "۱ میلیون بازدید" },
 ];
@@ -113,20 +119,15 @@ export const SponsorsSection = () => {
     <section
       id="features"
       ref={ref}
-      className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 font-kalameh font-light"
+      className="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8 font-kalameh font-light"
     >
       <motion.h1
         className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-8"
         style={{ y: yOffset, scale }}
       >
-        
-       
-        را انتخاب کنید؟
-        {" "}
-        <span className="text-primary">TsarSEO</span> 
-        {" "}چرا باید 
+       را انتخاب کنید؟ <span className="text-primary">TsarSEO</span> 
 
-       
+        چرا باید
       </motion.h1>
 
       <div
@@ -142,7 +143,7 @@ export const SponsorsSection = () => {
               features.map((_, i) => {
                 const start = basePositions[currentAssignments[i]];
                 const end =
-                  basePositions[currentAssignments[(i + 1) % features.length]]; 
+                  basePositions[currentAssignments[(i + 1) % features.length]];
                 return (
                   <motion.path
                     key={i}
@@ -176,7 +177,7 @@ export const SponsorsSection = () => {
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all duration-75 w-full min-w-[160px] max-w-[250px]">
+              <div className="flex items-center gap-2 px-2 py-2 bg-muted/50 dark:bg-card rounded-lg hover:bg-background transition-all duration-75 w-full min-w-[160px] max-w-[250px]">
                 <Icon
                   name={icon}
                   size={18}
@@ -190,11 +191,11 @@ export const SponsorsSection = () => {
             </motion.div>
           ))
         ) : (
-          <div className="grid md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-4 justify-items-center p-4">
+          <div className="grid md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-2 justify-items-center p-4">
             {features.map(({ icon, name }, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 px-4 py-1 bg-muted/50 dark:bg-card rounded-lg w-full max-w-[250px] hover:bg-background transition-all duration-75"
+                className="flex items-center gap-1  py-1 bg-muted/50 dark:bg-card rounded-lg w-full max-w-[250px] hover:bg-background transition-all duration-75"
               >
                 <Icon
                   name={icon}

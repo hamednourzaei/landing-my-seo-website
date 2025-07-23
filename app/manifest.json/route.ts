@@ -1,6 +1,7 @@
+
 import { NextResponse } from "next/server";
 
-export const runtime = "edge"; // اجرای Edge برای سرعت بهتر
+export const runtime = "edge";
 
 const getLocale = (request: Request) => {
   const url = new URL(request.url);
@@ -15,21 +16,20 @@ const getLocale = (request: Request) => {
 
 export async function GET(request: Request) {
   const locale = getLocale(request);
-
   const isFa = locale === "fa-IR";
 
   const manifest = {
     id: "tsarseo-pwa",
     name: isFa
-      ? "TsarSEO | سئوی سریع و آسان برای رتبه بهتر در گوگل"
-      : "TsarSEO | Fast & Easy SEO for Better Google Rankings",
+      ? "TsarSEO | ابزار هوشمند سئو برای رتبه بهتر در گوگل"
+      : "TsarSEO | Smart SEO Tool for Better Google Rankings",
     short_name: "TsarSEO",
     description: isFa
-      ? "با TsarSEO بدون نیاز به تخصص، ترافیک سایتت رو زیاد کن، نرخ کلیک رو بالا ببر و رتبه گوگلت رو بهبود بده."
-      : "With TsarSEO, boost your site's traffic, improve click-through rate, and get better Google rankings without expertise.",
+      ? "با TsarSEO سئوی سایت خود را به‌راحتی بهبود دهید، ترافیک ارگانیک را افزایش دهید و رتبه بهتری در گوگل کسب کنید. بدون نیاز به دانش تخصصی."
+      : "With TsarSEO, easily improve your site's SEO, boost organic traffic, and achieve better Google rankings without needing expertise.",
     start_url: "/?utm_source=pwa&utm_medium=app",
     display: "standalone",
-    background_color: "#252B39", // برگرفته از رنگ background تم تاریک (hsl(252 27% 9%))
+    background_color: "#252B39",
     theme_color: "#2b2b2b",
     lang: locale,
     dir: isFa ? "rtl" : "ltr",
@@ -41,12 +41,13 @@ export async function GET(request: Request) {
       "seo",
       "marketing",
       "web development",
+      "analytics",
     ],
     icons: [
-      { src: "/icons/Logo.png", sizes: "213x214", type: "image/png" },
-      { src: "/icons/Logo.png", sizes: "512x512", type: "image/png" },
+      { src: "/icons/logo-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/icons/logo-512.png", sizes: "512x512", type: "image/png" },
       {
-        src: "/icons/Logo.png",
+        src: "/icons/logo-maskable-512.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
@@ -54,14 +55,31 @@ export async function GET(request: Request) {
     ],
     shortcuts: [
       {
-        name: isFa ? "آنالیز سئو" : "SEO Analysis",
+        name: isFa ? "تحلیل سئو" : "SEO Analysis",
         short_name: isFa ? "تحلیل" : "Analyze",
-        description: isFa ? "آنالیز سریع سئوی سایت" : "Quick SEO analysis",
+        description: isFa
+          ? "آنالیز سریع و دقیق سئوی سایت شما"
+          : "Quick and accurate SEO analysis for your site",
         url: "/analyze?utm_source=pwa&utm_medium=shortcut",
         icons: [
           {
-            src: "/icons/Logo.png",
-            sizes: "213x214",
+            src: "/icons/logo-192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
+      },
+      {
+        name: isFa ? "تماس با ما" : "Contact Us",
+        short_name: isFa ? "تماس" : "Contact",
+        description: isFa
+          ? "ارتباط با تیم TsarSEO برای مشاوره سئو"
+          : "Connect with the TsarSEO team for SEO consultation",
+        url: "/contact?utm_source=pwa&utm_medium=shortcut",
+        icons: [
+          {
+            src: "/icons/logo-192.png",
+            sizes: "192x192",
             type: "image/png",
           },
         ],
@@ -79,7 +97,7 @@ export async function GET(request: Request) {
     },
     display_override: ["window-controls-overlay", "standalone"],
     related_applications: [
-      { platform: "webapp", url: "https://www.tsarseo.online/" },
+      { platform: "webapp", url: "https://tsarseo.com" },
     ],
     prefer_related_applications: false,
   };

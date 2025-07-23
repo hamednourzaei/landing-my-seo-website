@@ -67,11 +67,12 @@ const Navbar: React.FC = () => {
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           >
             <AnimatedHeader isScrolling={isScrolling} isOpen={isOpen}>
-              <div className="flex items-center justify-between ">
+              <div className="flex items-center justify-between">
                 <Link
                   href="/"
                   className="flex items-center text-lg font-normal"
                   aria-label="صفحه اصلی TsarSEO"
+                  passHref
                 >
                   <ChevronsDown
                     className="mr-2 h-9 w-9 rounded-lg border border-secondary bg-gradient-to-tr from-primary via-primary/70 to-primary text-white"
@@ -80,7 +81,7 @@ const Navbar: React.FC = () => {
                   TsarSEO
                 </Link>
 
-                <div className="lg:hidden ">
+                <div className="lg:hidden">
                   <Sheet open={isOpen} onOpenChange={handleOpenChange}>
                     <SheetTrigger asChild>
                       <div className="relative z-50">

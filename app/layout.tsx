@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -6,12 +7,13 @@ import { ThemeProvider } from "@/components/layout/theme-provider";
 import { QueryProvider } from "@/components/layout/sections/QueryProvider";
 
 export const metadata: Metadata = {
-  title: "TsarSEO | افزایش رتبه و ترافیک سایت با سئوی هوشمند",
+  title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
   description:
-    "TsarSEO ابزار سئوی سریع، آسان و هوشمند برای افزایش رتبه گوگل، جذب ترافیک بیشتر، و بهبود نرخ کلیک سایت بدون نیاز به دانش تخصصی.",
+    "با TsarSEO به‌راحتی سئوی سایت خود را بهبود دهید، ترافیک ارگانیک را افزایش دهید و رتبه بهتری در گوگل کسب کنید. بدون نیاز به دانش تخصصی.",
   manifest: "/manifest.json",
-  metadataBase: new URL("https://www.tsarseo.online"),
+  metadataBase: new URL("https://tsarseo.com"),
   keywords: [
+    "TsarSEO",
     "سئو",
     "افزایش بازدید سایت",
     "بهینه‌سازی سایت",
@@ -20,34 +22,66 @@ export const metadata: Metadata = {
     "ابزار سئو",
     "رتبه گوگل",
     "افزایش کلیک",
-    "سئوی اتوماتیک",
     "ترافیک ارگانیک",
     "بهینه‌سازی موتور جستجو",
-    "TsarSEO",
-  ],
-  robots: "index, follow",
+    "سئو برای سایت‌های ایرانی",
+    "افزایش ترافیک سایت",
+    "ابزار تحلیل سئو",
+    "سئو بدون پیچیدگی",
+    "سئوی اتوماتیک",
+    "مدیریت سئو",
+    "خدمات سئو",
+    "ترافیک سایت",
+    "نرخ کلیک بالا",
+    "سئو برای کسب و کار",
+    "SEO برای سایت‌های فارسی",
+    "بهبود رتبه در گوگل",
+    "بهترین ابزار سئو",
+    "تحلیل رقابتی سئو",
+    "ترافیک شبکه‌های اجتماعی",
+    "پشتیبانی 24/7",
+    "مشاوره سئو",
+    "سئوی سایت",
+    "بهبود نرخ کلیک",
+    "رشد آنلاین",
+    "سئوی آسان",
+  ],  
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "TsarSEO | ابزار سئو برای رشد واقعی سایت",
+    title: "TsarSEO | سئوی ساده برای رشد سریع سایت",
     description:
-      "با TsarSEO بدون پیچیدگی سئوی سایتت رو مدیریت کن. رتبه بهتر، ترافیک بیشتر، و حضور قوی‌تر در گوگل با چند کلیک ساده.",
-    url: "https://www.tsarseo.online",
+      "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل، افزایش ترافیک ارگانیک و نرخ کلیک با رابط کاربری ساده و بدون پیچیدگی.",
+    url: "https://tsarseo.com",
     type: "website",
     locale: "fa_IR",
     images: [
       {
-        url: "/icons/metadata.png",
+        url: "https://tsarseo.com/icons/metadata.png",
         width: 1200,
         height: 630,
-        alt: "TsarSEO - ابزار سئو برای رشد سایت",
+        alt: "TsarSEO - ابزار هوشمند سئو برای رشد سایت",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TsarSEO | سئوی سایتت رو حرفه‌ای کن",
+    title: "TsarSEO | بهبود رتبه و افزایش ترافیک سایت",
     description:
-      "با TsarSEO سایتت رو به اوج برسون! ابزار سئوی آسان برای رتبه بالاتر، بازدید بیشتر و عملکرد بهتر.",
-    images: "/icons/metadata.png",
+      "با TsarSEO سایت خود را به اوج برسانید! سئوی آسان با نتایج سریع برای رتبه بهتر و ترافیک بیشتر.",
+    images: "https://tsarseo.com/icons/metadata.png",
+  },
+  alternates: {
+    canonical: "https://tsarseo.com",
   },
 };
 
@@ -57,7 +91,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR" suppressHydrationWarning>
+    <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background")}>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
