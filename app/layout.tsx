@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Head from "next/head"; // اضافه کردن Head
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/navbar";
@@ -83,6 +82,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://tsarseo.com",
   },
+  other: {
+    "google-adsense-account": "ca-pub-1011150553663427", // اضافه کردن تگ متا
+  },
 };
 
 export default function RootLayout({
@@ -92,17 +94,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa-IR" suppressHydrationWarning>
-      <Head>
+      <head>
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1011150553663427"
           crossOrigin="anonymous"
         ></script>
-        <meta
-          name="google-adsense-account"
-          content="ca-pub-1011150553663427"
-        ></meta>
-      </Head>
+      </head>
       <body className={cn("min-h-screen bg-background")}>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
