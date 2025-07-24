@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { BenefitsSection } from "@/components/layout/sections/benefits";
 import { ContactSection } from "@/components/layout/sections/contact";
@@ -53,6 +52,10 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <meta
+        name="google-adsense-account"
+        content="ca-pub-1011150553663427"
+      ></meta>
       <GoogleAnalytics />
       <HeroSection />
       <SponsorsSection />

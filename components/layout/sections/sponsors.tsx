@@ -50,10 +50,7 @@ export const SponsorsSection: React.FC = () => {
           property="og:image"
           content="https://tsarseo.com/feature-image.jpg"
         />
-        <meta
-          name="google-adsense-account"
-          content="ca-pub-1011150553663427"
-        ></meta>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
