@@ -106,6 +106,17 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <Navbar />
             {children}
+
+            {/* اضافه کردن واحد تبلیغاتی */}
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block" }}
+              data-ad-client="ca-pub-1011150553663427"
+              data-ad-slot="3155183279" // این مقدار را باید از Google AdSense بگیرید
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
           </ThemeProvider>
         </QueryProvider>
       </body>
