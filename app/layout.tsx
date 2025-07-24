@@ -1,10 +1,11 @@
-
+// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { QueryProvider } from "@/components/layout/sections/QueryProvider";
+import { AdUnit } from "@/components/common/AdUnit";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
@@ -88,41 +89,6 @@ export const metadata: Metadata = {
   },
 };
 
-// کامپوننت برای واحد تبلیغاتی غیر-AMP
-const AdUnit = () => {
-  return (
-    <div className="ad-container my-4" style={{ display: "none" }} data-ad-status="unfilled">
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client="ca-pub-1011150553663427"
-        data-ad-slot="3155183279"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            (adsbygoogle = window.adsbygoogle || []).push({
-              params: {
-                google_ad_client: "ca-pub-1011150553663427"
-              },
-              onAdLoaded: function(element) {
-                element.parentElement.style.display = 'block'; // نمایش کانتینر وقتی تبلیغ بارگذاری شد
-                element.parentElement.setAttribute('data-ad-status', 'filled');
-              },
-              onAdFailed: function(element) {
-                element.parentElement.style.display = 'none'; // مخفی کردن کانتینر اگه تبلیغ بارگذاری نشد
-                element.parentElement.setAttribute('data-ad-status', 'failed');
-              }
-            });
-          `,
-        }}
-      />
-    </div>
-  );
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -130,13 +96,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa-IR" suppressHydrationWarning>
-      <head>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1011150553663427"
-          crossOrigin="anonymous"
-        ></script>
-      </head>
       <body className={cn("min-h-screen bg-background")}>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>

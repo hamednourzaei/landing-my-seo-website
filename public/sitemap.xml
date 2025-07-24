@@ -13,4 +13,44 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- صفحه سیاست حفظ حریم خصوصی -->
+  <url>
+    <loc>https://tsarseo.online/privacy-policy</loc>
+    <lastmod>2025-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- صفحه نظرات شما -->
+  <url>
+    <loc>https://tsarseo.online/#success-stories</loc>
+    <lastmod>2025-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- صفحه ویژگی‌های ما -->
+  <url>
+    <loc>https://tsarseo.online/#features</loc>
+    <lastmod>2025-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- صفحه تماس با ما -->
+  <url>
+    <loc>https://tsarseo.online/#contact</loc>
+    <lastmod>2025-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- صفحه سوالات متداول -->
+  <url>
+    <loc>https://tsarseo.online/#faq</loc>
+    <lastmod>2025-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
