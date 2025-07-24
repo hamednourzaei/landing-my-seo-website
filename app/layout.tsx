@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "با TsarSEO به‌راحتی سئوی سایت خود را بهبود دهید، ترافیک ارگانیک را افزایش دهید و رتبه بهتری در گوگل کسب کنید. بدون نیاز به دانش تخصصی.",
   manifest: "/manifest.json",
-  metadataBase: new URL("https://tsarseo.com"),
+  metadataBase: new URL("https://tsarseo.online"), // اصلاح دامنه
   keywords: [
     "TsarSEO",
     "سئو",
@@ -60,12 +60,12 @@ export const metadata: Metadata = {
     title: "TsarSEO | سئوی ساده برای رشد سریع سایت",
     description:
       "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل، افزایش ترافیک ارگانیک و نرخ کلیک با رابط کاربری ساده و بدون پیچیدگی.",
-    url: "https://tsarseo.com",
+    url: "https://tsarseo.online", // اصلاح دامنه
     type: "website",
     locale: "fa_IR",
     images: [
       {
-        url: "https://tsarseo.com/icons/metadata.png",
+        url: "https://tsarseo.online/icons/metadata.png", // اصلاح دامنه
         width: 1200,
         height: 630,
         alt: "TsarSEO - ابزار هوشمند سئو برای رشد سایت",
@@ -77,14 +77,35 @@ export const metadata: Metadata = {
     title: "TsarSEO | بهبود رتبه و افزایش ترافیک سایت",
     description:
       "با TsarSEO سایت خود را به اوج برسانید! سئوی آسان با نتایج سریع برای رتبه بهتر و ترافیک بیشتر.",
-    images: "https://tsarseo.com/icons/metadata.png",
+    images: "https://tsarseo.online/icons/metadata.png", // اصلاح دامنه
   },
   alternates: {
-    canonical: "https://tsarseo.com",
+    canonical: "https://tsarseo.online", // اصلاح دامنه
   },
   other: {
-    "google-adsense-account": "ca-pub-1011150553663427", // اضافه کردن تگ متا
+    "google-adsense-account": "ca-pub-1011150553663427",
   },
+};
+
+// کامپوننت برای واحد تبلیغاتی
+const AdUnit = () => {
+  return (
+    <div className="ad-container my-4">
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-1011150553663427"
+        data-ad-slot="3155183279"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
+        }}
+      />
+    </div>
+  );
 };
 
 export default function RootLayout({
@@ -105,18 +126,9 @@ export default function RootLayout({
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <Navbar />
+            <AdUnit /> {/* تبلیغ زیر Navbar */}
             {children}
-
-            {/* اضافه کردن واحد تبلیغاتی */}
-            <ins
-              className="adsbygoogle"
-              style={{ display: "block" }}
-              data-ad-client="ca-pub-1011150553663427"
-              data-ad-slot="3155183279" // این مقدار را باید از Google AdSense بگیرید
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            ></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <AdUnit /> {/* تبلیغ قبل از فوتر */}
           </ThemeProvider>
         </QueryProvider>
       </body>
