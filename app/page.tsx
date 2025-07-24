@@ -47,15 +47,14 @@ export const metadata: Metadata = {
       "با TsarSEO ترافیک واقعی، نرخ کلیک بالا و رتبه بهتر در گوگل داشته باشید. سئوی ساده با نتایج سریع.",
     images: "https://tsarseo.com/icons/metadata.png",
   },
+  other: {
+    "google-adsense-account": "ca-pub-1011150553663427",
+  },
 };
 
 export default function Home() {
   return (
     <>
-      <meta
-        name="google-adsense-account"
-        content="ca-pub-1011150553663427"
-      ></meta>
       <GoogleAnalytics />
       <HeroSection />
       <SponsorsSection />
