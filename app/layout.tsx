@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -90,7 +91,7 @@ export const metadata: Metadata = {
 // کامپوننت برای واحد تبلیغاتی غیر-AMP
 const AdUnit = () => {
   return (
-    <div className="ad-container my-4">
+    <div className="ad-container my-4" style={{ display: "none" }} data-ad-status="unfilled">
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
@@ -101,7 +102,21 @@ const AdUnit = () => {
       ></ins>
       <script
         dangerouslySetInnerHTML={{
-          __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
+          __html: `
+            (adsbygoogle = window.adsbygoogle || []).push({
+              params: {
+                google_ad_client: "ca-pub-1011150553663427"
+              },
+              onAdLoaded: function(element) {
+                element.parentElement.style.display = 'block'; // نمایش کانتینر وقتی تبلیغ بارگذاری شد
+                element.parentElement.setAttribute('data-ad-status', 'filled');
+              },
+              onAdFailed: function(element) {
+                element.parentElement.style.display = 'none'; // مخفی کردن کانتینر اگه تبلیغ بارگذاری نشد
+                element.parentElement.setAttribute('data-ad-status', 'failed');
+              }
+            });
+          `,
         }}
       />
     </div>
