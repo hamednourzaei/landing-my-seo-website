@@ -1,5 +1,5 @@
-
 import type { Metadata } from "next";
+import Head from "next/head"; // اضافه کردن Head
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/navbar";
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     "بهبود نرخ کلیک",
     "رشد آنلاین",
     "سئوی آسان",
-  ],  
+  ],
   robots: {
     index: true,
     follow: true,
@@ -91,7 +91,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR"  suppressHydrationWarning>
+    <html lang="fa-IR" suppressHydrationWarning>
+      <Head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1011150553663427"
+          crossOrigin="anonymous"
+        ></script>
+      </Head>
       <body className={cn("min-h-screen bg-background")}>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
