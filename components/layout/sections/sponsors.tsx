@@ -46,7 +46,14 @@ export const SponsorsSection: React.FC = () => {
           property="og:description"
           content="ویژگی‌های کلیدی TsarSEO شامل تحلیل پیشرفته سئو، بازدید انسانی، بهبود رتبه گوگل و پشتیبانی چندزبانه."
         />
-        <meta property="og:image" content="https://tsarseo.com/feature-image.jpg" />
+        <meta
+          property="og:image"
+          content="https://tsarseo.com/feature-image.jpg"
+        />
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-1011150553663427"
+        ></meta>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -84,7 +91,8 @@ export const SponsorsSection: React.FC = () => {
             چرا <span className="font-bold">TsarSEO</span>؟
           </motion.h2>
           <p className="text-gray-300 text-base font-extralight sm:text-lg leading-relaxed">
-            ابزارهای حرفه‌ای برای تسلط بر فضای دیجیتال با تحلیل دقیق و عملکرد بی‌نظیر
+            ابزارهای حرفه‌ای برای تسلط بر فضای دیجیتال با تحلیل دقیق و عملکرد
+            بی‌نظیر
           </p>
         </header>
 
