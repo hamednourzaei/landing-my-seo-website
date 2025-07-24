@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "با TsarSEO به‌راحتی سئوی سایت خود را بهبود دهید، ترافیک ارگانیک را افزایش دهید و رتبه بهتری در گوگل کسب کنید. بدون نیاز به دانش تخصصی.",
   manifest: "/manifest.json",
-  metadataBase: new URL("https://tsarseo.online"), // اصلاح دامنه
+  metadataBase: new URL("https://tsarseo.online"),
   keywords: [
     "TsarSEO",
     "سئو",
@@ -60,12 +60,12 @@ export const metadata: Metadata = {
     title: "TsarSEO | سئوی ساده برای رشد سریع سایت",
     description:
       "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل، افزایش ترافیک ارگانیک و نرخ کلیک با رابط کاربری ساده و بدون پیچیدگی.",
-    url: "https://tsarseo.online", // اصلاح دامنه
+    url: "https://tsarseo.online",
     type: "website",
     locale: "fa_IR",
     images: [
       {
-        url: "https://tsarseo.online/icons/metadata.png", // اصلاح دامنه
+        url: "https://tsarseo.online/icons/metadata.png",
         width: 1200,
         height: 630,
         alt: "TsarSEO - ابزار هوشمند سئو برای رشد سایت",
@@ -77,17 +77,17 @@ export const metadata: Metadata = {
     title: "TsarSEO | بهبود رتبه و افزایش ترافیک سایت",
     description:
       "با TsarSEO سایت خود را به اوج برسانید! سئوی آسان با نتایج سریع برای رتبه بهتر و ترافیک بیشتر.",
-    images: "https://tsarseo.online/icons/metadata.png", // اصلاح دامنه
+    images: "https://tsarseo.online/icons/metadata.png",
   },
   alternates: {
-    canonical: "https://tsarseo.online", // اصلاح دامنه
+    canonical: "https://tsarseo.online",
   },
   other: {
     "google-adsense-account": "ca-pub-1011150553663427",
   },
 };
 
-// کامپوننت برای واحد تبلیغاتی
+// کامپوننت برای واحد تبلیغاتی غیر-AMP
 const AdUnit = () => {
   return (
     <div className="ad-container my-4">
@@ -126,9 +126,9 @@ export default function RootLayout({
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <Navbar />
-            <AdUnit /> {/* تبلیغ زیر Navbar */}
+            <AdUnit /> {/* تبلیغ غیر-AMP زیر Navbar */}
             {children}
-            <AdUnit /> {/* تبلیغ قبل از فوتر */}
+            <AdUnit /> {/* تبلیغ غیر-AMP قبل از فوتر */}
           </ThemeProvider>
         </QueryProvider>
       </body>
