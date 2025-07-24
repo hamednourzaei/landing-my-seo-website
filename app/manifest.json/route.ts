@@ -44,8 +44,8 @@ export async function GET(request: Request) {
       "analytics",
     ],
     icons: [
-      { src: "/icons/logo-192.png", sizes: "192x192", type: "image/png" },
-      { src: "/icons/logo-512.png", sizes: "512x512", type: "image/png" },
+      { src: "/icons/Logo.png", sizes: "192x192", type: "image/png" },
+      { src: "/icons/Logo.png", sizes: "512x512", type: "image/png" },
       {
         src: "/icons/logo-maskable-512.png",
         sizes: "512x512",
@@ -63,7 +63,7 @@ export async function GET(request: Request) {
         url: "/analyze?utm_source=pwa&utm_medium=shortcut",
         icons: [
           {
-            src: "/icons/logo-192.png",
+            src: "/icons/Logo.png",
             sizes: "192x192",
             type: "image/png",
           },
@@ -78,7 +78,7 @@ export async function GET(request: Request) {
         url: "/contact?utm_source=pwa&utm_medium=shortcut",
         icons: [
           {
-            src: "/icons/logo-192.png",
+            src: "/icons/Logo.png",
             sizes: "192x192",
             type: "image/png",
           },
