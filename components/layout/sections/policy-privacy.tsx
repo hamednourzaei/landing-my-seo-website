@@ -11,10 +11,10 @@ const PrivacyPolicy: React.FC = () => {
       </p>
 
       <p className="text-sm sm:text-base leading-relaxed mb-6">
-        This Privacy Notice for tsar ("we," "us," or "our"), describes how and
-        why we might access, collect, store, use, and/or share ("process") your
-        personal information when you use our services ("Services"), including
-        when you:
+        This Privacy Notice for tsar (&quot;we,&quot; &quot;us,&quot; or
+        &quot;our&quot;), describes how and why we might access, collect, store,
+        use, and/or share (&quot;process&quot;) your personal information when
+        you use our services (&quot;Services&quot;), including when you:
       </p>
       <ul className="list-disc list-inside mb-6 text-sm sm:text-base">
         <li>
@@ -173,7 +173,8 @@ const PrivacyPolicy: React.FC = () => {
         details, like your Facebook, X, or other social media account. If you
         choose to register in this way, we will collect certain profile
         information about you from the social media provider, as described in
-        the section called "HOW DO WE HANDLE YOUR SOCIAL LOGINS?" below.
+        the section called &quot;HOW DO WE HANDLE YOUR SOCIAL LOGINS?&quot;
+        below.
       </p>
       <p className="text-sm sm:text-base mb-6">
         All personal information that you provide to us must be true, complete,
@@ -214,7 +215,7 @@ const PrivacyPolicy: React.FC = () => {
           (such as the date/time stamps associated with your usage, pages and
           files viewed, searches, and other actions you take such as which
           features you use), device event information (such as system activity,
-          error reports (sometimes called "crash dumps"), and hardware
+          error reports (sometimes called &quot;crash dumps&quot;), and hardware
           settings).
         </li>
         <li>
@@ -228,15 +229,15 @@ const PrivacyPolicy: React.FC = () => {
         </li>
         <li>
           <strong>Location Data.</strong> We collect location data such as
-          information about your device's location, which can be either precise
-          or imprecise. How much information we collect depends on the type and
-          settings of the device you use to access the Services. For example, we
-          may use GPS and other technologies to collect geolocation data that
-          tells us your current location (based on your IP address). You can opt
-          out of allowing us to collect this information either by refusing
-          access to the information or by disabling your Location setting on
-          your device. However, if you choose to opt out, you may not be able to
-          use certain aspects of the Services.
+          information about your device&apos;s location, which can be either
+          precise or imprecise. How much information we collect depends on the
+          type and settings of the device you use to access the Services. For
+          example, we may use GPS and other technologies to collect geolocation
+          data that tells us your current location (based on your IP address).
+          You can opt out of allowing us to collect this information either by
+          refusing access to the information or by disabling your Location
+          setting on your device. However, if you choose to opt out, you may not
+          be able to use certain aspects of the Services.
         </li>
       </ul>
       <p className="text-sm sm:text-base mb-6">
@@ -273,8 +274,8 @@ const PrivacyPolicy: React.FC = () => {
         about you from such platforms such as your name, email address, and
         gender. You may have the right to withdraw your consent to processing
         your personal information. Any personal information that we collect from
-        your social media account depends on your social media account's privacy
-        settings.
+        your social media account depends on your social media account&apos;s
+        privacy settings.
       </p>
 
       <h2 className="text-2xl sm:text-3xl font-semibold mt-8 mb-4">
@@ -294,9 +295,9 @@ const PrivacyPolicy: React.FC = () => {
       </p>
       <ul className="list-disc list-inside mb-6 text-sm sm:text-base">
         <li>
-          To save or protect an individual's vital interest. We may process your
-          information when necessary to save or protect an individual’s vital
-          interest, such as to prevent harm.
+          To save or protect an individual&apos;s vital interest. We may process
+          your information when necessary to save or protect an
+          individual&apos;s vital interest, such as to prevent harm.
         </li>
       </ul>
 
@@ -341,10 +342,10 @@ const PrivacyPolicy: React.FC = () => {
         </li>
       </ul>
       <p className="text-sm sm:text-base mb-6">
-        In legal terms, we are generally the "data controller" under European
-        data protection laws of the personal information described in this
-        Privacy Notice, since we determine the means and/or purposes of the data
-        processing we perform.
+        In legal terms, we are generally the &quot;data controller&quot; under
+        European data protection laws of the personal information described in
+        this Privacy Notice, since we determine the means and/or purposes of the
+        data processing we perform.
       </p>
       <h3 className="text-xl sm:text-2xl font-medium mt-6 mb-3">
         If you are located in Canada, this section applies to you.
@@ -505,15 +506,15 @@ const PrivacyPolicy: React.FC = () => {
       <p className="text-sm sm:text-base mb-6">
         As part of our Services, we offer products, features, or tools powered
         by artificial intelligence, machine learning, or similar technologies
-        (collectively, "AI Products"). These tools are designed to enhance your
-        experience and provide you with innovative solutions.
+        (collectively, &quot;AI Products&quot;). These tools are designed to
+        enhance your experience and provide you with innovative solutions.
       </p>
       <p className="text-sm sm:text-base mb-6">
         <strong>Use of AI Technologies.</strong> We provide the AI Products
-        through third-party service providers ("AI Service Providers"),
-        including Google Cloud AI. Your input, output, and personal information
-        will be shared with and processed by these AI Service Providers to
-        enable your use of our AI Products.
+        through third-party service providers (&quot;AI Service
+        Providers&quot;), including Google Cloud AI. Your input, output, and
+        personal information will be shared with and processed by these AI
+        Service Providers to enable your use of our AI Products.
       </p>
       <p className="text-sm sm:text-base mb-6">
         <strong>Our AI Products.</strong> Our AI Products are designed for the
@@ -628,8 +629,8 @@ const PrivacyPolicy: React.FC = () => {
         and/or implied consent depending on the applicable law, you have the
         right to withdraw your consent at any time. You can withdraw your
         consent at any time by contacting us by using the contact details
-        provided in the section "HOW CAN YOU CONTACT US ABOUT THIS NOTICE?"
-        below.
+        provided in the section &quot;HOW CAN YOU CONTACT US ABOUT THIS
+        NOTICE?&quot; below.
       </p>
 
       <h2 className="text-2xl sm:text-3xl font-semibold mt-8 mb-4">
@@ -637,11 +638,11 @@ const PrivacyPolicy: React.FC = () => {
       </h2>
       <p className="text-sm sm:text-base mb-6">
         Most web browsers and some mobile operating systems and mobile
-        applications include a Do-Not-Track ("DNT") feature or setting you can
-        activate to signal your privacy preference not to have data about your
-        online browsing activities monitored and collected. At this stage, no
-        uniform technology standard for recognizing and implementing DNT signals
-        has been finalized.
+        applications include a Do-Not-Track (&quot;DNT&quot;) feature or setting
+        you can activate to signal your privacy preference not to have data
+        about your online browsing activities monitored and collected. At this
+        stage, no uniform technology standard for recognizing and implementing
+        DNT signals has been finalized.
       </p>
       <p className="text-sm sm:text-base mb-6">
         California law requires us to let you know how we respond to web browser
@@ -867,13 +868,13 @@ const PrivacyPolicy: React.FC = () => {
         , or by referring to the contact details at the bottom of this document.
       </p>
       <p className="text-sm sm:text-base mb-6">
-        <strong>California "Shine The Light" Law</strong>
+        <strong>California &quot;Shine The Light&quot; Law</strong>
       </p>
       <p className="text-sm sm:text-base mb-6">
-        California Civil Code Section 1798.83, also known as the "Shine The
-        Light" law, permits our users who are California residents to request
-        and obtain from us, once a year and free of charge, information about
-        categories of personal information (if any) we disclosed to third
+        California Civil Code Section 1798.83, also known as the &quot;Shine The
+        Light&quot; law, permits our users who are California residents to
+        request and obtain from us, once a year and free of charge, information
+        about categories of personal information (if any) we disclosed to third
         parties for direct marketing purposes and the names and addresses of all
         third parties with which we shared personal information in the
         immediately preceding calendar year.
@@ -891,8 +892,8 @@ const PrivacyPolicy: React.FC = () => {
       </h3>
       <p className="text-sm sm:text-base mb-6">
         We collect and process your personal information under the obligations
-        and conditions set by Australia's Privacy Act 1988 and New Zealand's
-        Privacy Act 2020 (Privacy Act).
+        and conditions set by Australia&apos;s Privacy Act 1988 and New
+        Zealand&apos;s Privacy Act 2020 (Privacy Act).
       </p>
       <p className="text-sm sm:text-base mb-6">
         If you do not wish to provide the personal information necessary to
@@ -929,7 +930,7 @@ const PrivacyPolicy: React.FC = () => {
         >
           PAIAComplaints@inforegulator.org.za
         </a>{" "}
-        &{" "}
+        &amp;{" "}
         <a
           href="mailto:POPIAComplaints@inforegulator.org.za"
           className="text-blue-600 hover:underline"
@@ -947,8 +948,8 @@ const PrivacyPolicy: React.FC = () => {
       </p>
       <p className="text-sm sm:text-base mb-6">
         We may update this Privacy Notice from time to time. The updated version
-        will be indicated by an updated "Revised" date at the top of this
-        Privacy Notice.
+        will be indicated by an updated &quot;Revised&quot; date at the top of
+        this Privacy Notice.
       </p>
 
       <h2 className="text-2xl sm:text-3xl font-semibold mt-8 mb-4">
@@ -967,10 +968,11 @@ const PrivacyPolicy: React.FC = () => {
         Iran
       </p>
       <p className="text-sm sm:text-base mb-6">
-        If you are a resident in the European Economic Area, we are the "data
-        controller" of your personal information. We have appointed __________
-        to be our representative in the EEA. You can contact them directly
-        regarding our processing of your information, or by post to:
+        If you are a resident in the European Economic Area, we are the
+        &quot;data controller&quot; of your personal information. We have
+        appointed __________ to be our representative in the EEA. You can
+        contact them directly regarding our processing of your information, or
+        by post to:
       </p>
       <p className="text-sm sm:text-base mb-6">
         tsarseo.online
@@ -983,10 +985,10 @@ const PrivacyPolicy: React.FC = () => {
         Sweden
       </p>
       <p className="text-sm sm:text-base mb-6">
-        If you are a resident in the United Kingdom, we are the "data
-        controller" of your personal information. We have appointed __________
-        to be our representative in the UK. You can contact them directly
-        regarding our processing of your information, or by post to:
+        If you are a resident in the United Kingdom, we are the &quot;data
+        controller&quot; of your personal information. We have appointed
+        __________ to be our representative in the UK. You can contact them
+        directly regarding our processing of your information, or by post to:
       </p>
       <p className="text-sm sm:text-base mb-6">
         __________
