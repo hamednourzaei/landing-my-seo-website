@@ -6,10 +6,10 @@ const GA_TRACKING_ID = "G-GCZ5L77F5F";
 export const GoogleAnalytics = () => (
   <>
     <Script
-      strategy="afterInteractive"
       src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+      strategy="afterInteractive"
     />
-    <Script id="gtag-init" strategy="afterInteractive">
+    <Script id="google-analytics" strategy="afterInteractive">
       {`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
