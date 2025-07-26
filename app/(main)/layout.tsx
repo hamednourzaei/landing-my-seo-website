@@ -1,4 +1,4 @@
-// app/layout.tsx
+// app/(main)/layout.tsx
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";

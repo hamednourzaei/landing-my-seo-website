@@ -1,11 +1,8 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
-import Navbar from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { QueryProvider } from "@/components/layout/sections/QueryProvider";
-import { AdUnit } from "@/components/common/AdUnit";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
@@ -99,10 +96,7 @@ export default function RootLayout({
       <body className={cn("min-h-screen bg-background")}>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <Navbar />
-            <AdUnit /> {/* تبلیغ غیر-AMP زیر Navbar */}
             {children}
-            <AdUnit /> {/* تبلیغ غیر-AMP قبل از فوتر */}
           </ThemeProvider>
         </QueryProvider>
       </body>
