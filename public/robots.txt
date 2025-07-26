@@ -2,8 +2,5 @@
 User-agent: *
 Allow: /
 
-# Host
-Host: https://tsarseo.online
-
 # Sitemaps
 Sitemap: https://tsarseo.online/sitemap.xml
