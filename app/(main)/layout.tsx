@@ -6,8 +6,8 @@ import Navbar from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { QueryProvider } from "@/components/layout/sections/QueryProvider";
 import { AdUnit } from "@/components/common/AdUnit";
+import { GoogleTagManager } from "@/components/common/GoogleTagManager";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
-import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
@@ -99,11 +99,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa-IR" suppressHydrationWarning>
-      <Head>
+      <head>
+        {/* GTM Head Script */}
+        <GoogleTagManager />
+      </head>
+      <head>
+        {/* GTM Head Script */}
         <GoogleAnalytics />
-      </Head>
-
+      </head>
       <body className={cn("min-h-screen bg-background")}>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-NFPW9J8D"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <Navbar />

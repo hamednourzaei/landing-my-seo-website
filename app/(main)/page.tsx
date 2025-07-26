@@ -8,8 +8,9 @@ import { HeroSection } from "@/components/layout/sections/hero";
 import { PricingSection } from "@/components/layout/sections/pricing";
 import { SponsorsSection } from "@/components/layout/sections/sponsors";
 import TestimonialSection from "@/components/layout/sections/testimonial";
-import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
+import { head } from "lodash";
 import Head from "next/head";
+import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
@@ -97,10 +98,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <Head>
-        <GoogleAnalytics />
-      </Head>
-
+      <GoogleAnalytics />
       <HeroSection />
       <SponsorsSection />
       <BenefitsSection />
