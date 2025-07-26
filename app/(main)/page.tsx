@@ -9,6 +9,7 @@ import { PricingSection } from "@/components/layout/sections/pricing";
 import { SponsorsSection } from "@/components/layout/sections/sponsors";
 import TestimonialSection from "@/components/layout/sections/testimonial";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
@@ -96,10 +97,10 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <head>
+      <Head>
         {" "}
         <GoogleAnalytics />
-      </head>
+      </Head>
 
       <HeroSection />
       <SponsorsSection />
