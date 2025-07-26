@@ -11,9 +11,11 @@ import TestimonialSection from "@/components/layout/sections/testimonial";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
 
 export const metadata: Metadata = {
-  title: "TsarSEO | سئوی ساده و سریع برای بهبود رتبه سایت",
+  title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
   description:
-    "با TsarSEO بدون نیاز به تخصص، ترافیک سایت خود را افزایش دهید، نرخ کلیک را بهبود بخشید و رتبه سایت خود را در گوگل ارتقا دهید.",
+    "با TsarSEO به‌راحتی سئوی سایت خود را بهبود دهید، ترافیک ارگانیک را افزایش دهید و رتبه بهتری در گوگل کسب کنید. بدون نیاز به دانش تخصصی.",
+  manifest: "/manifest.json",
+  metadataBase: new URL("https://tsarseo.online"),
   keywords: [
     "TsarSEO",
     "سئو",
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
     "رتبه گوگل",
     "افزایش کلیک",
     "ترافیک ارگانیک",
-    "  تزار سئو",
+    "بهینه‌سازی موتور جستجو",
     "سئو برای سایت‌های ایرانی",
     "افزایش ترافیک سایت",
     "ابزار تحلیل سئو",
@@ -48,29 +50,42 @@ export const metadata: Metadata = {
     "رشد آنلاین",
     "سئوی آسان",
   ],
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "TsarSEO | سئوی ساده و سریع برای بیشتر دیده شدن",
+    title: "TsarSEO | سئوی ساده برای رشد سریع سایت",
     description:
-      "با TsarSEO رتبه سایت خود را در گوگل بهبود دهید، ترافیک واقعی جذب کنید و نرخ کلیک را افزایش دهید. بدون پیچیدگی، با چند کلیک شروع کنید.",
-    url: "https://tsarseo.com",
+      "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل، افزایش ترافیک ارگانیک و نرخ کلیک با رابط کاربری ساده و بدون پیچیدگی.",
+    url: "https://tsarseo.online",
     type: "website",
     locale: "fa_IR",
     images: [
       {
-        url: "https://tsarseo.com/icons/metadata.png",
+        url: "https://tsarseo.online/icons/metadata.png",
         width: 1200,
         height: 630,
-        alt: "TsarSEO - ابزار سئوی آسان و سریع",
+        alt: "TsarSEO - ابزار هوشمند سئو برای رشد سایت",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TsarSEO | بهبود رتبه و افزایش بازدید سایت",
+    title: "TsarSEO | بهبود رتبه و افزایش ترافیک سایت",
     description:
-      "با TsarSEO ترافیک واقعی، نرخ کلیک بالا و رتبه بهتر در گوگل داشته باشید. سئوی ساده با نتایج سریع.",
-    images: "https://tsarseo.com/icons/metadata.png",
+      "با TsarSEO سایت خود را به اوج برسانید! سئوی آسان با نتایج سریع برای رتبه بهتر و ترافیک بیشتر.",
+    images: "https://tsarseo.online/icons/metadata.png",
+  },
+  alternates: {
+    canonical: "https://tsarseo.online",
   },
   other: {
     "google-adsense-account": "ca-pub-1011150553663427",
