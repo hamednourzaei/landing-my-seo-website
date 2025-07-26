@@ -96,7 +96,11 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <GoogleAnalytics />
+      <head>
+        {" "}
+        <GoogleAnalytics />
+      </head>
+
       <HeroSection />
       <SponsorsSection />
       <BenefitsSection />
