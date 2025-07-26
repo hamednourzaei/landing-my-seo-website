@@ -1,17 +1,9 @@
-# public/robots.txt
+# *
 User-agent: *
 Allow: /
-Disallow: /node_modules/
-Disallow: /tmp/
-Disallow: /config/
-Disallow: /*?*utm_*
 
-# قوانین خاص برای Googlebot
-User-agent: Googlebot
-Allow: /
-Disallow: /node_modules/
-Disallow: /tmp/
-Disallow: /config/
-Disallow: /*?*utm_*
+# Host
+Host: https://tsarseo.online
 
+# Sitemaps
 Sitemap: https://tsarseo.online/sitemap.xml
