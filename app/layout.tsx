@@ -94,11 +94,7 @@ export default function RootLayout({
   return (
     <html lang="fa-IR" suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background")}>
-        <QueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            {children}
-          </ThemeProvider>
-        </QueryProvider>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

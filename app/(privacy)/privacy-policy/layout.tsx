@@ -1,9 +1,9 @@
 // app/(privacy)/privacy-policy/layout.tsx
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/layout/theme-provider";
 import { QueryProvider } from "@/components/layout/sections/QueryProvider";
 import "../../globals.css"; // Import global styles
+import { ThemeProvider } from "@/components/layout/theme-provider";
 
 export const metadata: Metadata = {
   title: "TsarSEO | Privacy Policy",
@@ -19,8 +19,8 @@ export default function PrivacyPolicyLayout({
     <html lang="fa-IR" suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background")}>
         <QueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            {children} {/* No Navbar or AdUnit */}
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            {children}
           </ThemeProvider>
         </QueryProvider>
       </body>
