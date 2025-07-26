@@ -100,8 +100,20 @@ export default function RootLayout({
   return (
     <html lang="fa-IR" suppressHydrationWarning>
       <Head>
-        {" "}
-        <GoogleAnalytics />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-GCZ5L77F5F"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-GCZ5L77F5F', { debug_mode: true });
+            `,
+          }}
+        />
       </Head>
 
       <body className={cn("min-h-screen bg-background")}>

@@ -98,8 +98,20 @@ export default function Home() {
   return (
     <>
       <Head>
-        {" "}
-        <GoogleAnalytics />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-GCZ5L77F5F"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-GCZ5L77F5F', { debug_mode: true });
+            `,
+          }}
+        />
       </Head>
 
       <HeroSection />
