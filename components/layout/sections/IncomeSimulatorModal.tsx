@@ -37,7 +37,6 @@ import {
 } from "chart.js";
 import { Line, Pie } from "react-chartjs-2";
 import { debounce } from "lodash";
-import zoomPlugin from "chartjs-plugin-zoom";
 
 // Register ChartJS components
 ChartJS.register(
@@ -48,8 +47,7 @@ ChartJS.register(
   ArcElement,
   Title,
   ChartTooltip,
-  Legend,
-  zoomPlugin
+  Legend
 );
 
 // CPC data by country (static)

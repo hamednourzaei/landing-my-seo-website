@@ -27,12 +27,12 @@ export const ROUTE_LIST: Route[] = [
   { href: "/#features", label: "ویژگی‌های ما" },
   { href: "/#contact", label: "تماس با ما" },
   { href: "/#faq", label: "سوالات متداول" },
-  { href: "/calculate-profits", label: "calculate profits" },
+  { href: "/calculate-profits", label: "محاسبه درآمد" },
 ];
 
 export const FEATURE_LIST: Feature[] = [
   {
-    title: "calculate-profits",
+    title: "محاسبه درآمد",
     description:
       " شبیه‌ساز پیشرفته درآمد  Google AdSense باموفقیت ایجاد شد.",
   },
