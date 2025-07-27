@@ -23,17 +23,18 @@ interface Feature {
 }
 
 export const ROUTE_LIST: Route[] = [
-  { href: "#success-stories", label: "نظرات شما" },
-  { href: "#features", label: "ویژگی‌های ما" },
-  { href: "#contact", label: "تماس با ما" },
-  { href: "#faq", label: "سوالات متداول" },
+  { href: "/#success-stories", label: "نظرات شما" },
+  { href: "/#features", label: "ویژگی‌های ما" },
+  { href: "/#contact", label: "تماس با ما" },
+  { href: "/#faq", label: "سوالات متداول" },
+  { href: "/calculate-profits", label: "calculate profits" },
 ];
 
 export const FEATURE_LIST: Feature[] = [
   {
-    title: "تحلیل هوشمند رقبا با AI",
+    title: "calculate-profits",
     description:
-      "به‌زودی با هوش مصنوعی TsarSEO، استراتژی رقبای خود را تحلیل کنید.",
+      " شبیه‌ساز پیشرفته درآمد  Google AdSense باموفقیت ایجاد شد.",
   },
   {
     title: "ترافیک هدفمند محلی",
@@ -49,10 +50,16 @@ export const FEATURE_LIST: Feature[] = [
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isIncomeModalOpen, setIsIncomeModalOpen] = useState(false);
   const isScrolling = useScrollHandler();
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
+  };
+
+  const openIncomeModal = () => {
+    setIsIncomeModalOpen(true);
+    setIsOpen(false);
   };
 
   return (
@@ -106,14 +113,13 @@ const Navbar: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* منوی موبایل */}
       {isOpen && (
         <Sheet open={isOpen} onOpenChange={handleOpenChange}>
           <SheetContent
             side="right"
             dir="rtl"
             aria-describedby="mobile-menu-description"
-            className="z-50 w-[60%] rounded-l-2xl  border-none bg-gray-100/50 backdrop-blur-md dark:bg-gray-900/50"
+            className="z-50 w-[60%] rounded-l-2xl border-none bg-gray-100/50 backdrop-blur-md dark:bg-gray-900/50"
           >
             <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
           </SheetContent>

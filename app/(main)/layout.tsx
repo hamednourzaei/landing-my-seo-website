@@ -98,24 +98,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR" suppressHydrationWarning>
-      <head>
-        {/* GTM Head Script */}
-        <GoogleTagManager />
-      </head>
-      <head>
-        {/* GTM Head Script */}
-        <GoogleAnalytics />
-      </head>
-      <body className={cn("min-h-screen bg-background")}>
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-NFPW9J8D"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
 
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
@@ -125,7 +107,6 @@ export default function RootLayout({
             <AdUnit /> {/* تبلیغ غیر-AMP قبل از فوتر */}
           </ThemeProvider>
         </QueryProvider>
-      </body>
-    </html>
+ 
   );
 }

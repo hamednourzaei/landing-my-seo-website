@@ -12,6 +12,7 @@ import React from "react";
 import { SafeToggleTheme } from "./SafeToggleTheme";
 import { ROUTE_LIST, FEATURE_LIST } from "./navbar";
 import { useActiveHash } from "@/lib/use-active-hash";
+import { CheckCircle } from "lucide-react";
 
 export const DesktopMenu: React.FC = () => {
   const activeHash = useActiveHash();
@@ -32,7 +33,6 @@ export const DesktopMenu: React.FC = () => {
                 width={600}
                 height={600}
                 priority
-
               />
               <ul className="flex flex-col gap-2" role="list">
                 {FEATURE_LIST.map(({ title, description }) => (
@@ -41,9 +41,14 @@ export const DesktopMenu: React.FC = () => {
                     className="rounded-md p-3 text-sm hover:bg-muted"
                     role="listitem"
                   >
-                    <p className="mb-1 font-kalameh font-extralight leading-none text-foreground">
-                      {title}
-                    </p>
+                    <div className="flex items-center gap-2 mb-1">
+                      {title === "calculate-profits" && (
+                        <CheckCircle className="text-green-500 w-4 h-4" />
+                      )}
+                      <p className="font-kalameh font-extralight leading-none text-foreground">
+                        {title}
+                      </p>
+                    </div>
                     <p className="line-clamp-2 text-muted-foreground">
                       {description}
                     </p>
@@ -59,7 +64,7 @@ export const DesktopMenu: React.FC = () => {
             <Link
               href={href}
               className={cn(
-                "inline-block rounded-md px-3 py-2 text-md font-kalameh no-underline outline-none transition-colors hover:bg-muted focus:bg-muted",
+                "inline-block text-nowrap rounded-md px-3 py-2 text-md font-kalameh no-underline outline-none transition-colors hover:bg-muted focus:bg-muted",
                 activeHash === href
                   ? "bg-primary/20 text-primary"
                   : "text-foreground"
