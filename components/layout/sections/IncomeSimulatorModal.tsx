@@ -285,109 +285,6 @@ const IncomeSimulatorModal: React.FC = () => {
   ]);
 
   // Generate shareable URL
-  const shareableUrl = useMemo(() => {
-    const params = new URLSearchParams({
-      title,
-      visitors: visitors.toString(),
-      ctr: ctr.toString(),
-      bounceRate: bounceRate.toString(),
-      sessionDuration: sessionDuration.toString(),
-      countriesSelected: JSON.stringify(countriesSelected),
-      trafficType,
-      adType,
-      mobilePercent: mobilePercent.toString(),
-      currency,
-      niche,
-      siteFormat,
-      mobileDevice,
-      adsPerPage: adsPerPage.toString(),
-      returningVisitors: returningVisitors.toString(),
-      contentQuality: contentQuality.toString(),
-      uxScore: uxScore.toString(),
-      adPosition,
-      trafficGrowthRate: trafficGrowthRate.toString(),
-      operationalCosts: operationalCosts.toString(),
-      abTest: abTest.toString(),
-      abTestCtr: abTestCtr.toString(),
-      language,
-      chartTheme,
-    });
-
-    // بررسی وجود window
-    const baseUrl =
-      typeof window !== "undefined"
-        ? window.location.origin
-        : "https://tsarseo.online";
-    return `${baseUrl}/?${params.toString()}`;
-  }, [
-    title,
-    visitors,
-    ctr,
-    bounceRate,
-    sessionDuration,
-    countriesSelected,
-    trafficType,
-    adType,
-    mobilePercent,
-    currency,
-    niche,
-    siteFormat,
-    mobileDevice,
-    adsPerPage,
-    returningVisitors,
-    contentQuality,
-    uxScore,
-    adPosition,
-    trafficGrowthRate,
-    operationalCosts,
-    abTest,
-    abTestCtr,
-    language,
-    chartTheme,
-  ]);
-
-  // Load settings from URL
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.size > 0) {
-      setTitle(params.get("title") || "");
-      setVisitors(parseInt(params.get("visitors") || "1000") || 1000);
-      setCtr(parseFloat(params.get("ctr") || "1.5") || 1.5);
-      setBounceRate(parseFloat(params.get("bounceRate") || "40") || 40);
-      setSessionDuration(
-        parseInt(params.get("sessionDuration") || "120") || 120
-      );
-      setCountriesSelected(
-        JSON.parse(
-          params.get("countriesSelected") || '[{"code":"US","weight":1}]'
-        )
-      );
-      setTrafficType(params.get("trafficType") || trafficTypes[0].label);
-      setAdType(params.get("adType") || adTypes[0].label);
-      setMobilePercent(parseInt(params.get("mobilePercent") || "50") || 50);
-      setCurrency(params.get("currency") || "USD");
-      setNiche(params.get("niche") || niches[0].label);
-      setSiteFormat(params.get("siteFormat") || siteFormats[0].label);
-      setMobileDevice(params.get("mobileDevice") || mobileDevices[0].label);
-      setAdsPerPage(parseInt(params.get("adsPerPage") || "1") || 1);
-      setReturningVisitors(
-        parseInt(params.get("returningVisitors") || "30") || 30
-      );
-      setContentQuality(parseInt(params.get("contentQuality") || "50") || 50);
-      setUxScore(parseInt(params.get("uxScore") || "50") || 50);
-      setAdPosition(params.get("adPosition") || adPositions[0].label);
-      setTrafficGrowthRate(
-        parseFloat(params.get("trafficGrowthRate") || "0") || 0
-      );
-      setOperationalCosts(parseInt(params.get("operationalCosts") || "0") || 0);
-      setAbTest(params.get("abTest") === "true");
-      setAbTestCtr(parseFloat(params.get("abTestCtr") || "1.5") || 1.5);
-      setLanguage((params.get("language") as "fa" | "en") || "fa");
-      setChartTheme(
-        (params.get("chartTheme") as "light" | "dark" | "system") || "system"
-      );
-    }
-  }, []);
 
   // Calculate income
   const {
@@ -1880,12 +1777,7 @@ const IncomeSimulatorModal: React.FC = () => {
               <Button onClick={resetInputs} variant="secondary">
                 {language === "fa" ? "بازنشانی" : "Reset"}
               </Button>
-              <Button
-                onClick={() => navigator.clipboard.writeText(shareableUrl)}
-                variant="outline"
-              >
-                {language === "fa" ? "کپی URL اشتراک" : "Copy Shareable URL"}
-              </Button>
+
               <Button onClick={() => setShowSummary(!showSummary)}>
                 {showSummary
                   ? language === "fa"

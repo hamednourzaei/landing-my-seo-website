@@ -1,3 +1,4 @@
+
 import React from "react";
 import IncomeSimulatorModal from "@/components/layout/sections/IncomeSimulatorModal";
 import type { Metadata } from "next";
