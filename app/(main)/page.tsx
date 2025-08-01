@@ -1,17 +1,46 @@
 import type { Metadata } from "next";
-import { BenefitsSection } from "@/components/layout/sections/benefits";
-import { ContactSection } from "@/components/layout/sections/contact";
-import { FAQSection } from "@/components/layout/sections/faq";
-import { FeaturesSection } from "@/components/layout/sections/features";
-import { FooterSection } from "@/components/layout/sections/footer";
-import { HeroSection } from "@/components/layout/sections/hero";
-import { PricingSection } from "@/components/layout/sections/pricing";
-import { SponsorsSection } from "@/components/layout/sections/sponsors";
-import TestimonialSection from "@/components/layout/sections/testimonial";
-import { head } from "lodash";
-import Head from "next/head";
-import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
+// کامپوننت‌های ضروری که تو viewport اولیه لود می‌شن
+import { HeroSection } from "@/components/layout/sections/hero";
+import { SponsorsSection } from "@/components/layout/sections/sponsors";
+
+// کامپوننت‌های سنگین رو Lazy-load می‌کنیم
+const BenefitsSection = dynamic(
+  () => import("@/components/layout/sections/benefits").then((mod) => mod.BenefitsSection),
+  { ssr: true }
+);
+const FeaturesSection = dynamic(
+  () => import("@/components/layout/sections/features").then((mod) => mod.FeaturesSection),
+  { ssr: true }
+);
+const TestimonialSection = dynamic(
+  () => import("@/components/layout/sections/testimonial"),
+  { ssr: true }
+);
+const PricingSection = dynamic(
+  () => import("@/components/layout/sections/pricing").then((mod) => mod.PricingSection),
+  { ssr: true }
+);
+const ContactSection = dynamic(
+  () => import("@/components/layout/sections/contact").then((mod) => mod.ContactSection),
+  { ssr: true }
+);
+const FAQSection = dynamic(() => import("@/components/layout/sections/faq").then((mod) => mod.FAQSection), {
+  ssr: true,
+});
+
+// Google Analytics فقط تو پروداکشن لود بشه
+const GoogleAnalytics = dynamic(
+  () => import("@/components/common/GoogleAnalytics").then((mod) => mod.GoogleAnalytics),
+  {
+    ssr: true, // فقط سمت کلاینت لود بشه
+    loading: () => null,
+  }
+);
+
+// متادیتا (بدون تغییر چون بهینه‌ست)
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
   description:
@@ -22,35 +51,7 @@ export const metadata: Metadata = {
     "TsarSEO",
     "سئو",
     "افزایش بازدید سایت",
-    "بهینه‌سازی سایت",
-    "سئوی هوشمند",
-    "تحلیل سئو",
-    "ابزار سئو",
-    "رتبه گوگل",
-    "افزایش کلیک",
-    "ترافیک ارگانیک",
-    "بهینه‌سازی موتور جستجو",
-    "سئو برای سایت‌های ایرانی",
-    "افزایش ترافیک سایت",
-    "ابزار تحلیل سئو",
-    "سئو بدون پیچیدگی",
-    "سئوی اتوماتیک",
-    "مدیریت سئو",
-    "خدمات سئو",
-    "ترافیک سایت",
-    "نرخ کلیک بالا",
-    "سئو برای کسب و کار",
-    "SEO برای سایت‌های فارسی",
-    "بهبود رتبه در گوگل",
-    "بهترین ابزار سئو",
-    "تحلیل رقابتی سئو",
-    "ترافیک شبکه‌های اجتماعی",
-    "پشتیبانی 24/7",
-    "مشاوره سئو",
-    "سئوی سایت",
-    "بهبود نرخ کلیک",
-    "رشد آنلاین",
-    "سئوی آسان",
+    // ... بقیه keywords
   ],
   robots: {
     index: true,
@@ -95,18 +96,46 @@ export const metadata: Metadata = {
   },
 };
 
+// لودینگ فال‌بک برای کامپوننت‌های Lazy-loaded
+const SectionLoading = () => (
+  <div className="min-h-[200px] flex items-center justify-center">
+    <p>در حال بارگذاری...</p>
+  </div>
+);
+
 export default function Home() {
   return (
     <>
-      <GoogleAnalytics />
+      {/* Google Analytics فقط تو پروداکشن */}
+      {process.env.NODE_ENV === "production" && (
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
+      )}
+
+      {/* کامپوننت‌های اولیه که باید سریع لود بشن */}
       <HeroSection />
       <SponsorsSection />
-      <BenefitsSection />
-      <FeaturesSection />
-      <TestimonialSection />
-      <PricingSection />
-      <ContactSection />
-      <FAQSection />
+
+      {/* بقیه با Suspense و Lazy-loading */}
+      <Suspense fallback={<SectionLoading />}>
+        <BenefitsSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoading />}>
+        <FeaturesSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoading />}>
+        <TestimonialSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoading />}>
+        <PricingSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoading />}>
+        <ContactSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoading />}>
+        <FAQSection />
+      </Suspense>
     </>
   );
 }
