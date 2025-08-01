@@ -107,7 +107,6 @@ export default function Home() {
       <PricingSection />
       <ContactSection />
       <FAQSection />
-      <FooterSection />
     </>
   );
 }

@@ -8,6 +8,7 @@ import { QueryProvider } from "@/components/layout/sections/QueryProvider";
 import { AdUnit } from "@/components/common/AdUnit";
 import { GoogleTagManager } from "@/components/common/GoogleTagManager";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
+import { FooterSection } from "@/components/layout/sections/footer";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
@@ -98,15 +99,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
-        <QueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <Navbar />
-            <AdUnit /> {/* تبلیغ غیر-AMP زیر Navbar */}
-            {children}
-            <AdUnit /> {/* تبلیغ غیر-AMP قبل از فوتر */}
-          </ThemeProvider>
-        </QueryProvider>
- 
+    <QueryProvider>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <Navbar />
+        <AdUnit /> {/* تبلیغ غیر-AMP زیر Navbar */}
+        {children}
+        <AdUnit /> {/* تبلیغ غیر-AMP قبل از فوتر */}
+        <FooterSection />
+      </ThemeProvider>
+    </QueryProvider>
   );
 }
