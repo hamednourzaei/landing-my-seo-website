@@ -1,10 +1,9 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon, { IconName } from "@/components/ui/icon";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Head from "next/head";
 
 interface FeaturesProps {
@@ -46,15 +45,51 @@ const featureList: FeaturesProps[] = [
   },
 ];
 
-export const FeaturesSection: React.FC = () => {
-  const [isMobile, setIsMobile] = useState(false);
+// مولفه برای هر ویژگی
+const FeatureCard: React.FC<FeaturesProps & { isMobile: boolean }> = ({ icon, title, description, isMobile }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      whileHover={{ scale: isMobile ? 1 : 1.03 }}
+      transition={{ duration: 0.3 }}
+      className="group cursor-pointer bg-[#121212] rounded-xl p-8 flex flex-col items-center text-center border border-transparent hover:border-orange-500"
+      role="article"
+      aria-label={`ویژگی: ${title}`}
+    >
+      <div className="mb-5 p-3 rounded-full ring-4 ring-orange-400/20 group-hover:ring-orange-500 transition">
+        <Icon name={icon} size={32} color="rgb(255 108 0)" aria-hidden="true" />
+      </div>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
+      <div className="mt-4 w-10 h-1 bg-transparent group-hover:bg-orange-500 rounded transition-all"></div>
+    </motion.div>
+  );
+};
+
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    const update = () => setIsMobile(window.innerWidth < 600);
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
+    const media = window.matchMedia(query);
+    setMatches(media.matches);
+    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
+    media.addEventListener("change", handler);
+    return () => media.removeEventListener("change", handler);
+  }, [query]);
+
+  return matches;
+};
+
+const FeaturesSection: React.FC = () => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
+  const featureItems = useMemo(() => featureList.map(({ icon, title, description }) => ({
+    icon,
+    title,
+    description,
+  })), []);
 
   return (
     <>
@@ -111,28 +146,13 @@ export const FeaturesSection: React.FC = () => {
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-          {featureList.map(({ icon, title, description }, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: isMobile ? 1 : 1.03 }}
-              transition={{ duration: 0.3 }}
-              className="group cursor-pointer bg-[#121212] rounded-xl p-8 flex flex-col items-center text-center border border-transparent hover:border-orange-500"
-              role="article"
-              aria-label={`ویژگی: ${title}`}
-            >
-              <div className="mb-5 p-3 rounded-full ring-4 ring-orange-400/20 group-hover:ring-orange-500 transition">
-                <Icon name={icon} size={32} color="rgb(255 108 0)" aria-hidden="true" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">{title}</h3>
-              <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
-              <div className="mt-4 w-10 h-1 bg-transparent group-hover:bg-orange-500 rounded transition-all"></div>
-            </motion.div>
+          {featureItems.map((feature, index) => (
+            <FeatureCard key={index} {...feature} isMobile={isMobile} />
           ))}
         </div>
       </section>
     </>
   );
 };
+
+export default FeaturesSection;

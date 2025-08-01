@@ -12,7 +12,7 @@ const BenefitsSection = dynamic(
   { ssr: true }
 );
 const FeaturesSection = dynamic(
-  () => import("@/components/layout/sections/features").then((mod) => mod.FeaturesSection),
+  () => import("@/components/layout/sections/features"),
   { ssr: true }
 );
 const TestimonialSection = dynamic(
