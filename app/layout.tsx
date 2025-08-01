@@ -8,11 +8,6 @@ import { QueryProvider } from "@/components/layout/sections/QueryProvider";
 import { AdUnit } from "@/components/common/AdUnit";
 import { GoogleTagManager } from "@/components/common/GoogleTagManager";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
-import { HeroSection } from "@/components/layout/sections/hero";
-import SponsorsSection from "@/components/layout/sections/sponsors";
-import { BenefitsSection } from "@/components/layout/sections/benefits";
-import { FeaturesSection } from "@/components/layout/sections/features";
-import TestimonialSection from "@/components/layout/sections/testimonial";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
