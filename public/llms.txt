@@ -1,0 +1,6 @@
+# llms.txt for tsarseo.online
+# This site does not use or integrate with third-party Large Language Models (LLMs) for content generation or interaction.
+
+# If in the future LLMs are used (e.g., GPT-4, Claude, Gemini), disclosures and usage policies will be documented here.
+
+Contact: support@tsarseo.online

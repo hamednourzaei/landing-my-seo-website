@@ -124,7 +124,7 @@ export const FooterSection = () => {
             </div>
 
             <div className="flex flex-col gap-1 sm:gap-2">
-              <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-normal">
+              <h3 className="text-sm mb-2 sm:text-base md:text-lg lg:text-xl font-normal">
                 Support
               </h3>
               <div>
@@ -179,13 +179,28 @@ export const FooterSection = () => {
                   Instagram
                 </Link>
               </div>
+            </div>
+
+            <div className="flex flex-col gap-1 sm:gap-2">
+              <h3 className="text-sm mb-2 sm:text-base md:text-lg lg:text-xl font-normal">
+                Company
+              </h3>
               <div>
                 <Link
                   href="/privacy-policy"
                   className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="View TsarSEO Privacy Policy"
                 >
-                  Privacy Policy
+                  Privacy-Policy
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/about"
+                  className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="Learn more about TsarSEO"
+                >
+                  About-us
                 </Link>
               </div>
             </div>
