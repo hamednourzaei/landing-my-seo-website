@@ -8,6 +8,7 @@ import { QueryProvider } from "@/components/layout/sections/QueryProvider";
 import { AdUnit } from "@/components/common/AdUnit";
 import { GoogleTagManager } from "@/components/common/GoogleTagManager";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
+import { GoogleTag, GoogleTagManagerNoScript } from "@/components/common/GoogleTag";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
@@ -102,8 +103,10 @@ export default function RootLayout({
       <head>
         <GoogleTagManager />
         <GoogleAnalytics />
+        <GoogleTag/>
       </head>
       <body className={cn("min-h-screen bg-background")}>
+        <GoogleTagManagerNoScript/>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-NFPW9J8D"
