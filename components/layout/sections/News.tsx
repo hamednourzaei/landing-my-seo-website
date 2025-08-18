@@ -34,13 +34,18 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
       });
       if (!response.ok) throw new Error("Failed to fetch news");
       const data = await response.json();
-      if (!data.items || data.items.length === 0) {
+      if (
+        !data.items ||
+        !Array.isArray(data.items) ||
+        data.items.length === 0
+      ) {
         setHasMore(false);
         return;
       }
       setNewsItems((prev) => [...prev, ...data.items]);
       setPage(nextPage);
-      setHasMore(newsItems.length + data.items.length < total);
+      setHasMore(newsItems.length + data.items.length < total); // ✅ درست شد
+      setError(null);
     } catch (error) {
       console.error("Fetch error:", error);
       setError("خطا در بارگذاری اخبار.");
@@ -50,35 +55,40 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
 
   return (
     <div className="py-24 w-[90%] mx-auto">
+      {/* نمایش خطا */}
       {error && (
         <p className="text-center text-red-500 font-kalameh">{error}</p>
       )}
-      {newsItems.length === 0 && !hasMore && !error && (
+      {/* اگر هیچ خبری وجود ندارد */}
+      {!error && newsItems.length === 0 && (
         <p className="text-center text-gray-300 font-kalameh">
           هیچ اخباری برای نمایش وجود ندارد.
         </p>
       )}
-      <InfiniteScroll
-        dataLength={newsItems.length}
-        next={fetchMoreNews}
-        hasMore={hasMore}
-        loader={
-          <h4 className="text-center text-gray-300 font-kalameh">
-            در حال بارگذاری...
-          </h4>
-        }
-        endMessage={
-          <p className="text-center text-gray-300 font-kalameh">
-            تمام اخبار بارگذاری شد.
-          </p>
-        }
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
-          {newsItems.map((news) => (
-            <NewsItemCard key={news.id} news={news} />
-          ))}
-        </div>
-      </InfiniteScroll>
+      {/* اگر خبر داریم → InfiniteScroll */}
+      {newsItems.length > 0 && (
+        <InfiniteScroll
+          dataLength={newsItems.length}
+          next={fetchMoreNews}
+          hasMore={hasMore}
+          loader={
+            <h4 className="text-center text-gray-300 font-kalameh">
+              در حال بارگذاری...
+            </h4>
+          }
+          endMessage={
+            <p className="text-center text-gray-300 font-kalameh">
+              تمام اخبار بارگذاری شد.
+            </p>
+          }
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
+            {newsItems.map((news) => (
+              <NewsItemCard key={news.id} news={news} />
+            ))}
+          </div>
+        </InfiniteScroll>
+      )}
     </div>
   );
 };
