@@ -1,11 +1,8 @@
-
 "use client";
-// components/layout/sections/NewsCard.tsx
-import React, { useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import NewsItemCard from "./NewsItemCard";
+// components/layout/sections/NewsItemCard.tsx
+import React from "react";
 
-export interface NewsItem {
+interface NewsItem {
   id: string;
   title: string;
   link: string;
@@ -15,65 +12,37 @@ export interface NewsItem {
   languages: string;
 }
 
-interface NewsCardProps {
-  initialNews: NewsItem[];
-  total: number;
+interface NewsItemCardProps {
+  news: NewsItem;
 }
 
-const NewsCard: React.FC<NewsCardProps> = ({ initialNews, total }) => {
-  const [newsItems, setNewsItems] = useState<NewsItem[]>(initialNews);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(initialNews.length < total);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchMoreNews = async () => {
-    if (!hasMore) return; // جلوگیری از درخواست‌های اضافی
-    const nextPage = page + 1;
-    try {
-      const response = await fetch(`/api/news?page=${nextPage}&pageSize=10`, {
-        cache: "force-cache",
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      if (data.error || !data.items || !Array.isArray(data.items) || data.items.length === 0) {
-        setHasMore(false);
-        setError("خطا در بارگذاری اخبار بیشتر.");
-        return;
-      }
-      setNewsItems((prev) => [...prev, ...data.items]);
-      setPage(nextPage);
-      setHasMore(newsItems.length + data.items.length < total);
-      setError(null);
-    } catch (error) {
-      console.error("Fetch more news failed:", error);
-      setHasMore(false);
-      setError("خطا در بارگذاری اخبار بیشتر. لطفاً دوباره تلاش کنید.");
-    }
-  };
-
+const NewsItemCard: React.FC<NewsItemCardProps> = ({ news }) => {
   return (
-    <div>
-      {error && <p className="text-center text-red-500">{error}</p>}
-      {newsItems.length === 0 && !hasMore && !error && (
-        <p className="text-center">هیچ اخباری برای نمایش وجود ندارد.</p>
-      )}
-      <InfiniteScroll
-        dataLength={newsItems.length}
-        next={fetchMoreNews}
-        hasMore={hasMore}
-        loader={<h4 className="text-center">در حال بارگذاری...</h4>}
-        endMessage={<p className="text-center">تمام اخبار بارگذاری شد.</p>}
+    <div
+      className="bg-card font-kalameh p-6 rounded-xl shadow-md w-full max-w-sm hover:shadow-xl transition-shadow duration-300"
+      role="article"
+    >
+      <h3 className="lg:text-base text-gray-300 sm:text-xl font-bold mb-3">
+        {news.title}
+      </h3>
+      <p className="lg:text-xs font-semibold sm:text-sm text-gray-600 mb-3">
+        {news.published} | {news.source}
+      </p>
+      <div
+        className="text-gray-300 mb-6 sm:text-base lg:text-sm break-words line-clamp-6"
+        dangerouslySetInnerHTML={{ __html: news.summary }}
+      />
+      <a
+        href={news.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary font-semibold hover:underline text-xs sm:text-base"
+        aria-label={`ادامه مطلب برای ${news.title}`}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-24 w-[90%] mx-auto justify-items-center">
-          {newsItems.map((news) => (
-            <NewsItemCard key={news.id} news={news} />
-          ))}
-        </div>
-      </InfiniteScroll>
+        ادامه مطلب
+      </a>
     </div>
   );
 };
 
-export default NewsCard;
+export default NewsItemCard;
