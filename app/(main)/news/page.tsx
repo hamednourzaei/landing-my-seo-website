@@ -1,4 +1,3 @@
-
 // app/(main)/news/page.tsx
 import NewsCard from "@/components/layout/sections/News";
 
@@ -78,12 +77,15 @@ async function getNews(
 ): Promise<{ news: NewsItem[]; total: number }> {
   try {
     const res = await fetch(
-      `https://hamednourzaei.github.io/api_google_news/news_2025-08-18.json?page=${page}&pageSize=${pageSize}`,
-      { next: { revalidate: 3600 } } // ISR با به‌روزرسانی هر ۱ ساعت
+      `https://hamednourzaei.github.io/api_google_news/news_2025-08-18.json`,
+      { next: { revalidate: 3600 } }
     );
     if (!res.ok) throw new Error(`Failed to fetch news: ${res.status}`);
     const data = await res.json();
-    return { news: data.items || [], total: data.total || 0 };
+    const items = Array.isArray(data.items) ? data.items : [];
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+    return { news: items.slice(start, end), total: items.length };
   } catch (error) {
     console.error("Fetch failed, using fallback data:", error);
     return {
