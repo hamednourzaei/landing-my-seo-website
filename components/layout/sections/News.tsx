@@ -34,6 +34,7 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
       });
       if (!response.ok) throw new Error("Failed to fetch news");
       const data = await response.json();
+
       if (
         !data.items ||
         !Array.isArray(data.items) ||
@@ -42,9 +43,14 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
         setHasMore(false);
         return;
       }
-      setNewsItems((prev) => [...prev, ...data.items]);
+
+      setNewsItems((prev) => {
+        const updated = [...prev, ...data.items];
+        setHasMore(updated.length < total); // ✅ اینجا درست حساب می‌کنیم
+        return updated;
+      });
+
       setPage(nextPage);
-      setHasMore(newsItems.length + data.items.length < total); // ✅ درست شد
       setError(null);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -59,12 +65,14 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
       {error && (
         <p className="text-center text-red-500 font-kalameh">{error}</p>
       )}
+
       {/* اگر هیچ خبری وجود ندارد */}
       {!error && newsItems.length === 0 && (
         <p className="text-center text-gray-300 font-kalameh">
           هیچ اخباری برای نمایش وجود ندارد.
         </p>
       )}
+
       {/* اگر خبر داریم → InfiniteScroll */}
       {newsItems.length > 0 && (
         <InfiniteScroll
