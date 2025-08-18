@@ -1,15 +1,5 @@
 "use client";
-import React from "react";
-
-export interface NewsItem {
-  id: string;
-  title: string;
-  link: string;
-  published: string;
-  source: string;
-  summary: string;
-  languages: string;
-}
+import type { NewsItem } from "@/types/news";
 
 interface NewsItemCardProps {
   news: NewsItem;
@@ -25,7 +15,7 @@ const NewsItemCard: React.FC<NewsItemCardProps> = ({ news }) => {
         {news.title}
       </h3>
       <p className="lg:text-xs font-semibold sm:text-sm text-gray-600 mb-3">
-        {news.published} | {news.source}
+        {new Date(news.published).toLocaleDateString("fa-IR")} | {news.source}
       </p>
       <div
         className="text-gray-300 mb-6 sm:text-base lg:text-sm break-words line-clamp-6"

@@ -1,54 +1,91 @@
 "use client";
-// components/layout/sections/News.tsx
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import NewsItemCard, { NewsItem } from "@/components/layout/sections/NewsCard";
-export type { NewsItem };
+import type { NewsItem } from "@/types/news";
+import NewsItemCard from "@/components/layout/sections/NewsCard";
 
 interface NewsProps {
   initialNews: NewsItem[];
   total: number;
+  error?: string | null;
 }
 
-const News: React.FC<NewsProps> = ({ initialNews, total }) => {
-  const [newsItems, setNewsItems] = useState<NewsItem[]>(initialNews);
+const News: React.FC<NewsProps> = ({
+  initialNews,
+  total,
+  error: initialError,
+}) => {
+  const [newsItems, setNewsItems] = useState<NewsItem[]>(initialNews || []);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(initialNews.length < total);
-  const [error, setError] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState((initialNews || []).length < total);
+  const [error, setError] = useState<string | null>(initialError || null);
+
+  console.log("Initial News (News.tsx):", initialNews);
 
   const fetchMoreNews = async () => {
     if (!hasMore) return;
     const nextPage = page + 1;
 
     try {
-      const res = await fetch(`https://tsarseo.online/api/news`, {
+      const apiUrl =
+        process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
+      const url = `${apiUrl}?page=${nextPage}&pageSize=10`;
+      console.log("Fetching more from URL:", url); // برای دیباگ
+      const res = await fetch(url, {
         cache: "no-store",
       });
 
-      if (!res.ok) throw new Error("Failed to fetch news");
+      if (!res.ok) {
+        throw new Error(
+          `Failed to fetch news: ${res.status} ${res.statusText}`
+        );
+      }
 
       const data = await res.json();
+      console.log("Fetch More News Response (News.tsx):", data);
 
-      if (
-        !data.items ||
-        !Array.isArray(data.items) ||
-        data.items.length === 0
-      ) {
-        setHasMore(false);
-        return;
+      let newItems: NewsItem[] = [];
+      if (Array.isArray(data)) {
+        newItems = data.map((item: any, idx: number) => ({
+          id: item.id || `${idx}`,
+          title: item.title || "بدون عنوان",
+          link: item.link || "#",
+          published: item.published || new Date().toISOString().split("T")[0],
+          source: item.source || "Google News",
+          summary: item.summary || "بدون خلاصه",
+          languages: item.languages || "en",
+        }));
+      } else if (Array.isArray(data.news)) {
+        newItems = data.news.map((item: any, idx: number) => ({
+          id: item.id || `${idx}`,
+          title: item.title || "بدون عنوان",
+          link: item.link || "#",
+          published: item.published || new Date().toISOString().split("T")[0],
+          source: item.source || "Google News",
+          summary: item.summary || "بدون خلاصه",
+          languages: item.languages || "en",
+        }));
+      } else {
+        throw new Error(
+          "Invalid API response: expected an array or object with 'news' array"
+        );
       }
 
       setNewsItems((prev) => {
-        const updated = [...prev, ...data.items];
-        setHasMore(updated.length < data.total);
+        const updated = [...prev, ...newItems];
+        setHasMore(updated.length < (data.total || total));
         return updated;
       });
 
       setPage(nextPage);
       setError(null);
     } catch (err) {
-      console.error("Fetch error:", err);
-      setError("خطا در بارگذاری اخبار.");
+      console.error("Fetch error (News.tsx):", err);
+      setError(
+        `خطا در بارگذاری اخبار: ${
+          err instanceof Error ? err.message : "خطای ناشناخته"
+        }`
+      );
       setHasMore(false);
     }
   };
