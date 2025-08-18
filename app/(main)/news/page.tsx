@@ -78,13 +78,15 @@ async function getNews(
   try {
     const res = await fetch(
       `https://hamednourzaei.github.io/api_google_news/news_2025-08-18.json`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 3600 } } // ISR با به‌روزرسانی هر ۱ ساعت
     );
     if (!res.ok) throw new Error(`Failed to fetch news: ${res.status}`);
     const data = await res.json();
+
     const items = Array.isArray(data.items) ? data.items : [];
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
+
     return { news: items.slice(start, end), total: items.length };
   } catch (error) {
     console.error("Fetch failed, using fallback data:", error);
