@@ -21,10 +21,9 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
     const nextPage = page + 1;
 
     try {
-      const res = await fetch(
-        `https://tsarseo.online/api/news?page=${nextPage}&pageSize=10`,
-        { cache: "no-store" }
-      );
+      const res = await fetch(`https://tsarseo.online/api/news`, {
+        cache: "no-store",
+      });
 
       if (!res.ok) throw new Error("Failed to fetch news");
 

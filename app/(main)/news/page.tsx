@@ -21,16 +21,11 @@ const fallbackNews: NewsItem[] = [
   },
 ];
 
-const BASE_URL = "https://tsarseo.online";
-
 async function getNews(page = 1, pageSize = 10) {
   try {
-    const res = await fetch(
-      `${BASE_URL}/api/news?page=${page}&pageSize=${pageSize}`,
-      {
-        cache: "no-store",
-      }
-    );
+    const res = await fetch(`https://tsarseo.online/api/news`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) throw new Error("Failed to fetch news");
 
