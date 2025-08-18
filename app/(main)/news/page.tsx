@@ -1,5 +1,5 @@
 
-// page.tsx
+// app/(main)/news/page.tsx
 import NewsCard from "@/components/layout/sections/News";
 
 export const metadata = {
@@ -81,7 +81,7 @@ async function getNews(
       `https://hamednourzaei.github.io/api_google_news/news_2025-08-18.json?page=${page}&pageSize=${pageSize}`,
       { next: { revalidate: 3600 } } // ISR با به‌روزرسانی هر ۱ ساعت
     );
-    if (!res.ok) throw new Error("Failed to fetch news");
+    if (!res.ok) throw new Error(`Failed to fetch news: ${res.status}`);
     const data = await res.json();
     return { news: data.items || [], total: data.total || 0 };
   } catch (error) {

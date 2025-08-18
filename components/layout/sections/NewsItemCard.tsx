@@ -1,6 +1,6 @@
 
 "use client"
-// NewsItemCard.tsx
+// components/layout/sections/NewsItemCard.tsx
 import React from "react";
 
 interface NewsItem {
