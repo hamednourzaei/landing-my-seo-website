@@ -1,41 +1,40 @@
 // app/api/news/route.ts
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
+const fallbackNews = {
+  items: [
+    {
+      title: "خبر نمونه ۱",
+      link: "#",
+      date: "2025-08-18",
+    },
+    {
+      title: "خبر نمونه ۲",
+      link: "#",
+      date: "2025-08-18",
+    },
+  ],
+  total: 2,
+};
 
+export async function GET() {
   try {
-    const response = await fetch(
-      `https://hamednourzaei.github.io/api_google_news/news_2025-08-18.json`,
-      { cache: "force-cache" }
+    const res = await fetch(
+      "https://hamednourzaei.github.io/api_google_news/news_2025-08-18.json",
+      { next: { revalidate: 60 } } // کش برای 1 دقیقه
     );
 
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch news from external API: ${response.status}`
-      );
+    const text = await res.text();
+
+    try {
+      const data = JSON.parse(text);
+      return NextResponse.json(data);
+    } catch (error) {
+      console.error("خطای تجزیه JSON:", error);
+      return NextResponse.json(fallbackNews);
     }
-
-    const data = await response.json();
-    const items = Array.isArray(data.items) ? data.items : [];
-
-    // صفحه‌بندی دستی روی JSON
-    const start = (page - 1) * pageSize;
-    const end = start + pageSize;
-
-    return NextResponse.json({
-      items: items.slice(start, end),
-      total: items.length,
-    });
-  } catch (error: unknown) {
-    console.error("Error fetching news:", error);
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error occurred";
-    return NextResponse.json(
-      { error: "Failed to fetch news", message: errorMessage },
-      { status: 500 }
-    );
+  } catch (error) {
+    console.error("خطا در دریافت داده‌ها:", error);
+    return NextResponse.json(fallbackNews);
   }
 }
