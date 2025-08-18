@@ -1,6 +1,4 @@
-// app/(main)/news/page.tsx
-import NewsCard from "@/components/layout/sections/News";
-import { NewsItem } from "@/components/layout/sections/News";
+import NewsCard, { NewsItem } from "@/components/layout/sections/News";
 
 const fallbackNews: NewsItem[] = [
   {
@@ -23,21 +21,36 @@ const fallbackNews: NewsItem[] = [
   },
 ];
 
+const BASE_URL = "https://tsarseo.online";
+
 async function getNews(page = 1, pageSize = 10) {
   try {
-    const res = await fetch(`/api/news?page=${page}&pageSize=${pageSize}`);
+    const res = await fetch(
+      `${BASE_URL}/api/news?page=${page}&pageSize=${pageSize}`,
+      {
+        cache: "no-store",
+      }
+    );
+
     if (!res.ok) throw new Error("Failed to fetch news");
+
     const data = await res.json();
-    const items: NewsItem[] = data.items.map((item: any, idx: number) => ({
-      id: item.id || `${idx}`,
-      title: item.title,
-      link: item.link,
-      published: item.date,
-      source: item.source || "Google News",
-      summary: item.summary || "",
-      languages: item.languages || "fa",
-    }));
-    return { news: items, total: data.total };
+
+    const items: NewsItem[] = Array.isArray(data.items)
+      ? data.items.map((item: any, idx: number) => ({
+          id: item.id || `${idx}`,
+          title: item.title,
+          link: item.link,
+          published: item.date,
+          source: item.source || "Google News",
+          summary: item.summary || "",
+          languages: item.languages || "fa",
+        }))
+      : [];
+
+    const total = typeof data.total === "number" ? data.total : items.length;
+
+    return { news: items, total };
   } catch (err) {
     console.error(err);
     return { news: fallbackNews, total: fallbackNews.length };

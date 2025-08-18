@@ -2,17 +2,8 @@
 // components/layout/sections/News.tsx
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import NewsItemCard from "@/components/layout/sections/NewsCard";
-
-export interface NewsItem {
-  id: string;
-  title: string;
-  link: string;
-  published: string;
-  source: string;
-  summary: string;
-  languages: string;
-}
+import NewsItemCard, { NewsItem } from "@/components/layout/sections/NewsCard";
+export type { NewsItem };
 
 interface NewsProps {
   initialNews: NewsItem[];
@@ -30,11 +21,14 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
     const nextPage = page + 1;
 
     try {
-      const response = await fetch(`/api/news?page=${nextPage}&pageSize=10`, {
-        cache: "no-store",
-      });
-      if (!response.ok) throw new Error("Failed to fetch news");
-      const data = await response.json();
+      const res = await fetch(
+        `https://tsarseo.online/api/news?page=${nextPage}&pageSize=10`,
+        { cache: "no-store" }
+      );
+
+      if (!res.ok) throw new Error("Failed to fetch news");
+
+      const data = await res.json();
 
       if (
         !data.items ||

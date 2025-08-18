@@ -1,8 +1,7 @@
 "use client";
-// components/layout/sections/NewsItemCard.tsx
 import React from "react";
 
-interface NewsItem {
+export interface NewsItem {
   id: string;
   title: string;
   link: string;
