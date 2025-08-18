@@ -44,7 +44,7 @@ async function getNews(page = 1, pageSize = 10) {
           published: item.date,
           source: item.source || "Google News",
           summary: item.summary || "",
-          languages: item.languages || "fa",
+          languages: item.languages || "en",
         }))
       : [];
 
