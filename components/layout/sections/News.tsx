@@ -1,6 +1,6 @@
 "use client";
 // components/layout/sections/News.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NewsItemCard from "@/components/layout/sections/NewsCard";
 
@@ -28,9 +28,10 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
   const fetchMoreNews = async () => {
     if (!hasMore) return;
     const nextPage = page + 1;
+
     try {
       const response = await fetch(`/api/news?page=${nextPage}&pageSize=10`, {
-        cache: "force-cache",
+        cache: "no-store",
       });
       if (!response.ok) throw new Error("Failed to fetch news");
       const data = await response.json();
@@ -46,14 +47,14 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
 
       setNewsItems((prev) => {
         const updated = [...prev, ...data.items];
-        setHasMore(updated.length < total); // ✅ اینجا درست حساب می‌کنیم
+        setHasMore(updated.length < data.total);
         return updated;
       });
 
       setPage(nextPage);
       setError(null);
-    } catch (error) {
-      console.error("Fetch error:", error);
+    } catch (err) {
+      console.error("Fetch error:", err);
       setError("خطا در بارگذاری اخبار.");
       setHasMore(false);
     }
@@ -61,19 +62,14 @@ const News: React.FC<NewsProps> = ({ initialNews, total }) => {
 
   return (
     <div className="py-24 w-[90%] mx-auto">
-      {/* نمایش خطا */}
       {error && (
         <p className="text-center text-red-500 font-kalameh">{error}</p>
       )}
-
-      {/* اگر هیچ خبری وجود ندارد */}
       {!error && newsItems.length === 0 && (
         <p className="text-center text-gray-300 font-kalameh">
           هیچ اخباری برای نمایش وجود ندارد.
         </p>
       )}
-
-      {/* اگر خبر داریم → InfiniteScroll */}
       {newsItems.length > 0 && (
         <InfiniteScroll
           dataLength={newsItems.length}
