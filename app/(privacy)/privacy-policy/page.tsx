@@ -1,39 +1,61 @@
-// app/(privacy)/privacy-policy/page.tsx
-import dynamic from "next/dynamic";
-import Link from "next/link";
+import type { Metadata } from "next";
+import PrivacyPolicy from "@/components/layout/sections/policy-privacy";
 
-const DynamicPrivacyPolicy = dynamic(
-  () => import("@/components/layout/sections/policy-privacy"),
-  {
-    loading: () => (
-      <div className="flex justify-center items-center py-12">
-        <p className="text-lg text-gray-600">لطفاً صبر کنید...</p>
-        <div className="animate-spin w-8 h-8 border-4 border-t-blue-600 rounded-full ml-4" />
-      </div>
-    ),
-    ssr: true, // فعال بودن SSR برای کامپوننت
-  }
-);
+export const metadata: Metadata = {
+  title: "TsarSEO | Privacy Policy - سیاست حفظ حریم خصوصی",
+  description:
+    "TsarSEO Privacy Policy: Learn how we collect, use, and protect your data on our platform. | صفحه سیاست حفظ حریم خصوصی TsarSEO: آشنایی با نحوه جمع‌آوری، استفاده و حفاظت از داده‌های کاربران در پلتفرم ما.",
+  keywords: [
+    "TsarSEO",
+    "Privacy Policy",
+    "حریم خصوصی",
+    "سیاست حریم خصوصی",
+    "User Data",
+    "اطلاعات کاربران",
+    "Data Security",
+    "امنیت داده‌ها",
+    "SEO Tools",
+    "ابزار سئو",
+  ],
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "TsarSEO | Privacy Policy - سیاست حفظ حریم خصوصی",
+    description:
+      "Learn about TsarSEO's policies on collecting and protecting user data. | اطلاعات کامل درباره سیاست‌های ما در زمینه جمع‌آوری و محافظت از داده‌های کاربران در TsarSEO.",
+    url: "https://tsarseo.online/privacy-policy",
+    siteName: "TsarSEO",
+    images: [
+      {
+        url: "https://tsarseo.online/icons/metadata.png",
+        width: 1200,
+        height: 630,
+        alt: "TsarSEO Privacy Policy - سیاست حفظ حریم خصوصی TsarSEO",
+      },
+    ],
+    locale: "fa_IR",
+    alternateLocale: ["en_US"],
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TsarSEO | Privacy Policy - سیاست حفظ حریم خصوصی",
+    description:
+      "Discover TsarSEO's Privacy Policy: Committed to protecting your data. | با سیاست‌های حریم خصوصی TsarSEO آشنا شوید؛ ما متعهد به حفاظت از داده‌های شما هستیم.",
+    images: ["https://tsarseo.online/icons/metadata.png"],
+  },
+  alternates: {
+    canonical: "https://tsarseo.online/privacy-policy",
+    languages: {
+      "fa-IR": "https://tsarseo.online/privacy-policy",
+      "en-US": "https://tsarseo.online/en/privacy-policy",
+    },
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      <Link
-        href="/"
-        prefetch
-        className="inline-block mb-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
-      >
-Back to Home      </Link>
-      <DynamicPrivacyPolicy />
-      <div className="mt-6 flex justify-between">
-
-        <Link
-          href="/"
-          prefetch
-          className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
-        >
-Back to Home        </Link>
-      </div>
+    <div className="min-h-screen py-24">
+      <PrivacyPolicy />
     </div>
   );
 }

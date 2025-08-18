@@ -6,7 +6,10 @@ import "../../globals.css"; // Import global styles
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { GoogleTagManager } from "@/components/common/GoogleTagManager";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
-import { GoogleTag, GoogleTagManagerNoScript } from "@/components/common/GoogleTag";
+import {
+  GoogleTag,
+  GoogleTagManagerNoScript,
+} from "@/components/common/GoogleTag";
 
 export const metadata: Metadata = {
   title: "TsarSEO | Privacy Policy",
@@ -20,15 +23,15 @@ export default function PrivacyPolicyLayout({
 }) {
   return (
     <html lang="fa-IR" suppressHydrationWarning>
-            <head>
+      <head>
         <GoogleTagManager />
         <GoogleAnalytics />
-        <GoogleTag/>
+        <GoogleTag />
       </head>
       <body className={cn("min-h-screen bg-background")}>
-      <GoogleTagManagerNoScript/>
+        <GoogleTagManagerNoScript />
         <QueryProvider>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             {children}
           </ThemeProvider>
         </QueryProvider>

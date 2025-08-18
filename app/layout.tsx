@@ -107,14 +107,7 @@ export default function RootLayout({
       </head>
       <body className={cn("min-h-screen bg-background")}>
         <GoogleTagManagerNoScript/>
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-NFPW9J8D"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
+   
 
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
