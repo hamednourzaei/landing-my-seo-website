@@ -1,8 +1,15 @@
-// app/news/page.tsx
+// app/(main)/news/page.tsx
 import type { NewsItem } from "@/types/news";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { NewsSkeleton } from "@/components/ui/skeleton";
+
+// تعریف نوع برای پراپ‌های صفحه
+interface NewsPageProps {
+  searchParams: {
+    day?: string;
+  };
+}
 
 const News = dynamic(() => import("@/components/layout/sections/News"), {
   ssr: true,
@@ -114,11 +121,7 @@ async function getNews(
   }
 }
 
-export default async function NewsPage({
-  searchParams,
-}: {
-  searchParams: { day?: string };
-}) {
+export default async function NewsPage({ searchParams }: NewsPageProps) {
   const day =
     (searchParams.day as "yesterday" | "today" | "tomorrow") || "today";
   const dataPromise = getNews(1, 12, day);
@@ -134,7 +137,7 @@ async function NewsWrapper({
   selectedDay,
 }: {
   dataPromise: Promise<any>;
-  selectedDay: "yesterday" | "today" | "tomorrow"; // ← اینجا تغییر
+  selectedDay: "yesterday" | "today" | "tomorrow";
 }) {
   const { news, total, error } = await dataPromise;
   return (
