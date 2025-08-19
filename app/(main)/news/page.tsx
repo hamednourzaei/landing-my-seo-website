@@ -32,7 +32,8 @@ const fallbackNews: NewsItem[] = [
 async function getNews(page: number = 1, pageSize: number = 10) {
   try {
     // مبدا کامل برای محیط تولید یا توسعه
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "https://tsarseo.online/api/news";
     const url = `${baseUrl}/api/news?page=${page}&pageSize=${pageSize}`;
     console.log("Fetching from URL:", url);
     const res = await fetch(url, {
