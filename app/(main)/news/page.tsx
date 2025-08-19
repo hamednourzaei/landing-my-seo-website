@@ -1,5 +1,6 @@
+// app/(main)/news/page.tsx
 import type { NewsItem } from "@/types/news";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { NewsSkeleton } from "@/components/ui/skeleton";
 
@@ -38,45 +39,35 @@ async function getNews(page: number = 1, pageSize: number = 12) {
     const validPage = Math.max(1, Number(page) || 1);
     const validPageSize = Math.max(1, Math.min(100, Number(pageSize) || 12));
 
-    // Use today's date for API requests
-    const today = new Date();
-    const date = today.toISOString().split("T")[0];
-
+    const today = new Date().toISOString().split("T")[0];
     const baseUrl = "https://hamednourzaei.github.io/api_google_news";
-    const url = `${baseUrl}/news_${date}.json?page=${validPage}&pageSize=${validPageSize}`;
-    const res = await fetch(url, { next: { revalidate: 60 } });
+    const url = `${baseUrl}/news_${today}.json?page=${validPage}&pageSize=${validPageSize}`;
 
+    const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) {
       throw new Error(`Failed to fetch news: ${res.status} ${res.statusText}`);
     }
 
     const data = await res.json();
-
     let news: NewsItem[] = [];
     let total: number = 0;
 
-    // Handle API response
+    // Process API response
+    const mapNewsItem = (item: any, idx: number): NewsItem => ({
+      id: item.id || `${validPage}-${idx}`,
+      title: item.title || "No Title",
+      link: item.link || "#",
+      published: item.published || today,
+      source: item.source || "Google News",
+      summary: item.summary || "No Summary",
+      languages: item.languages || "en",
+    });
+
     if (Array.isArray(data)) {
-      news = data.map((item: any, idx: number) => ({
-        id: item.id || `${validPage}-${idx}`,
-        title: item.title || "No Title",
-        link: item.link || "#",
-        published: item.published || date,
-        source: item.source || "Google News",
-        summary: item.summary || "No Summary",
-        languages: item.languages || "en",
-      }));
+      news = data.map(mapNewsItem);
       total = data.length;
     } else if (Array.isArray(data.news)) {
-      news = data.news.map((item: any, idx: number) => ({
-        id: item.id || `${validPage}-${idx}`,
-        title: item.title || "No Title",
-        link: item.link || "#",
-        published: item.published || date,
-        source: item.source || "Google News",
-        summary: item.summary || "No Summary",
-        languages: item.languages || "en",
-      }));
+      news = data.news.map(mapNewsItem);
       total = typeof data.total === "number" ? data.total : news.length;
     } else {
       throw new Error("Invalid API response format");
@@ -93,99 +84,28 @@ async function getNews(page: number = 1, pageSize: number = 12) {
   }
 }
 
-// Client-side component for infinite scroll
-function NewsInfiniteScroll({
-  initialNews,
-  total,
-  initialError,
-  initialPage,
-  pageSize,
-}: {
-  initialNews: NewsItem[];
-  total: number;
-  initialError: string | null;
-  initialPage: number;
-  pageSize: number;
-}) {
-  const [news, setNews] = useState<NewsItem[]>(initialNews);
-  const [page, setPage] = useState(initialPage + 1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(initialError);
-  const [hasMore, setHasMore] = useState(news.length < total);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
-
-  // Load more news when reaching the bottom
-  useEffect(() => {
-    if (!hasMore || isLoading) return;
-
-    observerRef.current = new IntersectionObserver(
-      async (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsLoading(true);
-          const data = await getNews(page, pageSize);
-          setNews((prev) => [...prev, ...data.news]);
-          setHasMore(data.news.length === pageSize && page * pageSize < data.total);
-          setPage((prev) => prev + 1);
-          setError(data.error);
-          setIsLoading(false);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (loadMoreRef.current) {
-      observerRef.current.observe(loadMoreRef.current);
-    }
-
-    return () => {
-      if (observerRef.current && loadMoreRef.current) {
-        observerRef.current.unobserve(loadMoreRef.current);
-      }
-    };
-  }, [page, pageSize, hasMore, isLoading]);
-
-  return (
-    <>
-      <News
-        initialNews={news}
-        total={total}
-        error={error}
-        currentPage={page}
-        pageSize={pageSize}
-      />
-      {hasMore && (
-        <div ref={loadMoreRef} className="h-10">
-          {isLoading && <NewsSkeleton />}
-        </div>
-      )}
-    </>
-  );
-}
-
-// Define the NewsPage component with type assertion to bypass Netlify plugin issue
 export default async function NewsPage({
   searchParams,
 }: {
-  searchParams: any; // Type assertion to bypass Promise<any> expectation
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   // Extract and validate query parameters
   const page = Math.max(1, Number(searchParams.page) || 1);
-  const pageSize = 12; // Fixed to 12 items per page
+  const pageSize = 12; // Fixed page size to 12
 
   const data = await getNews(page, pageSize);
 
   return (
     <Suspense fallback={<NewsSkeleton />}>
-      <NewsInfiniteScroll
+      <News
         initialNews={data.news || []}
         total={data.total}
-        initialError={data.error}
-        initialPage={page}
+        error={data.error}
+        currentPage={page}
         pageSize={pageSize}
       />
     </Suspense>
   );
 }
 
-export const revalidate = 300;
+export const revalidate = 60;
