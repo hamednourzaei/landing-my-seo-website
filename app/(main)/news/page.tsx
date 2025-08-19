@@ -3,12 +3,11 @@ import type { NewsItem } from "@/types/news";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { NewsSkeleton } from "@/components/ui/skeleton";
+import { type NextPage } from "next"; // اضافه کردن نوع NextPage
 
-// تعریف نوع برای پراپ‌های صفحه
-interface NewsPageProps {
-  searchParams: {
-    day?: string;
-  };
+// تعریف نوع برای پراپ‌ها با استفاده از NextPage
+interface SearchParams {
+  day?: string;
 }
 
 const News = dynamic(() => import("@/components/layout/sections/News"), {
@@ -100,7 +99,6 @@ async function getNews(
       throw new Error("Invalid API response");
     }
 
-    // پیش‌لود صفحه دوم
     if (page === 1) {
       const prefetchUrl = `${baseUrl}/news_${date}.json?page=2&pageSize=${pageSize}`;
       fetch(prefetchUrl, { next: { revalidate: 60 } }).catch((err) =>
@@ -121,7 +119,10 @@ async function getNews(
   }
 }
 
-export default async function NewsPage({ searchParams }: NewsPageProps) {
+// استفاده از NextPage برای تعریف نوع پراپ‌ها
+const NewsPage: NextPage<{ searchParams: SearchParams }> = async ({
+  searchParams,
+}) => {
   const day =
     (searchParams.day as "yesterday" | "today" | "tomorrow") || "today";
   const dataPromise = getNews(1, 12, day);
@@ -130,7 +131,7 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
       <NewsWrapper dataPromise={dataPromise} selectedDay={day} />
     </Suspense>
   );
-}
+};
 
 async function NewsWrapper({
   dataPromise,
@@ -151,3 +152,5 @@ async function NewsWrapper({
 }
 
 export const revalidate = 60;
+
+export default NewsPage;
