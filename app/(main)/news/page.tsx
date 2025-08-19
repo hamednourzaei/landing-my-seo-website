@@ -3,39 +3,36 @@ import type { NewsItem } from "@/types/news";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { NewsSkeleton } from "@/components/ui/skeleton";
-import { type NextPage } from "next"; // اضافه کردن نوع NextPage
 
-// تعریف نوع برای پراپ‌ها با استفاده از NextPage
-interface SearchParams {
-  day?: string;
-}
-
+// Dynamically import the News component with server-side rendering enabled
 const News = dynamic(() => import("@/components/layout/sections/News"), {
   ssr: true,
   loading: () => <NewsSkeleton />,
 });
 
+// Fallback news data in case API fetch fails
 const fallbackNews: NewsItem[] = [
   {
     id: "1",
-    title: "نمونه خبر پیش‌فرض ۱",
+    title: "Sample News Item 1",
     link: "#",
     published: "2025-08-18",
-    source: "منبع پیش‌فرض",
-    summary: "این یک خلاصه پیش‌فرض برای زمانی است که fetch شکست بخورد.",
-    languages: "fa",
+    source: "Default Source",
+    summary: "This is a default summary for when the fetch fails.",
+    languages: "en",
   },
   {
     id: "2",
-    title: "نمونه خبر پیش‌فرض ۲",
+    title: "Sample News Item 2",
     link: "#",
     published: "2025-08-18",
-    source: "منبع پیش‌فرض",
-    summary: "این یک خبر دیگر برای fallback است.",
-    languages: "fa",
+    source: "Default Source",
+    summary: "Another sample news item for fallback.",
+    languages: "en",
   },
 ];
 
+// Fetch news data from the API
 async function getNews(
   page: number = 1,
   pageSize: number = 10,
@@ -44,6 +41,8 @@ async function getNews(
   try {
     const today = new Date();
     let date: string;
+
+    // Calculate the date based on the selected day
     if (day === "yesterday") {
       const yesterday = new Date(today);
       yesterday.setDate(today.getDate() - 1);
@@ -58,47 +57,45 @@ async function getNews(
 
     const baseUrl = "https://hamednourzaei.github.io/api_google_news";
     const url = `${baseUrl}/news_${date}.json?page=${page}&pageSize=${pageSize}`;
-    console.log("Fetching from URL:", url);
-    const res = await fetch(url, {
-      next: { revalidate: 60 },
-    });
+    const res = await fetch(url, { next: { revalidate: 60 } });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch news: ${res.status} ${res.statusText}`);
     }
 
     const data = await res.json();
-    console.log("API Response (page.tsx):", data);
 
     let news: NewsItem[] = [];
     let total: number = 0;
 
+    // Handle API response
     if (Array.isArray(data)) {
       news = data.map((item: any, idx: number) => ({
         id: item.id || `${idx}`,
-        title: item.title || "بدون عنوان",
+        title: item.title || "No Title",
         link: item.link || "#",
         published: item.published || date,
         source: item.source || "Google News",
-        summary: item.summary || "بدون خلاصه",
+        summary: item.summary || "No Summary",
         languages: item.languages || "en",
       }));
       total = data.length;
     } else if (Array.isArray(data.news)) {
       news = data.news.map((item: any, idx: number) => ({
         id: item.id || `${idx}`,
-        title: item.title || "بدون عنوان",
+        title: item.title || "No Title",
         link: item.link || "#",
         published: item.published || date,
         source: item.source || "Google News",
-        summary: item.summary || "بدون خلاصه",
+        summary: item.summary || "No Summary",
         languages: item.languages || "en",
       }));
       total = typeof data.total === "number" ? data.total : news.length;
     } else {
-      throw new Error("Invalid API response");
+      throw new Error("Invalid API response format");
     }
 
+    // Preload the second page
     if (page === 1) {
       const prefetchUrl = `${baseUrl}/news_${date}.json?page=2&pageSize=${pageSize}`;
       fetch(prefetchUrl, { next: { revalidate: 60 } }).catch((err) =>
@@ -112,45 +109,37 @@ async function getNews(
     return {
       news: fallbackNews,
       total: fallbackNews.length,
-      error: `خطا در دریافت اخبار: ${
-        err instanceof Error ? err.message : "خطای ناشناخته"
-      }`,
+      error: err instanceof Error ? err.message : "Unknown error",
     };
   }
 }
 
-// استفاده از NextPage برای تعریف نوع پراپ‌ها
-const NewsPage: NextPage<{ searchParams: SearchParams }> = async ({
+// Define the NewsPage component
+export default async function NewsPage({
   searchParams,
-}) => {
+}: {
+  searchParams?: { day?: string };
+}) {
+  // Validate and set the day parameter
   const day =
-    (searchParams.day as "yesterday" | "today" | "tomorrow") || "today";
-  const dataPromise = getNews(1, 12, day);
+    searchParams?.day === "yesterday" ||
+    searchParams?.day === "today" ||
+    searchParams?.day === "tomorrow"
+      ? searchParams.day
+      : "today";
+
+  const data = await getNews(1, 12, day);
+
   return (
     <Suspense fallback={<NewsSkeleton />}>
-      <NewsWrapper dataPromise={dataPromise} selectedDay={day} />
+      <News
+        initialNews={data.news || []}
+        total={data.total}
+        error={data.error}
+        selectedDay={day}
+      />
     </Suspense>
-  );
-};
-
-async function NewsWrapper({
-  dataPromise,
-  selectedDay,
-}: {
-  dataPromise: Promise<any>;
-  selectedDay: "yesterday" | "today" | "tomorrow";
-}) {
-  const { news, total, error } = await dataPromise;
-  return (
-    <News
-      initialNews={news || []}
-      total={total}
-      error={error}
-      selectedDay={selectedDay}
-    />
   );
 }
 
 export const revalidate = 60;
-
-export default NewsPage;
