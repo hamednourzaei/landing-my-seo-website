@@ -33,7 +33,7 @@ async function getNews(page: number = 1, pageSize: number = 10) {
   try {
     // مبدا کامل برای محیط تولید یا توسعه
     const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "https://tsarseo.online/api/news";
+      process.env.NEXT_PUBLIC_BASE_URL || "https://tsarseo.online/";
     const url = `${baseUrl}/api/news?page=${page}&pageSize=${pageSize}`;
     console.log("Fetching from URL:", url);
     const res = await fetch(url, {
