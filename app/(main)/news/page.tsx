@@ -38,7 +38,8 @@ async function getNews(page: number = 1) {
     // Validate page
     const validPage = Math.max(1, Number(page) || 1);
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "/api/news";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
     const url = `${baseUrl}?page=${validPage}&pageSize=${pageSize}`;
     const res = await fetch(url, { next: { revalidate: 60 } });
 

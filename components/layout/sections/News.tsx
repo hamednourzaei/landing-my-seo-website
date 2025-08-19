@@ -49,7 +49,7 @@ const News: React.FC<NewsProps> = ({
     const nextPage = page + 1;
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "/api/news";
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
       const url = `${baseUrl}?page=${nextPage}&pageSize=${pageSize}`;
       const res = await fetch(url, { cache: "no-store" });
 
