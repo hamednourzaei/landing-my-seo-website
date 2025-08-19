@@ -1,3 +1,4 @@
+// app/api/news/route.ts
 import { NextResponse } from "next/server";
 import type { NewsItem } from "@/types/news";
 
@@ -6,10 +7,24 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
+    const day = searchParams.get("day") || "today";
 
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date();
+    let date: string;
+    if (day === "yesterday") {
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      date = yesterday.toISOString().split("T")[0];
+    } else if (day === "tomorrow") {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      date = tomorrow.toISOString().split("T")[0];
+    } else {
+      date = today.toISOString().split("T")[0];
+    }
+
     const res = await fetch(
-      `https://hamednourzaei.github.io/api_google_news/news_${today}.json`,
+      `https://hamednourzaei.github.io/api_google_news/news_${date}.json`,
       { next: { revalidate: 60 } }
     );
 
@@ -25,7 +40,7 @@ export async function GET(request: Request) {
         id: "1",
         title: "نمونه خبر پیش‌فرض ۱",
         link: "#",
-        published: "2025-08-18",
+        published: date,
         source: "منبع پیش‌فرض",
         summary: "این یک خلاصه پیش‌فرض برای زمانی است که fetch شکست بخورد.",
         languages: "fa",
@@ -34,7 +49,7 @@ export async function GET(request: Request) {
         id: "2",
         title: "نمونه خبر پیش‌فرض ۲",
         link: "#",
-        published: "2025-08-18",
+        published: date,
         source: "منبع پیش‌فرض",
         summary: "این یک خبر دیگر برای fallback است.",
         languages: "fa",
@@ -43,7 +58,10 @@ export async function GET(request: Request) {
 
     if (!data || !Array.isArray(data)) {
       console.warn("Invalid API response, using fallback news");
-      return NextResponse.json({ news: fallbackNews, total: fallbackNews.length });
+      return NextResponse.json({
+        news: fallbackNews,
+        total: fallbackNews.length,
+      });
     }
 
     const news: NewsItem[] = data
@@ -52,7 +70,7 @@ export async function GET(request: Request) {
         id: item.id || `${idx}`,
         title: item.title || "بدون عنوان",
         link: item.link || "#",
-        published: item.published || new Date().toISOString().split("T")[0],
+        published: item.published || date,
         source: item.source || "Google News",
         summary: item.summary || "بدون خلاصه",
         languages: item.languages || "en",
@@ -66,7 +84,7 @@ export async function GET(request: Request) {
         id: "1",
         title: "نمونه خبر پیش‌فرض ۱",
         link: "#",
-        published: "2025-08-18",
+        published: new Date().toISOString().split("T")[0],
         source: "منبع پیش‌فرض",
         summary: "این یک خلاصه پیش‌فرض برای زمانی است که fetch شکست بخورد.",
         languages: "fa",
@@ -75,12 +93,15 @@ export async function GET(request: Request) {
         id: "2",
         title: "نمونه خبر پیش‌فرض ۲",
         link: "#",
-        published: "2025-08-18",
+        published: new Date().toISOString().split("T")[0],
         source: "منبع پیش‌فرض",
         summary: "این یک خبر دیگر برای fallback است.",
         languages: "fa",
       },
     ];
-    return NextResponse.json({ news: fallbackNews, total: fallbackNews.length });
+    return NextResponse.json({
+      news: fallbackNews,
+      total: fallbackNews.length,
+    });
   }
 }

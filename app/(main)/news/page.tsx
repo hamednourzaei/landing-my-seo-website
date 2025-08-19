@@ -1,10 +1,11 @@
+// app/news/page.tsx
 import type { NewsItem } from "@/types/news";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { NewsSkeleton } from "@/components/ui/skeleton";
 
 const News = dynamic(() => import("@/components/layout/sections/News"), {
-  ssr: true, // برای SEO
+  ssr: true,
   loading: () => <NewsSkeleton />,
 });
 
@@ -29,12 +30,28 @@ const fallbackNews: NewsItem[] = [
   },
 ];
 
-async function getNews(page: number = 1, pageSize: number = 10) {
+async function getNews(
+  page: number = 1,
+  pageSize: number = 10,
+  day: "yesterday" | "today" | "tomorrow" = "today"
+) {
   try {
-    // مبدا کامل برای محیط تولید یا توسعه
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "https://tsarseo.online/";
-    const url = `${baseUrl}/api/news?page=${page}&pageSize=${pageSize}`;
+    const today = new Date();
+    let date: string;
+    if (day === "yesterday") {
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      date = yesterday.toISOString().split("T")[0];
+    } else if (day === "tomorrow") {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      date = tomorrow.toISOString().split("T")[0];
+    } else {
+      date = today.toISOString().split("T")[0];
+    }
+
+    const baseUrl = "https://hamednourzaei.github.io/api_google_news";
+    const url = `${baseUrl}/news_${date}.json?page=${page}&pageSize=${pageSize}`;
     console.log("Fetching from URL:", url);
     const res = await fetch(url, {
       next: { revalidate: 60 },
@@ -55,7 +72,7 @@ async function getNews(page: number = 1, pageSize: number = 10) {
         id: item.id || `${idx}`,
         title: item.title || "بدون عنوان",
         link: item.link || "#",
-        published: item.published || new Date().toISOString().split("T")[0],
+        published: item.published || date,
         source: item.source || "Google News",
         summary: item.summary || "بدون خلاصه",
         languages: item.languages || "en",
@@ -66,7 +83,7 @@ async function getNews(page: number = 1, pageSize: number = 10) {
         id: item.id || `${idx}`,
         title: item.title || "بدون عنوان",
         link: item.link || "#",
-        published: item.published || new Date().toISOString().split("T")[0],
+        published: item.published || date,
         source: item.source || "Google News",
         summary: item.summary || "بدون خلاصه",
         languages: item.languages || "en",
@@ -78,7 +95,7 @@ async function getNews(page: number = 1, pageSize: number = 10) {
 
     // پیش‌لود صفحه دوم
     if (page === 1) {
-      const prefetchUrl = `${baseUrl}/api/news?page=2&pageSize=${pageSize}`;
+      const prefetchUrl = `${baseUrl}/news_${date}.json?page=2&pageSize=${pageSize}`;
       fetch(prefetchUrl, { next: { revalidate: 60 } }).catch((err) =>
         console.error("Prefetch error:", err)
       );
@@ -97,18 +114,37 @@ async function getNews(page: number = 1, pageSize: number = 10) {
   }
 }
 
-export default async function NewsPage() {
-  const dataPromise = getNews(1, 12);
+export default async function NewsPage({
+  searchParams,
+}: {
+  searchParams: { day?: string };
+}) {
+  const day =
+    (searchParams.day as "yesterday" | "today" | "tomorrow") || "today";
+  const dataPromise = getNews(1, 12, day);
   return (
     <Suspense fallback={<NewsSkeleton />}>
-      <NewsWrapper dataPromise={dataPromise} />
+      <NewsWrapper dataPromise={dataPromise} selectedDay={day} />
     </Suspense>
   );
 }
 
-async function NewsWrapper({ dataPromise }: { dataPromise: Promise<any> }) {
+async function NewsWrapper({
+  dataPromise,
+  selectedDay,
+}: {
+  dataPromise: Promise<any>;
+  selectedDay: "yesterday" | "today" | "tomorrow"; // ← اینجا تغییر
+}) {
   const { news, total, error } = await dataPromise;
-  return <News initialNews={news || []} total={total} error={error} />;
+  return (
+    <News
+      initialNews={news || []}
+      total={total}
+      error={error}
+      selectedDay={selectedDay}
+    />
+  );
 }
 
 export const revalidate = 60;
