@@ -98,7 +98,7 @@ async function getNews(page: number = 1, pageSize: number = 10) {
 }
 
 export default async function NewsPage() {
-  const dataPromise = getNews(1, 10);
+  const dataPromise = getNews(1, 12);
   return (
     <Suspense fallback={<NewsSkeleton />}>
       <NewsWrapper dataPromise={dataPromise} />
