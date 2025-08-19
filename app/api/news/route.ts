@@ -1,3 +1,4 @@
+// app/api/news/route.ts
 import { NextResponse } from "next/server";
 import type { NewsItem } from "@/types/news";
 
@@ -6,54 +7,40 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
+    const day = searchParams.get("day") || "today";
 
-    // Generate a list of dates to fetch (e.g., last 30 days)
     const today = new Date();
-    const dates: string[] = [];
-    for (let i = 0; i < 30; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() - i);
-      dates.push(date.toISOString().split("T")[0]);
+    let date: string;
+    if (day === "yesterday") {
+      const yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      date = yesterday.toISOString().split("T")[0];
+    } else if (day === "tomorrow") {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      date = tomorrow.toISOString().split("T")[0];
+    } else {
+      date = today.toISOString().split("T")[0];
     }
 
-    const baseUrl = "https://hamednourzaei.github.io/api_google_news";
-    let allNews: NewsItem[] = [];
+    const res = await fetch(
+      `https://hamednourzaei.github.io/api_google_news/news_${date}.json`,
+      { next: { revalidate: 60 } }
+    );
 
-    // Fetch news from all available JSON files
-    for (const date of dates) {
-      try {
-        const res = await fetch(`${baseUrl}/news_${date}.json`, {
-          next: { revalidate: 60 },
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data)) {
-            const news = data.map((item: any, idx: number) => ({
-              id: item.id || `${date}-${idx}`,
-              title: item.title || "بدون عنوان",
-              link: item.link || "#",
-              published: item.published || date,
-              source: item.source || "Google News",
-              summary: item.summary || "بدون خلاصه",
-              languages: item.languages || "en",
-            }));
-            allNews = [...allNews, ...news];
-          }
-        }
-      } catch (err) {
-        console.warn(`Failed to fetch news for ${date}:`, err);
-        continue; // Skip to next date if one fails
-      }
+    if (!res.ok) {
+      throw new Error(`Failed to fetch news: ${res.status} ${res.statusText}`);
     }
 
-    // Fallback if no news is fetched
+    const data = await res.json();
+    console.log("API Response (route.ts):", data);
+
     const fallbackNews: NewsItem[] = [
       {
         id: "1",
         title: "نمونه خبر پیش‌فرض ۱",
         link: "#",
-        published: today.toISOString().split("T")[0],
+        published: date,
         source: "منبع پیش‌فرض",
         summary: "این یک خلاصه پیش‌فرض برای زمانی است که fetch شکست بخورد.",
         languages: "fa",
@@ -62,34 +49,34 @@ export async function GET(request: Request) {
         id: "2",
         title: "نمونه خبر پیش‌فرض ۲",
         link: "#",
-        published: today.toISOString().split("T")[0],
+        published: date,
         source: "منبع پیش‌فرض",
         summary: "این یک خبر دیگر برای fallback است.",
         languages: "fa",
       },
     ];
 
-    if (allNews.length === 0) {
-      console.warn("No news fetched, using fallback");
+    if (!data || !Array.isArray(data)) {
+      console.warn("Invalid API response, using fallback news");
       return NextResponse.json({
         news: fallbackNews,
         total: fallbackNews.length,
       });
     }
 
-    // Sort all news by date (newest first)
-    allNews.sort(
-      (a, b) =>
-        new Date(b.published).getTime() - new Date(a.published).getTime()
-    );
+    const news: NewsItem[] = data
+      .slice((page - 1) * pageSize, page * pageSize)
+      .map((item: any, idx: number) => ({
+        id: item.id || `${idx}`,
+        title: item.title || "بدون عنوان",
+        link: item.link || "#",
+        published: item.published || date,
+        source: item.source || "Google News",
+        summary: item.summary || "بدون خلاصه",
+        languages: item.languages || "en",
+      }));
 
-    // Paginate the results
-    const paginatedNews = allNews.slice((page - 1) * pageSize, page * pageSize);
-
-    return NextResponse.json({
-      news: paginatedNews,
-      total: allNews.length,
-    });
+    return NextResponse.json({ news, total: data.length });
   } catch (err) {
     console.error("Error in GET /api/news:", err);
     const fallbackNews: NewsItem[] = [
