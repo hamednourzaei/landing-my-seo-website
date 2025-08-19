@@ -1,3 +1,4 @@
+
 // app/(main)/news/page.tsx
 import type { NewsItem } from "@/types/news";
 import { Suspense } from "react";
@@ -39,6 +40,10 @@ async function getNews(
   day: "yesterday" | "today" | "tomorrow" = "today"
 ) {
   try {
+    // Validate page and pageSize
+    const validPage = Math.max(1, Number(page) || 1);
+    const validPageSize = Math.max(1, Math.min(100, Number(pageSize) || 10));
+
     const today = new Date();
     let date: string;
 
@@ -56,7 +61,7 @@ async function getNews(
     }
 
     const baseUrl = "https://hamednourzaei.github.io/api_google_news";
-    const url = `${baseUrl}/news_${date}.json?page=${page}&pageSize=${pageSize}`;
+    const url = `${baseUrl}/news_${date}.json?page=${validPage}&pageSize=${validPageSize}`;
     const res = await fetch(url, { next: { revalidate: 60 } });
 
     if (!res.ok) {
@@ -71,7 +76,7 @@ async function getNews(
     // Handle API response
     if (Array.isArray(data)) {
       news = data.map((item: any, idx: number) => ({
-        id: item.id || `${idx}`,
+        id: item.id || `${validPage}-${idx}`,
         title: item.title || "No Title",
         link: item.link || "#",
         published: item.published || date,
@@ -82,7 +87,7 @@ async function getNews(
       total = data.length;
     } else if (Array.isArray(data.news)) {
       news = data.news.map((item: any, idx: number) => ({
-        id: item.id || `${idx}`,
+        id: item.id || `${validPage}-${idx}`,
         title: item.title || "No Title",
         link: item.link || "#",
         published: item.published || date,
@@ -93,14 +98,6 @@ async function getNews(
       total = typeof data.total === "number" ? data.total : news.length;
     } else {
       throw new Error("Invalid API response format");
-    }
-
-    // Preload the second page
-    if (page === 1) {
-      const prefetchUrl = `${baseUrl}/news_${date}.json?page=2&pageSize=${pageSize}`;
-      fetch(prefetchUrl, { next: { revalidate: 60 } }).catch((err) =>
-        console.error("Prefetch error:", err)
-      );
     }
 
     return { news, total, error: null };
@@ -118,17 +115,19 @@ async function getNews(
 export default async function NewsPage({
   searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams: Record<string, string | string[] | undefined>;
 }) {
-  // Validate and set the day parameter
+  // Extract and validate query parameters
   const day =
-    searchParams?.day === "yesterday" ||
-    searchParams?.day === "today" ||
-    searchParams?.day === "tomorrow"
-      ? searchParams.day
+    searchParams.day === "yesterday" ||
+    searchParams.day === "today" ||
+    searchParams.day === "tomorrow"
+      ? (searchParams.day as "yesterday" | "today" | "tomorrow")
       : "today";
+  const page = Math.max(1, Number(searchParams.page) || 1);
+  const pageSize = Math.max(1, Math.min(100, Number(searchParams.pageSize) || 12));
 
-  const data = await getNews(1, 12, day);
+  const data = await getNews(page, pageSize, day);
 
   return (
     <Suspense fallback={<NewsSkeleton />}>
@@ -137,6 +136,8 @@ export default async function NewsPage({
         total={data.total}
         error={data.error}
         selectedDay={day}
+        currentPage={page}
+        pageSize={pageSize}
       />
     </Suspense>
   );

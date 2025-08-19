@@ -5,13 +5,15 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import type { NewsItem } from "@/types/news";
 import NewsItemCard from "@/components/layout/sections/NewsCard";
 import DayFilter from "@/components/ui/DayFilter";
-import SortFilter from "@/components/ui/SortFilter"; // اضافه کردن SortFilter
+import SortFilter from "@/components/ui/SortFilter";
 
 interface NewsProps {
   initialNews: NewsItem[];
   total: number;
   error?: string | null;
   selectedDay: "yesterday" | "today" | "tomorrow";
+  currentPage: number;
+  pageSize: number;
 }
 
 const News: React.FC<NewsProps> = ({
@@ -19,17 +21,19 @@ const News: React.FC<NewsProps> = ({
   total,
   error: initialError,
   selectedDay,
+  currentPage,
+  pageSize,
 }) => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>(initialNews || []);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(currentPage);
   const [hasMore, setHasMore] = useState((initialNews || []).length < total);
   const [error, setError] = useState<string | null>(initialError || null);
   const [currentDay, setCurrentDay] = useState<
     "yesterday" | "today" | "tomorrow"
   >(selectedDay);
-  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest"); // اضافه کردن state برای مرتب‌سازی
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
-  // به‌روزرسانی اخبار هنگام تغییر روز یا مرتب‌سازی
+  // Update news items when initialNews, total, selectedDay, or sortOrder changes
   useEffect(() => {
     let sortedNews = [...initialNews];
     if (sortOrder === "newest") {
@@ -45,9 +49,9 @@ const News: React.FC<NewsProps> = ({
     }
     setNewsItems(sortedNews);
     setHasMore(initialNews.length < total);
-    setPage(1); // ریست کردن صفحه هنگام تغییر روز یا مرتب‌سازی
+    setPage(currentPage);
     setCurrentDay(selectedDay);
-  }, [initialNews, total, selectedDay, sortOrder]);
+  }, [initialNews, total, selectedDay, sortOrder, currentPage]);
 
   const fetchMoreNews = async () => {
     if (!hasMore) return;
@@ -55,11 +59,10 @@ const News: React.FC<NewsProps> = ({
 
     try {
       const apiUrl =
-        process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
-      const url = `${apiUrl}?page=${nextPage}&pageSize=10&day=${currentDay}`;
-      const res = await fetch(url, {
-        cache: "no-store",
-      });
+        process.env.NEXT_PUBLIC_API_URL ||
+        "https://hamednourzaei.github.io/api_google_news";
+      const url = `${apiUrl}/news_${currentDay}.json?page=${nextPage}&pageSize=${pageSize}`;
+      const res = await fetch(url, { cache: "no-store" });
 
       if (!res.ok) {
         throw new Error(
@@ -68,27 +71,26 @@ const News: React.FC<NewsProps> = ({
       }
 
       const data = await res.json();
-      console.log("Fetch More News Response (News.tsx):", data);
 
       let newItems: NewsItem[] = [];
       if (Array.isArray(data)) {
         newItems = data.map((item: any, idx: number) => ({
-          id: item.id || `${idx}`,
-          title: item.title || "بدون عنوان",
+          id: item.id || `${nextPage}-${idx}`,
+          title: item.title || "No Title",
           link: item.link || "#",
           published: item.published || new Date().toISOString().split("T")[0],
           source: item.source || "Google News",
-          summary: item.summary || "بدون خلاصه",
+          summary: item.summary || "No Summary",
           languages: item.languages || "en",
         }));
       } else if (Array.isArray(data.news)) {
         newItems = data.news.map((item: any, idx: number) => ({
-          id: item.id || `${idx}`,
-          title: item.title || "بدون عنوان",
+          id: item.id || `${nextPage}-${idx}`,
+          title: item.title || "No Title",
           link: item.link || "#",
           published: item.published || new Date().toISOString().split("T")[0],
           source: item.source || "Google News",
-          summary: item.summary || "بدون خلاصه",
+          summary: item.summary || "No Summary",
           languages: item.languages || "en",
         }));
       } else {
@@ -97,7 +99,7 @@ const News: React.FC<NewsProps> = ({
         );
       }
 
-      // مرتب‌سازی اخبار جدید
+      // Sort new items
       if (sortOrder === "newest") {
         newItems.sort(
           (a, b) =>
@@ -119,12 +121,8 @@ const News: React.FC<NewsProps> = ({
       setPage(nextPage);
       setError(null);
     } catch (err) {
-      console.error("Fetch error (News.tsx):", err);
-      setError(
-        `خطا در بارگذاری اخبار: ${
-          err instanceof Error ? err.message : "خطای ناشناخته"
-        }`
-      );
+      console.error("Fetch error:", err);
+      setError(err instanceof Error ? err.message : "Unknown error");
       setHasMore(false);
     }
   };
@@ -150,7 +148,7 @@ const News: React.FC<NewsProps> = ({
       )}
       {!error && newsItems.length === 0 && (
         <p className="text-center text-gray-300 font-kalameh">
-          هیچ اخباری برای نمایش وجود ندارد.
+          No news available to display.
         </p>
       )}
       {newsItems.length > 0 && (
@@ -160,12 +158,12 @@ const News: React.FC<NewsProps> = ({
           hasMore={hasMore}
           loader={
             <h4 className="text-center text-gray-300 font-kalameh">
-              در حال بارگذاری...
+              Loading...
             </h4>
           }
           endMessage={
             <p className="text-center text-gray-300 font-kalameh">
-              تمام اخبار بارگذاری شد.
+              All news has been loaded.
             </p>
           }
         >
