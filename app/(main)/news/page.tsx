@@ -1,6 +1,5 @@
-// app/(main)/news/page.tsx
 import type { NewsItem } from "@/types/news";
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { NewsSkeleton } from "@/components/ui/skeleton";
 
@@ -33,11 +32,11 @@ const fallbackNews: NewsItem[] = [
 ];
 
 // Fetch news data from the API
-async function getNews(page: number = 1, pageSize: number = 10) {
+async function getNews(page: number = 1, pageSize: number = 12) {
   try {
     // Validate page and pageSize
     const validPage = Math.max(1, Number(page) || 1);
-    const validPageSize = Math.max(1, Math.min(100, Number(pageSize) || 10));
+    const validPageSize = Math.max(1, Math.min(100, Number(pageSize) || 12));
 
     // Use today's date for API requests
     const today = new Date();
@@ -94,6 +93,76 @@ async function getNews(page: number = 1, pageSize: number = 10) {
   }
 }
 
+// Client-side component for infinite scroll
+function NewsInfiniteScroll({
+  initialNews,
+  total,
+  initialError,
+  initialPage,
+  pageSize,
+}: {
+  initialNews: NewsItem[];
+  total: number;
+  initialError: string | null;
+  initialPage: number;
+  pageSize: number;
+}) {
+  const [news, setNews] = useState<NewsItem[]>(initialNews);
+  const [page, setPage] = useState(initialPage + 1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(initialError);
+  const [hasMore, setHasMore] = useState(news.length < total);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
+  // Load more news when reaching the bottom
+  useEffect(() => {
+    if (!hasMore || isLoading) return;
+
+    observerRef.current = new IntersectionObserver(
+      async (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsLoading(true);
+          const data = await getNews(page, pageSize);
+          setNews((prev) => [...prev, ...data.news]);
+          setHasMore(data.news.length === pageSize && page * pageSize < data.total);
+          setPage((prev) => prev + 1);
+          setError(data.error);
+          setIsLoading(false);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (loadMoreRef.current) {
+      observerRef.current.observe(loadMoreRef.current);
+    }
+
+    return () => {
+      if (observerRef.current && loadMoreRef.current) {
+        observerRef.current.unobserve(loadMoreRef.current);
+      }
+    };
+  }, [page, pageSize, hasMore, isLoading]);
+
+  return (
+    <>
+      <News
+        initialNews={news}
+        total={total}
+        error={error}
+        currentPage={page}
+        pageSize={pageSize}
+      />
+      {hasMore && (
+        <div ref={loadMoreRef} className="h-10">
+          {isLoading && <NewsSkeleton />}
+        </div>
+      )}
+    </>
+  );
+}
+
 // Define the NewsPage component with type assertion to bypass Netlify plugin issue
 export default async function NewsPage({
   searchParams,
@@ -102,24 +171,21 @@ export default async function NewsPage({
 }) {
   // Extract and validate query parameters
   const page = Math.max(1, Number(searchParams.page) || 1);
-  const pageSize = Math.max(
-    1,
-    Math.min(100, Number(searchParams.pageSize) || 12)
-  );
+  const pageSize = 12; // Fixed to 12 items per page
 
   const data = await getNews(page, pageSize);
 
   return (
     <Suspense fallback={<NewsSkeleton />}>
-      <News
+      <NewsInfiniteScroll
         initialNews={data.news || []}
         total={data.total}
-        error={data.error}
-        currentPage={page}
+        initialError={data.error}
+        initialPage={page}
         pageSize={pageSize}
       />
     </Suspense>
   );
 }
 
-export const revalidate = 60;
+export const revalidate = 300;
