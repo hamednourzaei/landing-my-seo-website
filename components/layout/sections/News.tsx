@@ -20,8 +20,6 @@ const News: React.FC<NewsProps> = ({
   const [hasMore, setHasMore] = useState((initialNews || []).length < total);
   const [error, setError] = useState<string | null>(initialError || null);
 
-  console.log("Initial News (News.tsx):", initialNews);
-
   const fetchMoreNews = async () => {
     if (!hasMore) return;
     const nextPage = page + 1;
@@ -30,7 +28,6 @@ const News: React.FC<NewsProps> = ({
       const apiUrl =
         process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
       const url = `${apiUrl}?page=${nextPage}&pageSize=10`;
-      console.log("Fetching more from URL:", url); // برای دیباگ
       const res = await fetch(url, {
         cache: "no-store",
       });

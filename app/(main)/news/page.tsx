@@ -27,7 +27,6 @@ async function getNews(page: number = 1, pageSize: number = 10) {
     const apiUrl =
       process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
     const url = `${apiUrl}?page=${page}&pageSize=${pageSize}`;
-    console.log("Fetching from URL:", url); // برای دیباگ
     const res = await fetch(url, {
       cache: "no-store",
     });
@@ -37,7 +36,6 @@ async function getNews(page: number = 1, pageSize: number = 10) {
     }
 
     const data = await res.json();
-    console.log("API Response (page.tsx):", data);
 
     // اگر API یک آرایه مستقیم برگرداند، آن را به شکل { news, total } تبدیل می‌کنیم
     let news: NewsItem[] = [];
@@ -73,7 +71,6 @@ async function getNews(page: number = 1, pageSize: number = 10) {
 
     return { news, total, error: null };
   } catch (err) {
-    console.error("Error fetching news:", err);
     return {
       news: fallbackNews,
       total: fallbackNews.length,
