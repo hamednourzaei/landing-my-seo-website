@@ -114,11 +114,11 @@ async function getNews(
   }
 }
 
-// Define the NewsPage component
+// Define the NewsPage component with standard Next.js searchParams type
 export default async function NewsPage({
   searchParams,
 }: {
-  searchParams?: { day?: string };
+  searchParams?: Record<string, string | string[] | undefined>;
 }) {
   // Validate and set the day parameter
   const day =
