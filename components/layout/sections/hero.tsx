@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { StatsCardsClient } from "./StatsCardsClient";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { NewsSkeleton  } from "@/components/ui/skeleton";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -119,9 +119,9 @@ const StatsCardsSkeleton = () => {
           className="p-4 border rounded-xl shadow-sm bg-background"
           aria-hidden="true"
         >
-          <Skeleton className="h-6 w-3/4 mb-2" />
-          <Skeleton className="h-8 w-1/2 mb-4" />
-          <Skeleton className="h-32 w-full" />
+          <NewsSkeleton  />
+          <NewsSkeleton />
+          <NewsSkeleton />
         </div>
       ))}
     </div>

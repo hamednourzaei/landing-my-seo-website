@@ -12,7 +12,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Skeleton } from "@/components/ui/skeleton";
+import { NewsSkeleton } from "@/components/ui/skeleton";
 
 interface Stat {
   value: number;
@@ -27,9 +27,9 @@ interface StatsCardsClientProps {
 
 const SkeletonCard = () => (
   <div className="bg-card rounded-xl p-6 border border-border shadow-sm">
-    <Skeleton className="h-6 w-24 mx-auto mb-3 bg-muted rounded-md" />
-    <Skeleton className="h-4 w-32 mx-auto mb-2 bg-muted rounded-md" />
-    <Skeleton className="h-4 w-20 mx-auto bg-muted rounded-md" />
+    <NewsSkeleton />
+    <NewsSkeleton />
+    <NewsSkeleton />
   </div>
 );
 
