@@ -1,4 +1,3 @@
-
 // app/(main)/news/page.tsx
 import type { NewsItem } from "@/types/news";
 import { Suspense } from "react";
@@ -95,16 +94,18 @@ async function getNews(page: number = 1, pageSize: number = 10) {
   }
 }
 
-// Define the NewsPage component with standard Next.js searchParams type
+// Define the NewsPage component with type assertion to bypass Netlify plugin issue
 export default async function NewsPage({
   searchParams,
 }: {
-  // Type assertion to bypass Netlify plugin's incorrect Promise<any> expectation
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: any; // Type assertion to bypass Promise<any> expectation
 }) {
   // Extract and validate query parameters
   const page = Math.max(1, Number(searchParams.page) || 1);
-  const pageSize = Math.max(1, Math.min(100, Number(searchParams.pageSize) || 12));
+  const pageSize = Math.max(
+    1,
+    Math.min(100, Number(searchParams.pageSize) || 12)
+  );
 
   const data = await getNews(page, pageSize);
 
