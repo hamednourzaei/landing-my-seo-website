@@ -38,16 +38,13 @@ async function getNews(page: number = 1, pageSize: number = 12) {
     // Validate page and pageSize
     const validPage = Math.max(1, Number(page) || 1);
     const validPageSize = Math.max(1, Math.min(100, Number(pageSize) || 12));
-
     const today = new Date().toISOString().split("T")[0];
     const baseUrl = "https://hamednourzaei.github.io/api_google_news";
     const url = `${baseUrl}/news_${today}.json?page=${validPage}&pageSize=${validPageSize}`;
-
     const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) {
       throw new Error(`Failed to fetch news: ${res.status} ${res.statusText}`);
     }
-
     const data = await res.json();
     let news: NewsItem[] = [];
     let total: number = 0;
@@ -72,7 +69,6 @@ async function getNews(page: number = 1, pageSize: number = 12) {
     } else {
       throw new Error("Invalid API response format");
     }
-
     return { news, total, error: null };
   } catch (err) {
     console.error("Error fetching news:", err);
@@ -84,22 +80,9 @@ async function getNews(page: number = 1, pageSize: number = 12) {
   }
 }
 
-// Define the NewsPage component with correct type for searchParams
-import type { NextPage } from "next";
-
-type NewsPageProps = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-const NewsPage: NextPage<NewsPageProps> = async ({ searchParams }) => {
-  // Resolve the searchParams Promise
-  const resolvedSearchParams = await searchParams;
-
-  // Extract and validate query parameters
-  const page = Math.max(1, Number(resolvedSearchParams.page) || 1);
-  const pageSize = 12; // Fixed page size to 12
-
-  const data = await getNews(page, pageSize);
+export default async function NewsPage() {
+  const pageSize = 12;
+  const data = await getNews(1, pageSize); // Always fetch first page
 
   return (
     <Suspense fallback={<NewsSkeleton />}>
@@ -107,12 +90,10 @@ const NewsPage: NextPage<NewsPageProps> = async ({ searchParams }) => {
         initialNews={data.news || []}
         total={data.total}
         error={data.error}
-        currentPage={page}
         pageSize={pageSize}
       />
     </Suspense>
   );
-};
+}
 
-export default NewsPage;
 export const revalidate = 60;
