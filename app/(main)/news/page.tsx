@@ -1,5 +1,29 @@
 import type { NewsItem } from "@/types/news";
-import News from "@/components/layout/sections/News";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+
+const News = dynamic(() => import("@/components/layout/sections/News"), {
+  ssr: true, // برای SEO
+  loading: () => <NewsSkeleton />,
+});
+
+const NewsSkeleton = () => (
+  <div className="py-24 w-[90%] mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
+      {Array.from({ length: 4 }).map((_, idx) => (
+        <div
+          key={idx}
+          className="bg-card p-6 rounded-xl shadow-md w-full max-w-sm animate-pulse"
+        >
+          <div className="h-6 bg-gray-300 rounded mb-4"></div>
+          <div className="h-4 bg-gray-600 rounded mb-3"></div>
+          <div className="h-16 bg-gray-300 rounded mb-6"></div>
+          <div className="h-4 bg-primary rounded w-20"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 const fallbackNews: NewsItem[] = [
   {
@@ -24,11 +48,10 @@ const fallbackNews: NewsItem[] = [
 
 async function getNews(page: number = 1, pageSize: number = 10) {
   try {
-    const apiUrl =
-      process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
-    const url = `${apiUrl}?page=${page}&pageSize=${pageSize}`;
+    const url = `/api/news?page=${page}&pageSize=${pageSize}`; // استفاده از پراکسی داخلی
+    console.log("Fetching from URL:", url);
     const res = await fetch(url, {
-      cache: "no-store",
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {
@@ -36,8 +59,8 @@ async function getNews(page: number = 1, pageSize: number = 10) {
     }
 
     const data = await res.json();
+    console.log("API Response (page.tsx):", data);
 
-    // اگر API یک آرایه مستقیم برگرداند، آن را به شکل { news, total } تبدیل می‌کنیم
     let news: NewsItem[] = [];
     let total: number = 0;
 
@@ -64,13 +87,20 @@ async function getNews(page: number = 1, pageSize: number = 10) {
       }));
       total = typeof data.total === "number" ? data.total : news.length;
     } else {
-      throw new Error(
-        "Invalid API response: expected an array or object with 'news' array"
+      throw new Error("Invalid API response");
+    }
+
+    // پیش‌لود صفحه دوم
+    if (page === 1) {
+      const prefetchUrl = `/api/news?page=2&pageSize=${pageSize}`;
+      fetch(prefetchUrl, { next: { revalidate: 60 } }).catch((err) =>
+        console.error("Prefetch error:", err)
       );
     }
 
     return { news, total, error: null };
   } catch (err) {
+    console.error("Error fetching news:", err);
     return {
       news: fallbackNews,
       total: fallbackNews.length,
@@ -82,8 +112,17 @@ async function getNews(page: number = 1, pageSize: number = 10) {
 }
 
 export default async function NewsPage() {
-  const { news, total, error } = await getNews(1, 10);
+  const dataPromise = getNews(1, 10);
+  return (
+    <Suspense fallback={<NewsSkeleton />}>
+      <NewsWrapper dataPromise={dataPromise} />
+    </Suspense>
+  );
+}
+
+async function NewsWrapper({ dataPromise }: { dataPromise: Promise<any> }) {
+  const { news, total, error } = await dataPromise;
   return <News initialNews={news || []} total={total} error={error} />;
 }
 
-export const revalidate = 60; // بازسازی هر ۱ دقیقه
+export const revalidate = 60;
