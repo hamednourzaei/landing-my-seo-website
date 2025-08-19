@@ -33,7 +33,7 @@ const fallbackNews: NewsItem[] = [
 
 // Fetch news data from the internal API
 async function getNews(page: number = 1) {
-  const pageSize = 12; // ثابت کردن pageSize روی 12
+  const pageSize = 8; // ثابت کردن pageSize روی 8
   try {
     // Validate page
     const validPage = Math.max(1, Number(page) || 1);

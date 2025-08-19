@@ -18,7 +18,7 @@ const News: React.FC<NewsProps> = ({
   error: initialError,
   currentPage,
 }) => {
-  const pageSize = 12; // ثابت کردن pageSize روی 12
+  const pageSize = 8; // ثابت کردن pageSize روی 8
   const [newsItems, setNewsItems] = useState<NewsItem[]>(initialNews || []);
   const [page, setPage] = useState(currentPage);
   const [hasMore, setHasMore] = useState((initialNews || []).length < total);
@@ -49,7 +49,8 @@ const News: React.FC<NewsProps> = ({
     const nextPage = page + 1;
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
+      const baseUrl =
+        process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
       const url = `${baseUrl}?page=${nextPage}&pageSize=${pageSize}`;
       const res = await fetch(url, { cache: "no-store" });
 
