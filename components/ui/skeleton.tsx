@@ -1,4 +1,4 @@
-const NewsSkeleton = () => (
+export const NewsSkeleton = () => (
   <div className="py-24 w-[90%] mx-auto">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
       {Array.from({ length: 4 }).map((_, idx) => (
