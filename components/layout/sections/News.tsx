@@ -108,7 +108,7 @@ const News: React.FC<NewsProps> = ({
 
   return (
     <div className="py-24 w-[90%] mx-auto">
-      <div className="mb-6 flex gap-4">
+      <div className="mb-6 flex justify-end gap-4">
         <SortFilter
           value={sortOrder}
           onChange={(value: string) =>
