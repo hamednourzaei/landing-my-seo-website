@@ -34,31 +34,15 @@ const fallbackNews: NewsItem[] = [
 ];
 
 // Fetch news data from the API
-async function getNews(
-  page: number = 1,
-  pageSize: number = 10,
-  day: "yesterday" | "today" | "tomorrow" = "today"
-) {
+async function getNews(page: number = 1, pageSize: number = 10) {
   try {
     // Validate page and pageSize
     const validPage = Math.max(1, Number(page) || 1);
     const validPageSize = Math.max(1, Math.min(100, Number(pageSize) || 10));
 
+    // Use today's date for API requests
     const today = new Date();
-    let date: string;
-
-    // Calculate the date based on the selected day
-    if (day === "yesterday") {
-      const yesterday = new Date(today);
-      yesterday.setDate(today.getDate() - 1);
-      date = yesterday.toISOString().split("T")[0];
-    } else if (day === "tomorrow") {
-      const tomorrow = new Date(today);
-      tomorrow.setDate(today.getDate() + 1);
-      date = tomorrow.toISOString().split("T")[0];
-    } else {
-      date = today.toISOString().split("T")[0];
-    }
+    const date = today.toISOString().split("T")[0];
 
     const baseUrl = "https://hamednourzaei.github.io/api_google_news";
     const url = `${baseUrl}/news_${date}.json?page=${validPage}&pageSize=${validPageSize}`;
@@ -115,19 +99,14 @@ async function getNews(
 export default async function NewsPage({
   searchParams,
 }: {
+  // Type assertion to bypass Netlify plugin's incorrect Promise<any> expectation
   searchParams: Record<string, string | string[] | undefined>;
 }) {
   // Extract and validate query parameters
-  const day =
-    searchParams.day === "yesterday" ||
-    searchParams.day === "today" ||
-    searchParams.day === "tomorrow"
-      ? (searchParams.day as "yesterday" | "today" | "tomorrow")
-      : "today";
   const page = Math.max(1, Number(searchParams.page) || 1);
   const pageSize = Math.max(1, Math.min(100, Number(searchParams.pageSize) || 12));
 
-  const data = await getNews(page, pageSize, day);
+  const data = await getNews(page, pageSize);
 
   return (
     <Suspense fallback={<NewsSkeleton />}>
@@ -135,7 +114,6 @@ export default async function NewsPage({
         initialNews={data.news || []}
         total={data.total}
         error={data.error}
-        selectedDay={day}
         currentPage={page}
         pageSize={pageSize}
       />

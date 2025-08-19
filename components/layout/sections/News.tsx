@@ -1,17 +1,16 @@
+
 // components/layout/sections/News.tsx
 "use client";
 import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import type { NewsItem } from "@/types/news";
 import NewsItemCard from "@/components/layout/sections/NewsCard";
-import DayFilter from "@/components/ui/DayFilter";
 import SortFilter from "@/components/ui/SortFilter";
 
 interface NewsProps {
   initialNews: NewsItem[];
   total: number;
   error?: string | null;
-  selectedDay: "yesterday" | "today" | "tomorrow";
   currentPage: number;
   pageSize: number;
 }
@@ -20,7 +19,6 @@ const News: React.FC<NewsProps> = ({
   initialNews,
   total,
   error: initialError,
-  selectedDay,
   currentPage,
   pageSize,
 }) => {
@@ -28,46 +26,34 @@ const News: React.FC<NewsProps> = ({
   const [page, setPage] = useState(currentPage);
   const [hasMore, setHasMore] = useState((initialNews || []).length < total);
   const [error, setError] = useState<string | null>(initialError || null);
-  const [currentDay, setCurrentDay] = useState<
-    "yesterday" | "today" | "tomorrow"
-  >(selectedDay);
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
-  // Update news items when initialNews, total, selectedDay, or sortOrder changes
+  // Update news items when initialNews, total, or sortOrder changes
   useEffect(() => {
     let sortedNews = [...initialNews];
     if (sortOrder === "newest") {
-      sortedNews.sort(
-        (a, b) =>
-          new Date(b.published).getTime() - new Date(a.published).getTime()
-      );
+      sortedNews.sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
     } else {
-      sortedNews.sort(
-        (a, b) =>
-          new Date(a.published).getTime() - new Date(b.published).getTime()
-      );
+      sortedNews.sort((a, b) => new Date(a.published).getTime() - new Date(b.published).getTime());
     }
     setNewsItems(sortedNews);
     setHasMore(initialNews.length < total);
     setPage(currentPage);
-    setCurrentDay(selectedDay);
-  }, [initialNews, total, selectedDay, sortOrder, currentPage]);
+  }, [initialNews, total, sortOrder, currentPage]);
 
   const fetchMoreNews = async () => {
     if (!hasMore) return;
     const nextPage = page + 1;
 
     try {
-      const apiUrl =
-        process.env.NEXT_PUBLIC_API_URL ||
-        "https://hamednourzaei.github.io/api_google_news";
-      const url = `${apiUrl}/news_${currentDay}.json?page=${nextPage}&pageSize=${pageSize}`;
+      const today = new Date();
+      const date = today.toISOString().split("T")[0];
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://hamednourzaei.github.io/api_google_news";
+      const url = `${apiUrl}/news_${date}.json?page=${nextPage}&pageSize=${pageSize}`;
       const res = await fetch(url, { cache: "no-store" });
 
       if (!res.ok) {
-        throw new Error(
-          `Failed to fetch news: ${res.status} ${res.statusText}`
-        );
+        throw new Error(`Failed to fetch news: ${res.status} ${res.statusText}`);
       }
 
       const data = await res.json();
@@ -94,22 +80,14 @@ const News: React.FC<NewsProps> = ({
           languages: item.languages || "en",
         }));
       } else {
-        throw new Error(
-          "Invalid API response: expected an array or object with 'news' array"
-        );
+        throw new Error("Invalid API response: expected an array or object with 'news' array");
       }
 
       // Sort new items
       if (sortOrder === "newest") {
-        newItems.sort(
-          (a, b) =>
-            new Date(b.published).getTime() - new Date(a.published).getTime()
-        );
+        newItems.sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
       } else {
-        newItems.sort(
-          (a, b) =>
-            new Date(a.published).getTime() - new Date(b.published).getTime()
-        );
+        newItems.sort((a, b) => new Date(a.published).getTime() - new Date(b.published).getTime());
       }
 
       setNewsItems((prev) => {
@@ -130,42 +108,22 @@ const News: React.FC<NewsProps> = ({
   return (
     <div className="py-24 w-[90%] mx-auto">
       <div className="mb-6 flex gap-4">
-        <DayFilter
-          value={currentDay}
-          onChange={(value: string) =>
-            setCurrentDay(value as "yesterday" | "today" | "tomorrow")
-          }
-        />
         <SortFilter
           value={sortOrder}
-          onChange={(value: string) =>
-            setSortOrder(value as "newest" | "oldest")
-          }
+          onChange={(value: string) => setSortOrder(value as "newest" | "oldest")}
         />
       </div>
-      {error && (
-        <p className="text-center text-red-500 font-kalameh">{error}</p>
-      )}
+      {error && <p className="text-center text-red-500 font-kalameh">{error}</p>}
       {!error && newsItems.length === 0 && (
-        <p className="text-center text-gray-300 font-kalameh">
-          No news available to display.
-        </p>
+        <p className="text-center text-gray-300 font-kalameh">No news available to display.</p>
       )}
       {newsItems.length > 0 && (
         <InfiniteScroll
           dataLength={newsItems.length}
           next={fetchMoreNews}
           hasMore={hasMore}
-          loader={
-            <h4 className="text-center text-gray-300 font-kalameh">
-              Loading...
-            </h4>
-          }
-          endMessage={
-            <p className="text-center text-gray-300 font-kalameh">
-              All news has been loaded.
-            </p>
-          }
+          loader={<h4 className="text-center text-gray-300 font-kalameh">Loading...</h4>}
+          endMessage={<p className="text-center text-gray-300 font-kalameh">All news has been loaded.</p>}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
             {newsItems.map((news) => (
