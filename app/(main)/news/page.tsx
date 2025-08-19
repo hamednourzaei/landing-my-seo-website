@@ -84,13 +84,19 @@ async function getNews(page: number = 1, pageSize: number = 12) {
   }
 }
 
-export default async function NewsPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+// Define the NewsPage component with correct type for searchParams
+import type { NextPage } from "next";
+
+type NewsPageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+const NewsPage: NextPage<NewsPageProps> = async ({ searchParams }) => {
+  // Resolve the searchParams Promise
+  const resolvedSearchParams = await searchParams;
+
   // Extract and validate query parameters
-  const page = Math.max(1, Number(searchParams.page) || 1);
+  const page = Math.max(1, Number(resolvedSearchParams.page) || 1);
   const pageSize = 12; // Fixed page size to 12
 
   const data = await getNews(page, pageSize);
@@ -106,6 +112,7 @@ export default async function NewsPage({
       />
     </Suspense>
   );
-}
+};
 
+export default NewsPage;
 export const revalidate = 60;
