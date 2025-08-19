@@ -1,13 +1,12 @@
 import type { NewsItem } from "@/types/news";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import {NewsSkeleton} from "@/components/ui/skeleton"
+import { NewsSkeleton } from "@/components/ui/skeleton";
+
 const News = dynamic(() => import("@/components/layout/sections/News"), {
   ssr: true, // برای SEO
   loading: () => <NewsSkeleton />,
 });
-
-
 
 const fallbackNews: NewsItem[] = [
   {
@@ -32,7 +31,9 @@ const fallbackNews: NewsItem[] = [
 
 async function getNews(page: number = 1, pageSize: number = 10) {
   try {
-    const url = `/api/news?page=${page}&pageSize=${pageSize}`; // استفاده از پراکسی داخلی
+    // مبدا کامل برای محیط تولید یا توسعه
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const url = `${baseUrl}/api/news?page=${page}&pageSize=${pageSize}`;
     console.log("Fetching from URL:", url);
     const res = await fetch(url, {
       next: { revalidate: 60 },
@@ -76,7 +77,7 @@ async function getNews(page: number = 1, pageSize: number = 10) {
 
     // پیش‌لود صفحه دوم
     if (page === 1) {
-      const prefetchUrl = `/api/news?page=2&pageSize=${pageSize}`;
+      const prefetchUrl = `${baseUrl}/api/news?page=2&pageSize=${pageSize}`;
       fetch(prefetchUrl, { next: { revalidate: 60 } }).catch((err) =>
         console.error("Prefetch error:", err)
       );
