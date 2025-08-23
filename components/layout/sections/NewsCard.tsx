@@ -29,7 +29,7 @@ const NewsItemCard: React.FC<NewsItemCardProps> = ({ news }) => {
         target="_blank"
         rel="noopener noreferrer"
         className="text-primary font-semibold hover:underline text-xs sm:text-base"
-        aria-label={`ادامه مطلب برای ${news.link}`}
+        aria-label={`ادامه مطلب برای ${news.title}`}
       >
         ادامه مطلب
       </a>
