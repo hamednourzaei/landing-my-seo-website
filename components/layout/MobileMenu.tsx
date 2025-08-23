@@ -13,18 +13,23 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 interface MobileMenuProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
+  onLinkClick: (href: string) => void; // اضافه کردن پراپرتی onLinkClick
 }
 
-export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpen }) => {
+export const MobileMenu: React.FC<MobileMenuProps> = ({
+  isOpen,
+  setIsOpen,
+  onLinkClick,
+}) => {
   const activeHash = useActiveHash();
 
-  const handleMenuItemClick = () => {
+  const handleMenuItemClick = (href: string) => {
+    onLinkClick(href); // استفاده از onLinkClick برای مدیریت لودینگ
     setIsOpen(false);
   };
 
   return (
     <>
-      {/* هدر همیشه نمایش داده می‌شود، بدون انیمیشن محو شدن */}
       <SheetHeader className="mb-6 mt-12">
         <VisuallyHidden>
           <SheetTitle>منوی موبایل TsarSEO</SheetTitle>
@@ -34,7 +39,12 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpen }) => 
         </VisuallyHidden>
 
         <div className="flex items-center justify-center">
-          <Link href="/" className="flex items-center" aria-label="صفحه اصلی TsarSEO">
+          <Link
+            href="/"
+            className="flex items-center"
+            aria-label="صفحه اصلی TsarSEO"
+            onClick={() => handleMenuItemClick("/")}
+          >
             <ChevronsDown
               className="ml-2 h-9 w-9 rounded-lg border border-secondary bg-gradient-to-tr from-primary via-primary/70 to-primary text-white"
               aria-hidden="true"
@@ -58,12 +68,14 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpen }) => 
             style={{ transitionDelay: `${index * 0.05}s` }}
           >
             <Button
-              onClick={handleMenuItemClick}
+              onClick={() => handleMenuItemClick(href)}
               asChild
               variant="ghost"
               className={cn(
                 "w-full justify-center py-2 text-lg font-semibold transition-all",
-                activeHash === href ? "bg-primary/20 text-primary" : "hover:bg-primary/10"
+                activeHash === href
+                  ? "bg-primary/20 text-primary"
+                  : "hover:bg-primary/10"
               )}
               aria-current={activeHash === href ? "page" : undefined}
             >

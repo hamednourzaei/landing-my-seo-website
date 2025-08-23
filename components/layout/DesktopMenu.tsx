@@ -14,7 +14,11 @@ import { ROUTE_LIST, FEATURE_LIST } from "./navbar";
 import { useActiveHash } from "@/lib/use-active-hash";
 import { CheckCircle } from "lucide-react";
 
-export const DesktopMenu: React.FC = () => {
+interface DesktopMenuProps {
+  onLinkClick: (href: string) => void; // اضافه کردن پراپرتی onLinkClick
+}
+
+export const DesktopMenu: React.FC<DesktopMenuProps> = ({ onLinkClick }) => {
   const activeHash = useActiveHash();
 
   return (
@@ -42,7 +46,7 @@ export const DesktopMenu: React.FC = () => {
                     role="listitem"
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      {title === "calculate-profits" && (
+                      {title === "محاسبه درآمد" && (
                         <CheckCircle className="text-green-500 w-4 h-4" />
                       )}
                       <p className="font-kalameh font-extralight leading-none text-foreground">
@@ -63,6 +67,7 @@ export const DesktopMenu: React.FC = () => {
           <NavigationMenuItem key={href}>
             <Link
               href={href}
+              onClick={() => onLinkClick(href)}
               className={cn(
                 "inline-block text-nowrap rounded-md px-3 py-2 text-md font-kalameh no-underline outline-none transition-colors hover:bg-muted focus:bg-muted",
                 activeHash === href
