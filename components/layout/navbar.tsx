@@ -23,12 +23,14 @@ interface Feature {
 }
 
 export const ROUTE_LIST: Route[] = [
+
   { href: "/#success-stories", label: "نظرات شما" },
   { href: "/#features", label: "ویژگی‌های ما" },
   { href: "/#contact", label: "تماس با ما" },
   { href: "/#faq", label: "سوالات متداول" },
   { href: "/calculate-profits", label: "محاسبه درآمد" },
   { href: "/news", label: "اخبار" },
+ 
 ];
 
 export const FEATURE_LIST: Feature[] = [

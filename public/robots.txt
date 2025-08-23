@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
-
+Disallow: /portfolio
+Disallow: /about
+Disallow: /consultation
+Disallow: /services/seo
+Disallow: /404
+Disallow: /contact
 Sitemap: https://tsarseo.online/sitemap.xml
