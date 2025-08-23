@@ -12,7 +12,7 @@ const fallbackNews: NewsItem[] = [
   {
     id: "1",
     title: "بهینه‌سازی سئو با TsarSEO - خبر نمونه ۱",
-    link: "/news/1",
+    link: "https://tsarseo.online/sample-news/1",
     published: "2025-08-18",
     source: "TsarSEO",
     summary: "ابزار TsarSEO برای بهبود رتبه‌بندی سایت شما با تحلیل پیشرفته.",
@@ -22,7 +22,7 @@ const fallbackNews: NewsItem[] = [
   {
     id: "2",
     title: "رشد ترافیک با TsarSEO - خبر نمونه ۲",
-    link: "/news/2",
+    link: "https://tsarseo.online/sample-news/2",
     published: "2025-08-18",
     source: "TsarSEO",
     summary: "استراتژی‌های سئو برای افزایش بازدید واقعی با TsarSEO.",
@@ -56,7 +56,7 @@ async function getNews(page: number = 1) {
         title: item.title
           ? `${item.title} - TsarSEO`
           : `خبر سئو با TsarSEO - ${idx + 1}`,
-        link: `/news/${item.id || `${validPage}-${idx}`}`,
+        link: item.link || `/news/${item.id || `${validPage}-${idx}`}`, // استفاده از لینک JSON
         published: item.published || new Date().toISOString().split("T")[0],
         source: item.source || "TsarSEO News",
         summary: item.summary
