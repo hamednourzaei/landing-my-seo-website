@@ -1,4 +1,3 @@
-
 import { Separator } from "@/components/ui/separator";
 import {
   ChevronsDownIcon,
@@ -42,7 +41,8 @@ export const FooterSection = () => {
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 name: "TsarSEO",
-                description: "TsarSEO provides professional SEO analysis and real traffic services.",
+                description:
+                  "TsarSEO provides professional SEO analysis and real traffic services.",
                 url: "https://tsarseo.online",
                 logo: "https://tsarseo.online/icons/logo.png",
                 contactPoint: [
@@ -69,7 +69,8 @@ export const FooterSection = () => {
                 name: "TsarSEO",
                 potentialAction: {
                   "@type": "SearchAction",
-                  target: "https://tsarseo.online/search?q={search_term_string}",
+                  target:
+                    "https://tsarseo.online/search?q={search_term_string}",
                   "query-input": "required name=search_term_string",
                 },
               },
@@ -141,7 +142,7 @@ export const FooterSection = () => {
               </h3>
               <div>
                 <Link
-                  href="/contact"
+                  href="/#contact"
                   className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="Contact TsarSEO Support Team"
                 >
@@ -150,20 +151,11 @@ export const FooterSection = () => {
               </div>
               <div>
                 <Link
-                  href="/faq"
+                  href="/#features"
                   className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="View TsarSEO FAQs"
                 >
                   FAQ
-                </Link>
-              </div>
-              <div>
-                <Link
-                  href="/support/guides"
-                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
-                  aria-label="View TsarSEO Support Guides"
-                >
-                  Guides
                 </Link>
               </div>
             </div>
@@ -215,33 +207,7 @@ export const FooterSection = () => {
                   About Us
                 </Link>
               </div>
-              <div>
-                <Link
-                  href="/services"
-                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
-                  aria-label="View TsarSEO Services"
-                >
-                  Services
-                </Link>
-              </div>
-              <div>
-                <Link
-                  href="/blog"
-                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
-                  aria-label="View TsarSEO Blog"
-                >
-                  Blog
-                </Link>
-              </div>
-              <div>
-                <Link
-                  href="/pricing"
-                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
-                  aria-label="View TsarSEO Pricing Plans"
-                >
-                  Pricing
-                </Link>
-              </div>
+
               <div>
                 <Link
                   href="/privacy-policy"
