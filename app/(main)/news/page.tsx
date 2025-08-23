@@ -60,7 +60,7 @@ async function getNews(page: number = 1) {
         published: item.published || new Date().toISOString().split("T")[0],
         source: item.source || "TsarSEO News",
         summary: item.summary
-          ? `${item.summary} با ابزار TsarSEO بهبود یابید.`
+          ? `${item.summary} TsarSEO `
           : "تحلیل و بهینه‌سازی سئو با TsarSEO.",
         content:
           item.content || item.summary || "محتوای کامل خبر در دسترس نیست.",
@@ -176,14 +176,12 @@ export default async function NewsPage({ searchParams }: PageProps) {
   const data = await getNews(pageNumber);
   return (
     <Suspense fallback={<NewsSkeleton />}>
-      <h1>اخبار سئو با TsarSEO - صفحه {pageNumber}</h1>
       <News
         initialNews={data.news || []}
         total={data.total}
         error={data.error}
         currentPage={pageNumber}
       />
-      <a href="/services">ابزارهای سئو TsarSEO</a>
     </Suspense>
   );
 }

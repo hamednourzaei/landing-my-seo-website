@@ -1,4 +1,3 @@
-
 import type { NewsItem } from "@/types/news";
 
 interface NewsItemCardProps {
@@ -30,7 +29,7 @@ const NewsItemCard: React.FC<NewsItemCardProps> = ({ news }) => {
         target="_blank"
         rel="noopener noreferrer"
         className="text-primary font-semibold hover:underline text-xs sm:text-base"
-        aria-label={`ادامه مطلب برای ${news.title}`}
+        aria-label={`ادامه مطلب برای ${news.link}`}
       >
         ادامه مطلب
       </a>
