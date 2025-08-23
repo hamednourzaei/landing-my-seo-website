@@ -17,7 +17,7 @@ const fallbackNews: NewsItem[] = [
     source: "TsarSEO",
     summary: "ابزار TsarSEO برای بهبود رتبه‌بندی سایت شما با تحلیل پیشرفته.",
     content: "محتوای کامل خبر نمونه برای بهبود سئو با ابزار TsarSEO.",
-    languages: "fa", // اضافه کردن فیلد languages
+    languages: "fa",
   },
   {
     id: "2",
@@ -27,7 +27,7 @@ const fallbackNews: NewsItem[] = [
     source: "TsarSEO",
     summary: "استراتژی‌های سئو برای افزایش بازدید واقعی با TsarSEO.",
     content: "محتوای کامل خبر نمونه برای رشد ترافیک با TsarSEO.",
-    languages: "fa", // اضافه کردن فیلد languages
+    languages: "fa",
   },
 ];
 
@@ -39,12 +39,15 @@ async function getNews(page: number = 1) {
       process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
     const url = `${baseUrl}?page=${validPage}&pageSize=${pageSize}`;
     const res = await fetch(url, { next: { revalidate: 60 } });
+
     if (!res.ok) {
       throw new Error(`Failed to fetch news: ${res.status} ${res.statusText}`);
     }
+
     const data = await res.json();
     let news: NewsItem[] = [];
     let total: number = 0;
+
     if (Array.isArray(data.news)) {
       news = data.news.map((item: any, idx: number) => ({
         id: item.id || `${validPage}-${idx}`,
@@ -59,12 +62,13 @@ async function getNews(page: number = 1) {
           : "تحلیل و بهینه‌سازی سئو با TsarSEO.",
         content:
           item.content || item.summary || "محتوای کامل خبر در دسترس نیست.",
-        languages: item.languages || "fa", // اضافه کردن فیلد languages
+        languages: item.languages || "fa",
       }));
       total = typeof data.total === "number" ? data.total : news.length;
     } else {
       throw new Error("Invalid API response format");
     }
+
     return { news, total, error: null };
   } catch (err) {
     console.error("Error fetching news:", err);
@@ -76,21 +80,25 @@ async function getNews(page: number = 1) {
   }
 }
 
+// ✅ fix برای تایپ searchParams
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams?: { page?: string };
 }) {
-  const page = Number(searchParams.page) || 1;
+  const page = Number(searchParams?.page) || 1;
   const data = await getNews(page);
   const firstNews = data.news[0] || fallbackNews[0];
+
   const titles = data.news
     .slice(0, 3)
     .map((item) => item.title)
     .join("، ");
+
   const pageTitle = titles
     ? `${titles} | TsarSEO`
     : `اخبار سئو | TsarSEO - صفحه ${page}`;
+
   const pageDescription =
     firstNews.summary.slice(0, 160) ||
     "آخرین اخبار و تحلیل‌های سئو برای بهینه‌سازی سایت با TsarSEO";
@@ -110,7 +118,7 @@ export async function generateMetadata({
       type: "article",
       images: [
         {
-          url: "https://tsarseo.online/og-image.jpg", // جایگزین با تصویر واقعی
+          url: "https://tsarseo.online/og-image.jpg",
           width: 1200,
           height: 630,
           alt: "اخبار سئو TsarSEO",
@@ -168,13 +176,15 @@ export async function generateMetadata({
   };
 }
 
+// ✅ fix برای تایپ searchParams
 export default async function NewsPage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams?: { page?: string };
 }) {
-  const page = Number(searchParams.page) || 1;
+  const page = Number(searchParams?.page) || 1;
   const data = await getNews(page);
+
   return (
     <Suspense fallback={<NewsSkeleton />}>
       <h1>اخبار سئو با TsarSEO - صفحه {page}</h1>
