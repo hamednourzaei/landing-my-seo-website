@@ -1,13 +1,7 @@
-
 "use client";
 
 import { faqList } from "./data/faq-data";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -15,7 +9,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Head from "next/head";
+import { Suspense } from "react";
+
+// Skeleton برای کاهش CLS هنگام لود Accordion
+const AccordionSkeleton = () => (
+  <div className="animate-pulse flex flex-col gap-2">
+    <div className="h-6 bg-gray-300 rounded w-3/4 mx-auto"></div>
+    <div className="h-4 bg-gray-200 rounded w-full"></div>
+    <div className="h-4 bg-gray-200 rounded w-full"></div>
+  </div>
+);
 
 export const FAQSection: React.FC = () => {
   return (
@@ -30,7 +35,11 @@ export const FAQSection: React.FC = () => {
           name="keywords"
           content="TsarSEO, سوالات متداول, تحلیل سئو, کلمات کلیدی, افزایش بازدید, راهنمای سئو, خدمات سئو"
         />
-        <meta property="og:title" content="سوالات متداول TsarSEO - راهنمای سئو و خدمات" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="سوالات متداول TsarSEO - راهنمای سئو و خدمات"
+        />
         <meta
           property="og:description"
           content="پاسخ به سوالات متداول درباره خدمات سئو، تحلیل کلمات کلیدی، افزایش بازدید و ویژگی‌های TsarSEO برای بهبود رتبه سایت شما."
@@ -42,12 +51,12 @@ export const FAQSection: React.FC = () => {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "FAQPage",
-              "mainEntity": faqList.map(({ question, answer }) => ({
+              mainEntity: faqList.map(({ question, answer }) => ({
                 "@type": "Question",
-                "name": question,
-                "acceptedAnswer": {
+                name: question,
+                acceptedAnswer: {
                   "@type": "Answer",
-                  "text": Array.isArray(answer) ? answer.join(" ") : answer,
+                  text: Array.isArray(answer) ? answer.join(" ") : answer,
                 },
               })),
             }),
@@ -61,7 +70,11 @@ export const FAQSection: React.FC = () => {
         className="container font-kalameh font-bold py-6 sm:py-8 md:py-12 lg:py-16"
         aria-labelledby="faq-heading"
       >
-        <hr className="border-secondary my-3 sm:my-4 md:my-5 lg:my-6" aria-hidden="true" />
+        <hr
+          className="border-secondary my-3 sm:my-4 md:my-5 lg:my-6"
+          aria-hidden="true"
+        />
+
         <div className="text-center mb-4 sm:mb-6 md:mb-8 lg:mb-10">
           <h2
             id="faq-heading"
@@ -73,6 +86,7 @@ export const FAQSection: React.FC = () => {
             className="w-10 sm:w-12 h-1 bg-primary/50 rounded-full mx-auto mt-1 sm:mt-2 md:mt-3 lg:mt-4"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             aria-hidden="true"
           />
@@ -86,31 +100,41 @@ export const FAQSection: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 sm:p-4 md:p-5 lg:p-6">
-              <Accordion type="single" collapsible className="w-full">
-                {faqList.map(({ question, answer }, index) => (
-                  <AccordionItem
-                    key={index}
-                    value={`item-${index}`}
-                    className="border-b border-orange-800/30"
-                  >
-                    <AccordionTrigger
-                      className="text-xs sm:text-sm md:text-base lg:text-lg font-kalameh hover:text-primary/80 transition-colors text-right"
-                      aria-label={`سوال: ${question}`}
+              <Suspense fallback={<AccordionSkeleton />}>
+                <Accordion type="single" collapsible className="w-full">
+                  {faqList.map(({ question, answer, links }, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={`item-${index}`}
+                      className="border-b border-orange-800/30"
                     >
-                      {question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-xs sm:text-sm md:text-base lg:text-lg font-thin leading-relaxed text-muted-foreground mt-1 sm:mt-2 md:mt-3 lg:mt-4">
-                      {Array.isArray(answer) ? (
-                        answer.map((line, i) => (
-                          <p key={i} className="mb-1 text-sm">{line}</p>
-                        ))
-                      ) : (
-                        <p>{answer}</p>
-                      )}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+                      <AccordionTrigger
+                        className="text-xs sm:text-sm md:text-base lg:text-lg font-kalameh hover:text-primary/80 transition-colors text-right"
+                        aria-label={`سوال: ${question}`}
+                      >
+                        {question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-xs sm:text-sm md:text-base lg:text-lg font-thin leading-relaxed text-muted-foreground mt-1 sm:mt-2 md:mt-3 lg:mt-4">
+                        {Array.isArray(answer)
+                          ? answer.map((line, i) => (
+                              <p key={i} className="mb-1 text-sm">
+                                {line}{" "}
+                                {links?.[i] && (
+                                  <Link
+                                    href={links[i].href}
+                                    className="text-blue-600 hover:underline"
+                                  >
+                                    {links[i].label}
+                                  </Link>
+                                )}
+                              </p>
+                            ))
+                          : answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </Suspense>
             </CardContent>
           </Card>
         </div>
