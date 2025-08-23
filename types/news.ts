@@ -6,4 +6,5 @@ export interface NewsItem {
   source: string;
   summary: string;
   languages: string;
+  content: string;
 }
