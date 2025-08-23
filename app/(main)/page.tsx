@@ -1,141 +1,281 @@
-import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
+"use client";
 
-// کامپوننت‌های ضروری که تو viewport اولیه لود می‌شن
-import { HeroSection } from "@/components/layout/sections/hero";
-import { SponsorsSection } from "@/components/layout/sections/sponsors";
+import { Separator } from "@/components/ui/separator";
+import {
+  ChevronsDownIcon,
+  Twitter,
+  Instagram,
+  MessageSquare,
+  Send,
+} from "lucide-react";
+import Link from "next/link";
+import Head from "next/head";
 
-// کامپوننت‌های سنگین رو Lazy-load می‌کنیم
-const BenefitsSection = dynamic(
-  () => import("@/components/layout/sections/benefits").then((mod) => mod.BenefitsSection),
-  { ssr: true }
-);
-const FeaturesSection = dynamic(
-  () => import("@/components/layout/sections/features"),
-  { ssr: true }
-);
-const TestimonialSection = dynamic(
-  () => import("@/components/layout/sections/testimonial"),
-  { ssr: true }
-);
-const PricingSection = dynamic(
-  () => import("@/components/layout/sections/pricing").then((mod) => mod.PricingSection),
-  { ssr: true }
-);
-const ContactSection = dynamic(
-  () => import("@/components/layout/sections/contact").then((mod) => mod.ContactSection),
-  { ssr: true }
-);
-const FAQSection = dynamic(() => import("@/components/layout/sections/faq").then((mod) => mod.FAQSection), {
-  ssr: true,
-});
-
-// Google Analytics فقط تو پروداکشن لود بشه
-const GoogleAnalytics = dynamic(
-  () => import("@/components/common/GoogleAnalytics").then((mod) => mod.GoogleAnalytics),
-  {
-    ssr: true, // فقط سمت کلاینت لود بشه
-    loading: () => null,
-  }
-);
-
-// متادیتا (بدون تغییر چون بهینه‌ست)
-export const metadata: Metadata = {
-  title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
-  description:
-    "با TsarSEO به‌راحتی سئوی سایت خود را بهبود دهید، ترافیک ارگانیک را افزایش دهید و رتبه بهتری در گوگل کسب کنید. بدون نیاز به دانش تخصصی.",
-  manifest: "/manifest.json",
-  metadataBase: new URL("https://tsarseo.online"),
-  keywords: [
-    "TsarSEO",
-    "سئو",
-    "افزایش بازدید سایت",
-    // ... بقیه keywords
-  ],
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    title: "TsarSEO | سئوی ساده برای رشد سریع سایت",
-    description:
-      "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل، افزایش ترافیک ارگانیک و نرخ کلیک با رابط کاربری ساده و بدون پیچیدگی.",
-    url: "https://tsarseo.online",
-    type: "website",
-    locale: "fa_IR",
-    images: [
-      {
-        url: "https://tsarseo.online/icons/metadata.png",
-        width: 1200,
-        height: 630,
-        alt: "TsarSEO - ابزار هوشمند سئو برای رشد سایت",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "TsarSEO | بهبود رتبه و افزایش ترافیک سایت",
-    description:
-      "با TsarSEO سایت خود را به اوج برسانید! سئوی آسان با نتایج سریع برای رتبه بهتر و ترافیک بیشتر.",
-    images: "https://tsarseo.online/icons/metadata.png",
-  },
-  alternates: {
-    canonical: "https://tsarseo.online",
-  },
-  other: {
-    "google-adsense-account": "ca-pub-1011150553663427",
-    "google-site-verification": "Kw1N8VreAAhBn-aovzhBSSsPnIMK5tOXf-AaFZ5eEFw",
-  },
-};
-
-// لودینگ فال‌بک برای کامپوننت‌های Lazy-loaded
-const SectionLoading = () => (
-  <div className="min-h-[200px] flex items-center justify-center">
-    <p>در حال بارگذاری...</p>
-  </div>
-);
-
-export default function Home() {
+export const FooterSection = () => {
   return (
     <>
-      {/* Google Analytics فقط تو پروداکشن */}
-      {process.env.NODE_ENV === "production" && (
-        <Suspense fallback={null}>
-          <GoogleAnalytics />
-        </Suspense>
-      )}
+      <Head>
+        <title>TsarSEO - Contact and Support</title>
+        <meta
+          name="description"
+          content="Contact TsarSEO for professional SEO analysis, real traffic services, and dedicated support."
+        />
+        <meta
+          name="keywords"
+          content="TsarSEO, SEO analysis, real traffic, contact, support, Telegram, WhatsApp, FAQ, social media"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="TsarSEO - Contact and Support" />
+        <meta
+          property="og:description"
+          content="Contact TsarSEO for professional SEO analysis, real traffic services, and dedicated support."
+        />
+        <meta property="og:url" content="https://tsarseo.online" />
+        <meta
+          property="og:image"
+          content="https://tsarseo.online/footer-image.webp"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "TsarSEO",
+                description:
+                  "TsarSEO provides professional SEO analysis and real traffic services.",
+                url: "https://tsarseo.online",
+                logo: "https://tsarseo.online/icons/logo.png",
+                contactPoint: [
+                  {
+                    "@type": "ContactPoint",
+                    url: "https://t.me/tsarpremiumstream",
+                    contactType: "customer service",
+                  },
+                  {
+                    "@type": "ContactPoint",
+                    url: "https://wa.me/1234567890",
+                    contactType: "customer service",
+                  },
+                ],
+                sameAs: [
+                  "https://x.com/tsarseo_org?s=21",
+                  "https://www.instagram.com/tsarpremiumstream",
+                ],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                url: "https://tsarseo.online",
+                name: "TsarSEO",
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target:
+                    "https://tsarseo.online/search?q={search_term_string}",
+                  "query-input": "required name=search_term_string",
+                },
+              },
+            ]),
+          }}
+        />
+      </Head>
 
-      {/* کامپوننت‌های اولیه که باید سریع لود بشن */}
-      <HeroSection />
-      <SponsorsSection />
+      <footer
+        id="footer"
+        className="container font-kalameh font-semibold py-10 sm:py-12 md:py-16 lg:py-20"
+        aria-labelledby="footer-heading"
+      >
+        <div className="p-4 sm:p-6 md:p-8 lg:p-10 bg-card rounded-lg sm:rounded-xl border border-orange-800 shadow-md">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8">
+            <div className="col-span-full lg:col-span-2">
+              <Link
+                href="/"
+                className="flex items-center"
+                aria-label="TsarSEO Homepage"
+              >
+                <ChevronsDownIcon
+                  className="w-6 sm:w-7 md:w-8 lg:w-9 h-6 sm:h-7 md:h-8 lg:h-9 mr-1 sm:mr-2 bg-gradient-to-tr from-primary via-primary/70 to-primary rounded-md sm:rounded-lg border"
+                  aria-hidden="true"
+                />
+                <h3
+                  id="footer-heading"
+                  className="text-sm sm:text-base md:text-lg lg:text-xl font-medium"
+                >
+                  TsarSEO
+                </h3>
+              </Link>
+            </div>
 
-      {/* بقیه با Suspense و Lazy-loading */}
-      <Suspense fallback={<SectionLoading />}>
-        <BenefitsSection />
-      </Suspense>
-      <Suspense fallback={<SectionLoading />}>
-        <FeaturesSection />
-      </Suspense>
-      <Suspense fallback={<SectionLoading />}>
-        <TestimonialSection />
-      </Suspense>
-      <Suspense fallback={<SectionLoading />}>
-        <PricingSection />
-      </Suspense>
-      <Suspense fallback={<SectionLoading />}>
-        <ContactSection />
-      </Suspense>
-      <Suspense fallback={<SectionLoading />}>
-        <FAQSection />
-      </Suspense>
+            <div className="flex flex-col gap-1 sm:gap-2">
+              <h3 className="text-sm mb-2 sm:text-base md:text-lg lg:text-xl font-normal">
+                Contact
+              </h3>
+              <div>
+                <Link
+                  target="_blank"
+                  href="https://t.me/tsarpremiumstream"
+                  className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="Contact TsarSEO via Telegram"
+                >
+                  <Send className="w-4 sm:w-5 h-4 sm:h-5" aria-hidden="true" />
+                  Telegram
+                </Link>
+              </div>
+              <div>
+                <Link
+                  target="_blank"
+                  href="https://wa.me/1234567890"
+                  className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="Contact TsarSEO via WhatsApp"
+                >
+                  <MessageSquare
+                    className="w-4 sm:w-5 h-4 sm:h-5"
+                    aria-hidden="true"
+                  />
+                  WhatsApp
+                </Link>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1 sm:gap-2">
+              <h3 className="text-sm mb-2 sm:text-base md:text-lg lg:text-xl font-normal">
+                Support
+              </h3>
+              <div>
+                <Link
+                  href="/contact"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="Contact TsarSEO Support Team"
+                >
+                  Contact Us
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/faq"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO FAQs"
+                >
+                  FAQ
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/support/guides"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Support Guides"
+                >
+                  Guides
+                </Link>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1 sm:gap-2">
+              <h3 className="text-sm mb-2 sm:text-base md:text-lg lg:text-xl font-normal">
+                Socials
+              </h3>
+              <div>
+                <Link
+                  target="_blank"
+                  href="https://x.com/tsarseo_org?s=21"
+                  className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="Follow TsarSEO on X (Twitter)"
+                >
+                  <Twitter
+                    className="w-4 sm:w-5 h-4 sm:h-5"
+                    aria-hidden="true"
+                  />
+                  X (Twitter)
+                </Link>
+              </div>
+              <div>
+                <Link
+                  target="_blank"
+                  href="https://www.instagram.com/tsarpremiumstream"
+                  className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="Follow TsarSEO on Instagram"
+                >
+                  <Instagram
+                    className="w-4 sm:w-5 h-4 sm:h-5"
+                    aria-hidden="true"
+                  />
+                  Instagram
+                </Link>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1 sm:gap-2">
+              <h3 className="text-sm mb-2 sm:text-base md:text-lg lg:text-xl font-normal">
+                Company
+              </h3>
+              <div>
+                <Link
+                  href="/about"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="Learn More About TsarSEO"
+                >
+                  About Us
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/services"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Services"
+                >
+                  Services
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/blog"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Blog"
+                >
+                  Blog
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/pricing"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Pricing Plans"
+                >
+                  Pricing
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/privacy-policy"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Privacy Policy"
+                >
+                  Privacy Policy
+                </Link>
+              </div>
+            </div>
+
+            <Separator
+              className="my-4 sm:my-5 md:my-6 lg:my-8 col-span-full"
+              aria-hidden="true"
+            />
+            <div className="col-span-full text-center">
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg">
+                © 2025 Designed and developed by
+                <Link
+                  target="_blank"
+                  href="https://github.com/hamednourzaei"
+                  className="text-primary transition-all border-b border-primary hover:border-b-2 ml-1"
+                  aria-label="View hamednourzaei's GitHub profile"
+                >
+                  hamednourzaei
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   );
-}
+};

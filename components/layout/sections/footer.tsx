@@ -1,4 +1,3 @@
-"use client";
 
 import { Separator } from "@/components/ui/separator";
 import {
@@ -18,7 +17,7 @@ export const FooterSection = () => {
         <title>TsarSEO - Contact and Support</title>
         <meta
           name="description"
-          content="Explore TsarSEO's contact information, support options, and social media links for professional SEO analysis and real traffic services."
+          content="Contact TsarSEO for professional SEO analysis, real traffic services, and dedicated support."
         />
         <meta
           name="keywords"
@@ -28,40 +27,53 @@ export const FooterSection = () => {
         <meta property="og:title" content="TsarSEO - Contact and Support" />
         <meta
           property="og:description"
-          content="Explore TsarSEO's contact information, support options, and social media links for professional SEO analysis and real traffic services."
+          content="Contact TsarSEO for professional SEO analysis, real traffic services, and dedicated support."
         />
-        <meta property="og:url" content="https://tsarseo.com" />
+        <meta property="og:url" content="https://tsarseo.online" />
         <meta
           property="og:image"
-          content="https://tsarseo.com/footer-image.jpg"
+          content="https://tsarseo.online/footer-image.webp"
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "TsarSEO",
-              description:
-                "TsarSEO provides professional SEO analysis and real traffic services",
-              url: "https://tsarseo.com",
-              contactPoint: [
-                {
-                  "@type": "ContactPoint",
-                  url: "https://t.me/tsarpremiumstream",
-                  contactType: "customer service",
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "TsarSEO",
+                description: "TsarSEO provides professional SEO analysis and real traffic services.",
+                url: "https://tsarseo.online",
+                logo: "https://tsarseo.online/icons/logo.png",
+                contactPoint: [
+                  {
+                    "@type": "ContactPoint",
+                    url: "https://t.me/tsarpremiumstream",
+                    contactType: "customer service",
+                  },
+                  {
+                    "@type": "ContactPoint",
+                    url: "https://wa.me/1234567890",
+                    contactType: "customer service",
+                  },
+                ],
+                sameAs: [
+                  "https://x.com/tsarseo_org?s=21",
+                  "https://www.instagram.com/tsarpremiumstream",
+                ],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                url: "https://tsarseo.online",
+                name: "TsarSEO",
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: "https://tsarseo.online/search?q={search_term_string}",
+                  "query-input": "required name=search_term_string",
                 },
-                {
-                  "@type": "ContactPoint",
-                  url: "https://wa.me/1234567890",
-                  contactType: "customer service",
-                },
-              ],
-              sameAs: [
-                "https://x.com/tsarseo_org?s=21",
-                "https://www.instagram.com/tsarpremiumstream",
-              ],
-            }),
+              },
+            ]),
           }}
         />
       </Head>
@@ -129,7 +141,7 @@ export const FooterSection = () => {
               </h3>
               <div>
                 <Link
-                  href="#contact"
+                  href="/contact"
                   className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="Contact TsarSEO Support Team"
                 >
@@ -138,11 +150,20 @@ export const FooterSection = () => {
               </div>
               <div>
                 <Link
-                  href="#faq"
+                  href="/faq"
                   className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="View TsarSEO FAQs"
                 >
                   FAQ
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/support/guides"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Support Guides"
+                >
+                  Guides
                 </Link>
               </div>
             </div>
@@ -187,20 +208,47 @@ export const FooterSection = () => {
               </h3>
               <div>
                 <Link
-                  href="/privacy-policy"
-                  className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
-                  aria-label="View TsarSEO Privacy Policy"
+                  href="/about"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="Learn More About TsarSEO"
                 >
-                  Privacy-Policy
+                  About Us
                 </Link>
               </div>
               <div>
                 <Link
-                  href="/about"
-                  className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
-                  aria-label="Learn more about TsarSEO"
+                  href="/services"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Services"
                 >
-                  About-us
+                  Services
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/blog"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Blog"
+                >
+                  Blog
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/pricing"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Pricing Plans"
+                >
+                  Pricing
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/privacy-policy"
+                  className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
+                  aria-label="View TsarSEO Privacy Policy"
+                >
+                  Privacy Policy
                 </Link>
               </div>
             </div>
