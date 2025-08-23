@@ -31,6 +31,11 @@ const fallbackNews: NewsItem[] = [
   },
 ];
 
+// تعریف نوع برای پراپ‌ها
+interface PageProps {
+  searchParams: Promise<{ page?: string }>; // searchParams به صورت Promise تعریف می‌شود
+}
+
 async function getNews(page: number = 1) {
   const pageSize = 8;
   try {
@@ -39,15 +44,12 @@ async function getNews(page: number = 1) {
       process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
     const url = `${baseUrl}?page=${validPage}&pageSize=${pageSize}`;
     const res = await fetch(url, { next: { revalidate: 60 } });
-
     if (!res.ok) {
       throw new Error(`Failed to fetch news: ${res.status} ${res.statusText}`);
     }
-
     const data = await res.json();
     let news: NewsItem[] = [];
     let total: number = 0;
-
     if (Array.isArray(data.news)) {
       news = data.news.map((item: any, idx: number) => ({
         id: item.id || `${validPage}-${idx}`,
@@ -68,7 +70,6 @@ async function getNews(page: number = 1) {
     } else {
       throw new Error("Invalid API response format");
     }
-
     return { news, total, error: null };
   } catch (err) {
     console.error("Error fetching news:", err);
@@ -80,25 +81,18 @@ async function getNews(page: number = 1) {
   }
 }
 
-// ✅ fix برای تایپ searchParams
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams?: { page?: string };
-}) {
-  const page = Number(searchParams?.page) || 1;
-  const data = await getNews(page);
+export async function generateMetadata({ searchParams }: PageProps) {
+  const { page } = await searchParams; // await برای resolve کردن Promise
+  const pageNumber = Number(page) || 1;
+  const data = await getNews(pageNumber);
   const firstNews = data.news[0] || fallbackNews[0];
-
   const titles = data.news
     .slice(0, 3)
     .map((item) => item.title)
     .join("، ");
-
   const pageTitle = titles
     ? `${titles} | TsarSEO`
-    : `اخبار سئو | TsarSEO - صفحه ${page}`;
-
+    : `اخبار سئو | TsarSEO - صفحه ${pageNumber}`;
   const pageDescription =
     firstNews.summary.slice(0, 160) ||
     "آخرین اخبار و تحلیل‌های سئو برای بهینه‌سازی سایت با TsarSEO";
@@ -108,12 +102,12 @@ export async function generateMetadata({
     description: pageDescription,
     keywords: ["tsarseo", "سئو", "بهینه‌سازی سایت", "اخبار سئو", "SEO tools"],
     alternates: {
-      canonical: `https://tsarseo.online/news?page=${page}`,
+      canonical: `https://tsarseo.online/news?page=${pageNumber}`,
     },
     openGraph: {
       title: pageTitle,
       description: pageDescription,
-      url: `https://tsarseo.online/news?page=${page}`,
+      url: `https://tsarseo.online/news?page=${pageNumber}`,
       siteName: "TsarSEO",
       type: "article",
       images: [
@@ -150,7 +144,7 @@ export async function generateMetadata({
           },
           mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": `https://tsarseo.online/news?page=${page}`,
+            "@id": `https://tsarseo.online/news?page=${pageNumber}`,
           },
         },
         {
@@ -166,8 +160,8 @@ export async function generateMetadata({
             {
               "@type": "ListItem",
               position: 2,
-              name: `اخبار - صفحه ${page}`,
-              item: `https://tsarseo.online/news?page=${page}`,
+              name: `اخبار - صفحه ${pageNumber}`,
+              item: `https://tsarseo.online/news?page=${pageNumber}`,
             },
           ],
         },
@@ -176,23 +170,18 @@ export async function generateMetadata({
   };
 }
 
-// ✅ fix برای تایپ searchParams
-export default async function NewsPage({
-  searchParams,
-}: {
-  searchParams?: { page?: string };
-}) {
-  const page = Number(searchParams?.page) || 1;
-  const data = await getNews(page);
-
+export default async function NewsPage({ searchParams }: PageProps) {
+  const { page } = await searchParams; // await برای resolve کردن Promise
+  const pageNumber = Number(page) || 1;
+  const data = await getNews(pageNumber);
   return (
     <Suspense fallback={<NewsSkeleton />}>
-      <h1>اخبار سئو با TsarSEO - صفحه {page}</h1>
+      <h1>اخبار سئو با TsarSEO - صفحه {pageNumber}</h1>
       <News
         initialNews={data.news || []}
         total={data.total}
         error={data.error}
-        currentPage={page}
+        currentPage={pageNumber}
       />
       <a href="/services">ابزارهای سئو TsarSEO</a>
     </Suspense>
