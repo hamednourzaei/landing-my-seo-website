@@ -67,7 +67,7 @@ export const metadata: Metadata = {
       "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل، افزایش ترافیک ارگانیک و نرخ کلیک با رابط کاربری ساده و بدون پیچیدگی.",
     url: "https://tsarseo.online",
     type: "website",
-    locale: "fa_IR",
+    locale: "en_US",
     images: [
       {
         url: "https://tsarseo.online/icons/metadata.png",

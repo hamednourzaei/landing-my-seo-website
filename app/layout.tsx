@@ -67,7 +67,8 @@ export const metadata: Metadata = {
       "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل، افزایش ترافیک ارگانیک و نرخ کلیک با رابط کاربری ساده و بدون پیچیدگی.",
     url: "https://tsarseo.online",
     type: "website",
-    locale: "fa_IR",
+    locale: "en_US",
+
     images: [
       {
         url: "https://tsarseo.online/icons/metadata.png",
@@ -99,7 +100,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR" suppressHydrationWarning>
+    <html lang="en-us" suppressHydrationWarning>
       <head>
         <GoogleTagManager />
         <GoogleAnalytics />

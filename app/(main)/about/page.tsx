@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         alt: "TsarSEO Logo",
       },
     ],
-    locale: "fa_IR",
+    locale: "en-us",
     type: "website",
   },
   alternates: {

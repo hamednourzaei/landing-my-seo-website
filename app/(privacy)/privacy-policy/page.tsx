@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         alt: "TsarSEO Privacy Policy - سیاست حفظ حریم خصوصی TsarSEO",
       },
     ],
-    locale: "fa_IR",
+    locale: "en_us",
     alternateLocale: ["en_US"],
     type: "article",
   },

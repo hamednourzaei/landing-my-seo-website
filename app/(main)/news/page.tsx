@@ -64,7 +64,7 @@ async function getNews(page: number = 1) {
           : "تحلیل و بهینه‌سازی سئو با TsarSEO.",
         content:
           item.content || item.summary || "محتوای کامل خبر در دسترس نیست.",
-        languages: item.languages || "fa",
+        languages: item.languages || "en",
       }));
       total = typeof data.total === "number" ? data.total : news.length;
     } else {

@@ -22,7 +22,7 @@ export default function PrivacyPolicyLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa-IR" suppressHydrationWarning>
+    <html lang="en-us" suppressHydrationWarning>
       <head>
         <GoogleTagManager />
         <GoogleAnalytics />
