@@ -2,6 +2,11 @@ import type { NewsItem } from "@/types/news";
 import { Suspense } from "react";
 import { NewsSkeleton } from "@/components/ui/skeleton";
 
+// تعریف نوع برای پراپ‌ها
+interface PageProps {
+  params: Promise<{ id: string }>; // params به صورت Promise تعریف می‌شود
+}
+
 async function getNewsItem(id: string) {
   try {
     const baseUrl =
@@ -28,7 +33,7 @@ async function getNewsItem(id: string) {
           : "تحلیل و بهینه‌سازی سئو با TsarSEO.",
         content:
           item.content || item.summary || "محتوای کامل خبر در دسترس نیست.",
-        languages: item.languages || "fa", // اضافه کردن فیلد languages
+        languages: item.languages || "fa",
       },
       error: null,
     };
@@ -41,8 +46,8 @@ async function getNewsItem(id: string) {
   }
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const { id } = params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params; // await برای resolve کردن Promise
   const { newsItem } = await getNewsItem(id);
   if (!newsItem) {
     return {
@@ -141,12 +146,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
-export default async function NewsItemPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const { id } = params;
+export default async function NewsItemPage({ params }: PageProps) {
+  const { id } = await params; // await برای resolve کردن Promise
   const { newsItem, error } = await getNewsItem(id);
 
   if (error || !newsItem) {
