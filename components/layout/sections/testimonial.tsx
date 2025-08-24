@@ -1,4 +1,3 @@
-
 import { cache } from "react";
 import { Suspense } from "react";
 import type { Metadata } from "next";
@@ -82,7 +81,7 @@ const fetchStories = cache(async (): Promise<SuccessStoryProps[]> => {
           story.rating > 0 &&
           story.rating <= 5
       )
-      .slice(0, 10)
+      .slice(0, 51)
       .map((story: any) => ({
         id: String(story.id),
         image: {
