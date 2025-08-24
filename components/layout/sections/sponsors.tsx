@@ -48,7 +48,7 @@ export const SponsorsSection: React.FC = () => {
         />
         <meta
           property="og:image"
-          content="https://tsarseo.com/feature-image.jpg"
+          content="https://tsarseo.online/feature-image.jpg"
         />
 
         <script
@@ -63,7 +63,7 @@ export const SponsorsSection: React.FC = () => {
               provider: {
                 "@type": "Organization",
                 name: "TsarSEO",
-                url: "https://tsarseo.com",
+                url: "https://tsarseo.online",
               },
             }),
           }}

@@ -44,7 +44,7 @@ export const FAQSection: React.FC = () => {
           property="og:description"
           content="پاسخ به سوالات متداول درباره خدمات سئو، تحلیل کلمات کلیدی، افزایش بازدید و ویژگی‌های TsarSEO برای بهبود رتبه سایت شما."
         />
-        <meta property="og:image" content="https://tsarseo.com/faq-image.jpg" />
+        <meta property="og:image" content="https://tsarseo.online/faq-image.jpg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

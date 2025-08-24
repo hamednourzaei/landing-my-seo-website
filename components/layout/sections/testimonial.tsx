@@ -33,17 +33,17 @@ export const metadata: Metadata = {
     "رتبه‌بندی گوگل",
   ],
   alternates: {
-    canonical: "https://yoursite.com/success-stories",
+    canonical: "https://tsarseo.online/success-stories",
   },
   openGraph: {
     title: "نظرات مشتریان موفق TsarSEO",
     description:
       "تجربیات واقعی مشتریان ما در بهبود رتبه‌بندی و افزایش بازدید سایت با خدمات TsarSEO.",
-    url: "https://yoursite.com/success-stories",
+    url: "https://tsarseo.online/success-stories",
     type: "website",
     images: [
       {
-        url: "https://yoursite.com/og-image.jpg",
+        url: "https://tsarseo.online/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "نظرات مشتریان TsarSEO",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "نظرات مشتریان موفق TsarSEO",
     description:
       "تجربیات واقعی مشتریان ما در بهبود رتبه‌بندی و افزایش بازدید سایت با خدمات TsarSEO.",
-    images: ["https://yoursite.com/og-image.jpg"],
+    images: ["https://tsarseo.online/og-image.jpg"],
   },
 };
 
@@ -117,7 +117,7 @@ export default async function TestimonialSection() {
       "itemReviewed": {
         "@type": "Organization",
         "name": "TsarSEO",
-        "sameAs": "https://yoursite.com",
+        "sameAs": "https://tsarseo.online",
       },
       "author": { "@type": "Person", name: story.name },
       "reviewBody": story.comment,

@@ -120,7 +120,7 @@ const FeaturesSection: React.FC = () => {
               "provider": {
                 "@type": "Organization",
                 "name": "TsarSEO",
-                "url": "https://tsarseo.com",
+                "url": "https://tsarseo.online",
               },
             }),
           }}
