@@ -89,7 +89,7 @@ const fetchStories = cache(async (): Promise<SuccessStoryProps[]> => {
           story.rating > 0 &&
           story.rating <= 5
       )
-      .slice(0, 10)
+      .slice(0, 0)
       .map((story: any) => ({
         id: String(story.id),
         image: {
