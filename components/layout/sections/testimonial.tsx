@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
-import TestimonialCarousel from "./TestimonialCarousel";
+import dynamic from "next/dynamic";
 import { cache } from "react";
 import { Suspense } from "react";
 import type { Metadata } from "next";
@@ -18,6 +18,12 @@ interface SuccessStoryProps {
   rating: number;
   url?: string;
 }
+
+// بارگذاری پویای کاروسل برای SSR
+const TestimonialCarousel = dynamic(() => import("./TestimonialCarousel"), {
+  ssr: false, // غیرفعال کردن رندر سمت سرور برای کاروسل
+  loading: () => <div role="status">در حال بارگذاری نظرات...</div>,
+});
 
 // متادیتا برای سئو
 export const metadata: Metadata = {
@@ -109,38 +115,38 @@ export default async function TestimonialSection() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "نظرات مشتریان TsarSEO",
-    "description": "مجموعه‌ای از بازخوردهای مشتریان موفق TsarSEO",
-    "itemListElement": stories.map((story, index) => ({
+    name: "نظرات مشتریان TsarSEO",
+    description: "مجموعه‌ای از بازخوردهای مشتریان موفق TsarSEO",
+    itemListElement: stories.map((story, index) => ({
       "@type": "Review",
-      "position": index + 1,
-      "itemReviewed": {
+      position: index + 1,
+      itemReviewed: {
         "@type": "Organization",
-        "name": "TsarSEO",
-        "sameAs": "https://tsarseo.online",
+        name: "TsarSEO",
+        sameAs: "https://tsarseo.online",
       },
-      "author": { "@type": "Person", name: story.name },
-      "reviewBody": story.comment,
-      "reviewRating": {
+      author: { "@type": "Person", name: story.name },
+      reviewBody: story.comment,
+      reviewRating: {
         "@type": "Rating",
-        "ratingValue": story.rating,
-        "bestRating": 5,
+        ratingValue: story.rating,
+        bestRating: 5,
       },
-      "datePublished": new Date().toISOString(),
-      "publisher": {
+      datePublished: new Date().toISOString(),
+      publisher: {
         "@type": "Organization",
-        "name": "TsarSEO",
+        name: "TsarSEO",
       },
     })),
-    "aggregateRating": {
+    aggregateRating: {
       "@type": "AggregateRating",
-      "ratingValue": stories.length
+      ratingValue: stories.length
         ? (
             stories.reduce((sum, story) => sum + (story.rating || 0), 0) /
             stories.length
           ).toFixed(1)
         : "0",
-      "reviewCount": stories.length,
+      reviewCount: stories.length,
     },
   };
 
@@ -219,7 +225,10 @@ export default async function TestimonialSection() {
                   />
                 )
               )}
-              <meta itemProp="ratingValue" content={String(story.rating || 0)} />
+              <meta
+                itemProp="ratingValue"
+                content={String(story.rating || 0)}
+              />
               <meta itemProp="bestRating" content="5" />
             </div>
             {story.url && (
