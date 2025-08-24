@@ -1,9 +1,8 @@
-import Image from "next/image";
-import { Star } from "lucide-react";
-import dynamic from "next/dynamic";
+
 import { cache } from "react";
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import TestimonialCarousel from "./TestimonialCarousel";
 
 // تعریف اینترفیس
 interface SuccessStoryProps {
@@ -18,12 +17,6 @@ interface SuccessStoryProps {
   rating: number;
   url?: string;
 }
-
-// بارگذاری پویای کاروسل برای SSR
-const TestimonialCarousel = dynamic(() => import("./TestimonialCarousel"), {
-  ssr: true, // غیرفعال کردن رندر سمت سرور برای کاروسل
-  loading: () => <div role="status">در حال بارگذاری نظرات...</div>,
-});
 
 // متادیتا برای سئو
 export const metadata: Metadata = {
@@ -89,7 +82,7 @@ const fetchStories = cache(async (): Promise<SuccessStoryProps[]> => {
           story.rating > 0 &&
           story.rating <= 5
       )
-      .slice(0, 0)
+      .slice(0, 10)
       .map((story: any) => ({
         id: String(story.id),
         image: {
@@ -176,75 +169,6 @@ export default async function TestimonialSection() {
           تجربه واقعی مشتریان ما در بهبود رتبه و افزایش بازدید
         </p>
       </header>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {stories.map((story) => (
-          <article
-            key={story.id}
-            className="p-4 border rounded-2xl shadow bg-white"
-            itemScope
-            itemType="https://schema.org/Review"
-            itemProp="itemListElement"
-          >
-            <meta itemProp="itemReviewed" content="TsarSEO Services" />
-            <div className="flex items-center mb-3">
-              <Image
-                src={story.image.src}
-                alt={story.image.alt}
-                width={48}
-                height={48}
-                className="rounded-full mr-3"
-                priority={false}
-                sizes="(max-width: 768px) 48px, 48px"
-              />
-              <div>
-                <h3 className="text-lg font-semibold" itemProp="author">
-                  {story.name}
-                </h3>
-                <span className="text-sm text-gray-500">{story.role}</span>
-              </div>
-            </div>
-            <p
-              className="text-gray-700 mb-3 line-clamp-3"
-              itemProp="reviewBody"
-            >
-              {story.comment}
-            </p>
-            <div
-              className="flex items-center"
-              itemProp="reviewRating"
-              itemScope
-              itemType="https://schema.org/Rating"
-            >
-              {[...Array(Math.min(Math.floor(story.rating || 0), 5))].map(
-                (_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4 text-yellow-500"
-                    aria-hidden="true"
-                  />
-                )
-              )}
-              <meta
-                itemProp="ratingValue"
-                content={String(story.rating || 0)}
-              />
-              <meta itemProp="bestRating" content="5" />
-            </div>
-            {story.url && (
-              <a
-                href={story.url}
-                className="text-primary text-sm underline mt-2 inline-block"
-                itemProp="url"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-              >
-                مشاهده تجربه کامل
-              </a>
-            )}
-          </article>
-        ))}
-      </div>
 
       <Suspense fallback={<div role="status">در حال بارگذاری نظرات...</div>}>
         {stories.length > 0 ? (
