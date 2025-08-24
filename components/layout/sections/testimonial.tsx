@@ -1,4 +1,4 @@
-import Image from "next/image"; // جایگزینی img با next/image
+import Image from "next/image";
 import { Star } from "lucide-react";
 import TestimonialCarousel from "./TestimonialCarousel";
 import { cache } from "react";
@@ -21,16 +21,16 @@ interface SuccessStoryProps {
 
 // متادیتا برای سئو
 export const metadata: Metadata = {
-  title: "نظرات مشتریان موفق TsarSEO | بررسی و بازخورد کاربران",
+  title: "نظرات مشتریان موفق TsarSEO | بازخورد و تجربیات واقعی کاربران",
   description:
-    "نظرات و بازخورد مشتریان موفق TsarSEO را مشاهده کنید و از تجربیات واقعی کاربران ما باخبر شوید.",
+    "تجربیات واقعی مشتریان TsarSEO را بخوانید و ببینید چگونه خدمات سئو ما به بهبود رتبه‌بندی و افزایش بازدید سایت‌ها کمک کرده است.",
   keywords: [
     "نظرات مشتریان TsarSEO",
-    "بازخورد کاربران",
-    "موفقیت مشتریان",
-    "بررسی سئو",
-    "تجربیات مشتریان",
-    "رتبه‌بندی سئو",
+    "بازخورد کاربران سئو",
+    "تجربیات واقعی سئو سایت",
+    "موفقیت مشتریان سئو ایران",
+    "بررسی خدمات سئو",
+    "رتبه‌بندی گوگل",
   ],
   alternates: {
     canonical: "https://yoursite.com/success-stories",
@@ -66,7 +66,7 @@ const fetchStories = cache(async (): Promise<SuccessStoryProps[]> => {
       "https://hamednourzaei.github.io/apitools/db.json",
       {
         cache: "force-cache",
-        next: { revalidate: 3600 }, // کاهش به 1 ساعت برای به‌روزرسانی سریع‌تر
+        next: { revalidate: 3600 },
       }
     );
 
@@ -76,19 +76,25 @@ const fetchStories = cache(async (): Promise<SuccessStoryProps[]> => {
 
     const data = await response.json();
     return data
-      .filter((story: any) => story.comment && story.rating > 0)
+      .filter(
+        (story: any) =>
+          story.comment &&
+          typeof story.rating === "number" &&
+          story.rating > 0 &&
+          story.rating <= 5
+      )
       .slice(0, 10)
       .map((story: any) => ({
-        id: story.id,
+        id: String(story.id),
         image: {
-          src: story.image,
-          alt: `تصویر پروفایل ${story.name} برای نظرات TsarSEO`,
+          src: story.image || "/default-image.jpg",
+          alt: `تصویر پروفایل ${story.name || "کاربر"} برای نظرات TsarSEO`,
         },
-        name: story.name,
-        role: story.role,
+        name: story.name || "ناشناس",
+        role: story.role || "مشتری",
         comment: story.comment,
-        rating: story.rating,
-        url: story.url,
+        rating: Math.floor(story.rating),
+        url: story.url || undefined,
       }));
   } catch (err) {
     console.error("Error fetching stories:", err);
@@ -103,25 +109,39 @@ export default async function TestimonialSection() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: stories.map((story, index) => ({
+    "name": "نظرات مشتریان TsarSEO",
+    "description": "مجموعه‌ای از بازخوردهای مشتریان موفق TsarSEO",
+    "itemListElement": stories.map((story, index) => ({
       "@type": "Review",
-      position: index + 1,
-      itemReviewed: {
+      "position": index + 1,
+      "itemReviewed": {
         "@type": "Organization",
-        name: "TsarSEO",
+        "name": "TsarSEO",
+        "sameAs": "https://yoursite.com",
       },
-      author: { "@type": "Person", name: story.name },
-      reviewBody: story.comment,
-      reviewRating: {
+      "author": { "@type": "Person", name: story.name },
+      "reviewBody": story.comment,
+      "reviewRating": {
         "@type": "Rating",
-        ratingValue: story.rating,
-        bestRating: 5,
+        "ratingValue": story.rating,
+        "bestRating": 5,
       },
-      publisher: {
+      "datePublished": new Date().toISOString(),
+      "publisher": {
         "@type": "Organization",
-        name: "TsarSEO",
+        "name": "TsarSEO",
       },
     })),
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": stories.length
+        ? (
+            stories.reduce((sum, story) => sum + (story.rating || 0), 0) /
+            stories.length
+          ).toFixed(1)
+        : "0",
+      "reviewCount": stories.length,
+    },
   };
 
   return (
@@ -168,7 +188,8 @@ export default async function TestimonialSection() {
                 width={48}
                 height={48}
                 className="rounded-full mr-3"
-                priority={false} // lazy-loading برای تصاویر غیربحرانی
+                priority={false}
+                sizes="(max-width: 768px) 48px, 48px"
               />
               <div>
                 <h3 className="text-lg font-semibold" itemProp="author">
@@ -189,14 +210,16 @@ export default async function TestimonialSection() {
               itemScope
               itemType="https://schema.org/Rating"
             >
-              {[...Array(story.rating)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-4 h-4 text-yellow-500"
-                  aria-hidden="true"
-                />
-              ))}
-              <meta itemProp="ratingValue" content={String(story.rating)} />
+              {[...Array(Math.min(Math.floor(story.rating || 0), 5))].map(
+                (_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 text-yellow-500"
+                    aria-hidden="true"
+                  />
+                )
+              )}
+              <meta itemProp="ratingValue" content={String(story.rating || 0)} />
               <meta itemProp="bestRating" content="5" />
             </div>
             {story.url && (
@@ -205,7 +228,7 @@ export default async function TestimonialSection() {
                 className="text-primary text-sm underline mt-2 inline-block"
                 itemProp="url"
                 target="_blank"
-                rel="noopener noreferrer nofollow" // اضافه کردن nofollow برای لینک‌های خارجی
+                rel="noopener noreferrer nofollow"
               >
                 مشاهده تجربه کامل
               </a>

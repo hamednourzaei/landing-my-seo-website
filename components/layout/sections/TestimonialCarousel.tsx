@@ -35,18 +35,14 @@ export default function TestimonialCarousel({
           >
             <div className="p-2 sm:p-3 md:p-4 lg:p-5">
               <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 pb-2 sm:pb-3 md:pb-4 lg:pb-5">
-                {[...Array(Math.floor(story.rating))].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="size-3 sm:size-4 md:size-5 lg:size-6 fill-primary text-primary"
-                    aria-hidden="true"
-                  />
-                ))}
-                {story.rating % 1 !== 0 && (
-                  <Star
-                    className="size-3 sm:size-4 md:size-5 lg:size-6 text-primary"
-                    aria-hidden="true"
-                  />
+                {[...Array(Math.min(Math.floor(story.rating || 0), 5))].map(
+                  (_, i) => (
+                    <Star
+                      key={i}
+                      className="size-3 sm:size-4 md:size-5 lg:size-6 fill-primary text-primary"
+                      aria-hidden="true"
+                    />
+                  )
                 )}
               </div>
               {story.url ? (
@@ -75,6 +71,7 @@ export default function TestimonialCarousel({
                   height={40}
                   className="w-8 sm:w-10 md:w-12 lg:w-14 h-8 sm:h-10 md:h-12 lg:h-14 rounded-full"
                   priority={false}
+                  sizes="(max-width: 768px) 40px, 40px"
                 />
                 <div className="flex flex-col">
                   <h3
