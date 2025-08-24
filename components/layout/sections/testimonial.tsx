@@ -21,7 +21,7 @@ interface SuccessStoryProps {
 
 // بارگذاری پویای کاروسل برای SSR
 const TestimonialCarousel = dynamic(() => import("./TestimonialCarousel"), {
-  ssr: false, // غیرفعال کردن رندر سمت سرور برای کاروسل
+  ssr: true, // غیرفعال کردن رندر سمت سرور برای کاروسل
   loading: () => <div role="status">در حال بارگذاری نظرات...</div>,
 });
 
