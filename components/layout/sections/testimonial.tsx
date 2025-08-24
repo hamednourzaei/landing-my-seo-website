@@ -1,10 +1,17 @@
+import Image from "next/image"; // جایگزینی img با next/image
 import { Star } from "lucide-react";
 import TestimonialCarousel from "./TestimonialCarousel";
+import { cache } from "react";
+import { Suspense } from "react";
+import type { Metadata } from "next";
 
-// اینترفیس داده‌ها
+// تعریف اینترفیس
 interface SuccessStoryProps {
   id: string;
-  image: string;
+  image: {
+    src: string;
+    alt: string;
+  };
   name: string;
   role: string;
   comment: string;
@@ -12,49 +19,214 @@ interface SuccessStoryProps {
   url?: string;
 }
 
-// تابع کمکی برای دریافت داده‌ها
-async function fetchStories(): Promise<SuccessStoryProps[]> {
+// متادیتا برای سئو
+export const metadata: Metadata = {
+  title: "نظرات مشتریان موفق TsarSEO | بررسی و بازخورد کاربران",
+  description:
+    "نظرات و بازخورد مشتریان موفق TsarSEO را مشاهده کنید و از تجربیات واقعی کاربران ما باخبر شوید.",
+  keywords: [
+    "نظرات مشتریان TsarSEO",
+    "بازخورد کاربران",
+    "موفقیت مشتریان",
+    "بررسی سئو",
+    "تجربیات مشتریان",
+    "رتبه‌بندی سئو",
+  ],
+  alternates: {
+    canonical: "https://yoursite.com/success-stories",
+  },
+  openGraph: {
+    title: "نظرات مشتریان موفق TsarSEO",
+    description:
+      "تجربیات واقعی مشتریان ما در بهبود رتبه‌بندی و افزایش بازدید سایت با خدمات TsarSEO.",
+    url: "https://yoursite.com/success-stories",
+    type: "website",
+    images: [
+      {
+        url: "https://yoursite.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "نظرات مشتریان TsarSEO",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "نظرات مشتریان موفق TsarSEO",
+    description:
+      "تجربیات واقعی مشتریان ما در بهبود رتبه‌بندی و افزایش بازدید سایت با خدمات TsarSEO.",
+    images: ["https://yoursite.com/og-image.jpg"],
+  },
+};
+
+// تابع کش‌شده برای دریافت داده‌ها
+const fetchStories = cache(async (): Promise<SuccessStoryProps[]> => {
   try {
     const response = await fetch(
       "https://hamednourzaei.github.io/apitools/db.json",
       {
-        cache: "force-cache", // caching در سرور
+        cache: "force-cache",
+        next: { revalidate: 3600 }, // کاهش به 1 ساعت برای به‌روزرسانی سریع‌تر
       }
     );
+
     if (!response.ok) {
       throw new Error(`خطا در دریافت داده‌ها: ${response.status}`);
     }
-    const data: SuccessStoryProps[] = await response.json();
-    return data;
+
+    const data = await response.json();
+    return data
+      .filter((story: any) => story.comment && story.rating > 0)
+      .slice(0, 10)
+      .map((story: any) => ({
+        id: story.id,
+        image: {
+          src: story.image,
+          alt: `تصویر پروفایل ${story.name} برای نظرات TsarSEO`,
+        },
+        name: story.name,
+        role: story.role,
+        comment: story.comment,
+        rating: story.rating,
+        url: story.url,
+      }));
   } catch (err) {
     console.error("Error fetching stories:", err);
-    return []; // در صورت خطا، آرایه خالی برگردان
+    return [];
   }
-}
+});
 
-// Server Component
 export default async function TestimonialSection() {
   const stories = await fetchStories();
+
+  // Structured Data برای Rich Snippets
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: stories.map((story, index) => ({
+      "@type": "Review",
+      position: index + 1,
+      itemReviewed: {
+        "@type": "Organization",
+        name: "TsarSEO",
+      },
+      author: { "@type": "Person", name: story.name },
+      reviewBody: story.comment,
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: story.rating,
+        bestRating: 5,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "TsarSEO",
+      },
+    })),
+  };
 
   return (
     <section
       id="success-stories"
-      className="container font-kalameh font-semibold py-24 sm:py-32"
+      className="container font-kalameh font-semibold py-12 sm:py-16 md:py-24"
+      itemScope
+      itemType="https://schema.org/ItemList"
     >
-      <hr className="border-secondary mb-8" />
-      <div className="text-center mb-8 py-24">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center text-primary mb-3 tracking-wide">
-          TsarSEO - نظرات موفقیت آمیز مشتریان
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
+      <header className="text-center mb-8">
+        <h2
+          className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-4"
+          itemProp="name"
+        >
+          نظرات موفقیت‌آمیز مشتریان TsarSEO
         </h2>
+        <p
+          className="text-sm sm:text-base md:text-lg text-gray-600"
+          itemProp="description"
+        >
+          تجربه واقعی مشتریان ما در بهبود رتبه و افزایش بازدید
+        </p>
+      </header>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {stories.map((story) => (
+          <article
+            key={story.id}
+            className="p-4 border rounded-2xl shadow bg-white"
+            itemScope
+            itemType="https://schema.org/Review"
+            itemProp="itemListElement"
+          >
+            <meta itemProp="itemReviewed" content="TsarSEO Services" />
+            <div className="flex items-center mb-3">
+              <Image
+                src={story.image.src}
+                alt={story.image.alt}
+                width={48}
+                height={48}
+                className="rounded-full mr-3"
+                priority={false} // lazy-loading برای تصاویر غیربحرانی
+              />
+              <div>
+                <h3 className="text-lg font-semibold" itemProp="author">
+                  {story.name}
+                </h3>
+                <span className="text-sm text-gray-500">{story.role}</span>
+              </div>
+            </div>
+            <p
+              className="text-gray-700 mb-3 line-clamp-3"
+              itemProp="reviewBody"
+            >
+              {story.comment}
+            </p>
+            <div
+              className="flex items-center"
+              itemProp="reviewRating"
+              itemScope
+              itemType="https://schema.org/Rating"
+            >
+              {[...Array(story.rating)].map((_, i) => (
+                <Star
+                  key={i}
+                  className="w-4 h-4 text-yellow-500"
+                  aria-hidden="true"
+                />
+              ))}
+              <meta itemProp="ratingValue" content={String(story.rating)} />
+              <meta itemProp="bestRating" content="5" />
+            </div>
+            {story.url && (
+              <a
+                href={story.url}
+                className="text-primary text-sm underline mt-2 inline-block"
+                itemProp="url"
+                target="_blank"
+                rel="noopener noreferrer nofollow" // اضافه کردن nofollow برای لینک‌های خارجی
+              >
+                مشاهده تجربه کامل
+              </a>
+            )}
+          </article>
+        ))}
       </div>
 
-      {stories.length === 0 ? (
-        <div role="alert" className="text-center">
-          هیچ نظری یافت نشد.
-        </div>
-      ) : (
-        <TestimonialCarousel stories={stories.slice(0, 90)} />
-      )}
+      <Suspense fallback={<div role="status">در حال بارگذاری نظرات...</div>}>
+        {stories.length > 0 ? (
+          <TestimonialCarousel stories={stories} />
+        ) : (
+          <div
+            role="alert"
+            className="text-center text-gray-500"
+            itemProp="description"
+          >
+            هیچ نظری یافت نشد.
+          </div>
+        )}
+      </Suspense>
     </section>
   );
 }
