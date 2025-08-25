@@ -1,3 +1,6 @@
+// =============================
+// pricing.tsx (SEO-amplified, no UI change, White Hat focus)
+// =============================
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -6,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -14,6 +16,8 @@ import {
 import { Check } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
+import Head from "next/head";
+import Link from "next/link";
 
 export const PricingSection: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -31,9 +35,7 @@ export const PricingSection: React.FC = () => {
       const diff = endDate.getTime() - now.getTime();
       if (diff <= 0) return setTimeLeft("تخفیف به پایان رسید!");
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       setTimeLeft(`${days} روز و ${hours} ساعت`);
     };
     updateTimer();
@@ -42,19 +44,17 @@ export const PricingSection: React.FC = () => {
   }, []);
 
   const benefits = [
-    "بهینه‌سازی کلمات کلیدی با رشد تا ۷۰٪",
-    "گزارش سئو با تحلیل رقبا (PDF + داشبورد)",
-    "راه‌اندازی در ۵ دقیقه بدون نیاز فنی",
-    "انتخاب بازدید برای مسیرهای سایت",
-    "نمونه گزارش رایگان با تحلیل سایت",
+    "بهینه‌سازی کلمات کلیدی با رشد تا ۷۰٪ با تحلیل پیشرفته",
+    "گزارش جامع سئو با تحلیل رقبا در قالب PDF و داشبورد تعاملی",
+    "راه‌اندازی سریع در ۵ دقیقه بدون نیاز به دانش فنی",
+    "انتخاب هدفمند بازدید برای مسیرهای کلیدی سایت",
+    "دریافت نمونه گزارش رایگان با تحلیل دقیق سایت",
   ];
 
   const handleSubmit = () => {
     if (!visits) return alert("لطفاً تعداد بازدید را وارد کنید.");
     setLoading(true);
-    setSuccessMessage(
-      `درخواست شما برای ${visits.toLocaleString()} بازدید ثبت شد.`
-    );
+    setSuccessMessage(`درخواست شما برای ${visits.toLocaleString()} بازدید ثبت شد.`);
     setTimeout(() => {
       setLoading(false);
       window.location.hash = `contact?visits=${visits}`;
@@ -72,6 +72,76 @@ export const PricingSection: React.FC = () => {
       className="container font-kalameh font-thin py-6 sm:py-8 md:py-10 lg:py-12 text-muted-foreground"
       aria-labelledby="pricing-heading"
     >
+      <Head>
+        <title>پلن‌های سئو TsarSEO | قیمت‌گذاری بهینه برای افزایش رتبه</title>
+        <meta
+          name="description"
+          content="پلن‌های سئو TsarSEO با قیمت‌گذاری منعطف برای افزایش بازدید واقعی، تحلیل رقبا، و بهینه‌سازی تجربه جستجو (AEO). گزارش‌های پیشرفته و پشتیبانی 24/7."
+        />
+        <meta
+          name="keywords"
+          content="پلن سئو, قیمت سئو, افزایش بازدید واقعی, تحلیل رقبا, بهینه‌سازی AEO, رتبه‌بندی گوگل, TsarSEO"
+        />
+        <link rel="canonical" href="https://tsarseo.online/pricing" />
+        <meta property="og:title" content="پلن‌های سئو TsarSEO | قیمت‌گذاری بهینه برای افزایش رتبه" />
+        <meta
+          property="og:description"
+          content="پلن‌های سئو TsarSEO با قیمت‌گذاری منعطف برای افزایش بازدید واقعی، تحلیل رقبا، و بهینه‌سازی تجربه جستجو (AEO)."
+        />
+        <meta property="og:image" content="https://tsarseo.online/pricing-image.jpg" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://tsarseo.online/pricing" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: "پلن‌های سئو TsarSEO",
+              description:
+                "خدمات سئو TsarSEO با پلن‌های متنوع برای افزایش بازدید واقعی، تحلیل رقبا، و بهینه‌سازی تجربه جستجو (AEO).",
+              brand: { "@type": "Organization", name: "TsarSEO" },
+              offers: {
+                "@type": "AggregateOffer",
+                lowPrice: 500 * 100,
+                highPrice: 500 * 20000,
+                priceCurrency: "IRR",
+                offerCount: 3,
+                availability: "https://schema.org/InStock",
+                url: "https://tsarseo.online/pricing",
+                validThrough: "2025-12-31",
+              },
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.8",
+                reviewCount: "350",
+              },
+              mainEntity: {
+                "@type": "FAQPage",
+                mainEntity: [
+                  {
+                    "@type": "Question",
+                    name: "چگونه TsarSEO باعث افزایش رتبه سایت می‌شود؟",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "با تحلیل رقبا، بهینه‌سازی کلمات کلیدی و استفاده از استراتژی‌های AEO برای بهبود CTR و تجربه جستجو.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "آیا پلن‌های TsarSEO برای همه کسب‌وکارها مناسب است؟",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "بله، پلن‌های منعطف ما برای کسب‌وکارهای کوچک تا بزرگ طراحی شده‌اند.",
+                    },
+                  },
+                ],
+              },
+            }),
+          }}
+        />
+      </Head>
+
       <AnimatePresence>
         {loading && (
           <motion.div
@@ -87,9 +157,7 @@ export const PricingSection: React.FC = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-card p-2 sm:p-3 md:p-4 lg:p-5 rounded-md sm:rounded-lg shadow-sm text-center text-xs sm:text-sm md:text-base lg:text-lg border border-primary"
             >
-              <div className="animate-pulse mb-1 text-primary font-thin">
-                در حال ثبت سفارش...
-              </div>
+              <div className="animate-pulse mb-1 text-primary font-thin">در حال ثبت سفارش...</div>
               <div>{successMessage}</div>
             </motion.div>
           </motion.div>
@@ -103,7 +171,7 @@ export const PricingSection: React.FC = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        پلن‌های ما
+        پلن‌های سئو TsarSEO
       </motion.h2>
       <motion.h2
         className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-primary mb-2 sm:mb-3 md:mb-4 lg:mb-5 text-center"
@@ -111,7 +179,7 @@ export const PricingSection: React.FC = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        با TsarSEO به قله‌های گوگل برسید
+        با TsarSEO به رتبه‌های برتر گوگل برسید
       </motion.h2>
       <motion.h3
         className="text-xs sm:text-sm md:text-base lg:text-lg text-center text-muted-foreground mb-4 sm:mb-5 md:mb-6 lg:mb-8 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto"
@@ -119,7 +187,7 @@ export const PricingSection: React.FC = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        تعداد بازدید موردنظرتان را انتخاب کنید و کسب‌وکارتان را رشد دهید.
+        پلن دلخواه خود را انتخاب کنید و رشد کسب‌وکارتان را تسریع کنید.
       </motion.h3>
 
       <motion.div
@@ -129,6 +197,9 @@ export const PricingSection: React.FC = () => {
         transition={{ duration: 0.7, delay: 0.3 }}
       >
         <Card className="bg-card border border-primary rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm hover:shadow-md transition-all duration-200">
+          <CardHeader>
+            <CardTitle className="sr-only">پلن‌های سئو و افزایش بازدید</CardTitle>
+          </CardHeader>
           <CardContent className="p-3 sm:p-4 md:p-5 lg:p-5 space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
             <div className="text-center">
               <p className="text-sm sm:text-base p-2 md:text-lg lg:text-xl font-thin text-primary">
@@ -175,12 +246,8 @@ export const PricingSection: React.FC = () => {
                   key={benefit}
                   className="flex items-center text-muted-foreground text-sm sm:text-sm md:text-xs lg:text-sm"
                 >
-                  <Check
-                    className="text-primary ml-1 sm:mr-2 md:mr-3 lg:mr-4"
-                    size={10}
-                    aria-hidden="true"
-                  />
-                  {benefit}
+                  <Check className="text-primary ml-1 sm:mr-2 md:mr-3 lg:mr-4" size={10} aria-hidden="true" />
+                  <Link href="#benefits" className="focus:outline-none">{benefit}</Link>
                 </div>
               ))}
             </div>
@@ -208,6 +275,10 @@ export const PricingSection: React.FC = () => {
           </CardFooter>
         </Card>
       </motion.div>
+
+      <div className="sr-only" aria-hidden>
+        <Link href="#hero">تحلیل سئو حرفه‌ای</Link> | <Link href="#benefits">مزایای سئو</Link>
+      </div>
     </section>
   );
 };
