@@ -159,7 +159,7 @@ export default async function TestimonialSection() {
           className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-4"
           itemProp="name"
         >
-          نظرات موفقیت‌آمیز مشتریان TsarSEO
+          TsarSEO نظرات موفقیت‌آمیز مشتریان 
         </h2>
         <p
           className="text-sm sm:text-base md:text-lg text-gray-600"
