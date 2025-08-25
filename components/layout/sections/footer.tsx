@@ -151,7 +151,7 @@ export const FooterSection = () => {
               </div>
               <div>
                 <Link
-                  href="/#features"
+                  href="/#faq"
                   className="opacity-60 hover:opacity-100 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="View TsarSEO FAQs"
                 >

@@ -100,7 +100,7 @@ export async function generateMetadata({ searchParams }: PageProps) {
   return {
     title: pageTitle,
     description: pageDescription,
-    keywords: ["tsarseo", "سئو", "بهینه‌سازی سایت", "اخبار سئو", "SEO tools"],
+    keywords: ["tsarseo", "سئو", "بهینه‌سازی سایت", " اخبار سئو ", "SEO tools"],
     alternates: {
       canonical: `https://tsarseo.online/news?page=${pageNumber}`,
     },
