@@ -135,7 +135,10 @@ export const ContactSection: React.FC = () => {
           property="og:description"
           content="برای ارسال پیام یا درخواست مشاوره درباره تحلیل سئو و ترافیک واقعی با تیم TsarSEO تماس بگیرید."
         />
-        <meta property="og:image" content="https://example.com/contact-image.jpg" />
+        <meta
+          property="og:image"
+          content="https://example.com/contact-image.jpg"
+        />
       </Head>
 
       <section
@@ -177,8 +180,8 @@ export const ContactSection: React.FC = () => {
               با TsarSEO در ارتباط باشید
             </h3>
             <p className="text-xs sm:text-sm md:text-base text-muted-foreground font-light">
-              برای دریافت مشاوره رایگان یا اطلاعات بیشتر درباره تحلیل سئو و ترافیک
-              واقعی، با ما تماس بگیرید.
+              برای دریافت مشاوره رایگان یا اطلاعات بیشتر درباره تحلیل سئو و
+              ترافیک واقعی، با ما تماس بگیرید.
             </p>
             <div className="space-y-3">
               <div>
@@ -195,7 +198,9 @@ export const ContactSection: React.FC = () => {
                   <Phone className="text-primary" size={14} />
                   <div className="font-bold">تماس با ما</div>
                 </div>
-                <div className="text-xs sm:text-sm md:text-base">+989962260723</div>
+                <div className="text-xs sm:text-sm md:text-base">
+                  +989025120419
+                </div>
               </div>
               <div>
                 <div className="flex items-center gap-2 text-xs sm:text-sm md:text-base">

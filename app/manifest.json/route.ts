@@ -1,4 +1,3 @@
-
 import { NextResponse } from "next/server";
 
 export const runtime = "edge";
@@ -97,7 +96,7 @@ export async function GET(request: Request) {
     },
     display_override: ["window-controls-overlay", "standalone"],
     related_applications: [
-      { platform: "webapp", url: "https://tsarseo.com" },
+      { platform: "webapp", url: "https://tsarseo.online" },
     ],
     prefer_related_applications: false,
   };

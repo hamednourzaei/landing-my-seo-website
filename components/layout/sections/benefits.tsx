@@ -57,10 +57,10 @@ export const BenefitsSection: React.FC = () => {
         />
         <meta
           property="og:image"
-          content="https://tsarseo.com/benefits-image.jpg"
+          content="https://tsarseo.online/benefits-image.jpg"
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://tsarseo.com/benefits" />
+        <meta property="og:url" content="https://tsarseo.online/benefits" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -73,7 +73,7 @@ export const BenefitsSection: React.FC = () => {
               provider: {
                 "@type": "Organization",
                 name: "TsarSEO",
-                url: "https://tsarseo.com",
+                url: "https://tsarseo.online",
               },
             }),
           }}

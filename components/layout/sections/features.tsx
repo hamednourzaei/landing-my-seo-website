@@ -16,37 +16,48 @@ const featureList: FeaturesProps[] = [
   {
     icon: "Search",
     title: "کشف فرصت‌های طلایی",
-    description: "تحلیل کلمات کلیدی برای پیدا کردن بهترین فرصت‌ها جهت رشد در نتایج جستجو.",
+    description:
+      "تحلیل کلمات کلیدی برای پیدا کردن بهترین فرصت‌ها جهت رشد در نتایج جستجو.",
   },
   {
     icon: "Users",
     title: "افزایش بازدید هدفمند",
-    description: "جذب کاربرانی که واقعاً به خدمات شما نیاز دارند با بهینه‌سازی هوشمند.",
+    description:
+      "جذب کاربرانی که واقعاً به خدمات شما نیاز دارند با بهینه‌سازی هوشمند.",
   },
   {
     icon: "LineChart",
     title: "آمار دقیق لحظه‌ای",
-    description: "دریافت گزارش‌های زنده از عملکرد سایت و بررسی مسیر پیشرفت سئو.",
+    description:
+      "دریافت گزارش‌های زنده از عملکرد سایت و بررسی مسیر پیشرفت سئو.",
   },
   {
     icon: "Globe",
     title: "حضور جهانی قدرتمند",
-    description: "عرضه خدمات سئو برای بازارهای بین‌المللی با پشتیبانی چندزبانه.",
+    description:
+      "عرضه خدمات سئو برای بازارهای بین‌المللی با پشتیبانی چندزبانه.",
   },
   {
     icon: "Zap",
     title: "پاسخ‌دهی سریع و دقیق",
-    description: "آنالیز جامع سایت تنها در چند دقیقه با الگوریتم‌های پیشرفته ما.",
+    description:
+      "آنالیز جامع سایت تنها در چند دقیقه با الگوریتم‌های پیشرفته ما.",
   },
   {
     icon: "Lock",
     title: "اطمینان در امنیت",
-    description: "نگهداری امن اطلاعات شما با سیستم‌های رمزنگاری و نظارت پیشرفته.",
+    description:
+      "نگهداری امن اطلاعات شما با سیستم‌های رمزنگاری و نظارت پیشرفته.",
   },
 ];
 
 // مولفه برای هر ویژگی
-const FeatureCard: React.FC<FeaturesProps & { isMobile: boolean }> = ({ icon, title, description, isMobile }) => {
+const FeatureCard: React.FC<FeaturesProps & { isMobile: boolean }> = ({
+  icon,
+  title,
+  description,
+  isMobile,
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -85,11 +96,15 @@ const useMediaQuery = (query: string) => {
 const FeaturesSection: React.FC = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
-  const featureItems = useMemo(() => featureList.map(({ icon, title, description }) => ({
-    icon,
-    title,
-    description,
-  })), []);
+  const featureItems = useMemo(
+    () =>
+      featureList.map(({ icon, title, description }) => ({
+        icon,
+        title,
+        description,
+      })),
+    []
+  );
 
   return (
     <>
@@ -108,19 +123,23 @@ const FeaturesSection: React.FC = () => {
           property="og:description"
           content="ویژگی‌های کلیدی TsarSEO شامل تحلیل کلمات کلیدی، افزایش بازدید هدفمند، آمار لحظه‌ای و خدمات سئو جهانی."
         />
-        <meta property="og:image" content="https://tsarseo.com/feature-image.jpg" />
+        <meta
+          property="og:image"
+          content="https://tsarseo.online/feature-image.jpg"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Service",
-              "name": "ویژگی‌های TsarSEO",
-              "description": "TsarSEO ارائه‌دهنده ویژگی‌های پیشرفته سئو شامل تحلیل کلمات کلیدی، بازدید هدفمند، آمار لحظه‌ای و خدمات جهانی.",
-              "provider": {
+              name: "ویژگی‌های TsarSEO",
+              description:
+                "TsarSEO ارائه‌دهنده ویژگی‌های پیشرفته سئو شامل تحلیل کلمات کلیدی، بازدید هدفمند، آمار لحظه‌ای و خدمات جهانی.",
+              provider: {
                 "@type": "Organization",
-                "name": "TsarSEO",
-                "url": "https://tsarseo.online",
+                name: "TsarSEO",
+                url: "https://tsarseo.online",
               },
             }),
           }}
@@ -141,7 +160,8 @@ const FeaturesSection: React.FC = () => {
             ویژگی‌های TsarSEO
           </h2>
           <p className="text-gray-400 text-lg">
-            ابزارهای حرفه‌ای برای فرمانروایی دیجیتال با تحلیل دقیق و ترافیک واقعی.
+            ابزارهای حرفه‌ای برای فرمانروایی دیجیتال با تحلیل دقیق و ترافیک
+            واقعی.
           </p>
         </header>
 

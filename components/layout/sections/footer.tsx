@@ -112,7 +112,7 @@ export const FooterSection = () => {
               <div>
                 <Link
                   target="_blank"
-                  href="https://t.me/tsarpremiumstream"
+                  href="https://t.me/hard_days_champion"
                   className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="Contact TsarSEO via Telegram"
                 >
@@ -123,7 +123,7 @@ export const FooterSection = () => {
               <div>
                 <Link
                   target="_blank"
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/9962260723"
                   className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="Contact TsarSEO via WhatsApp"
                 >
@@ -181,7 +181,7 @@ export const FooterSection = () => {
               <div>
                 <Link
                   target="_blank"
-                  href="https://www.instagram.com/tsarpremiumstream"
+                  href="https://www.instagram.com/tsar_seo_original"
                   className="opacity-60 hover:opacity-100 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base lg:text-lg"
                   aria-label="Follow TsarSEO on Instagram"
                 >
