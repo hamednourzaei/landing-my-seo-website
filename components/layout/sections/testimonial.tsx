@@ -150,7 +150,15 @@ export default async function TestimonialSection() {
               bestRating: 5,
             },
             datePublished: new Date().toISOString(),
-            itemReviewed: { "@id": "https://tsarseo.online/#business" },
+            itemReviewed: {
+              "@type": "LocalBusiness",
+              "@id": "https://tsarseo.online/#business",
+              name: "TsarSEO",
+              url: "https://tsarseo.online",
+              image: "https://tsarseo.online/og-image.jpg",
+              description:
+                "خدمات تخصصی سئو برای بهبود رتبه و افزایش بازدید سایت‌ها",
+            },
             publisher: {
               "@type": "Organization",
               name: "TsarSEO",
@@ -160,7 +168,6 @@ export default async function TestimonialSection() {
       },
     ],
   };
-  
 
   return (
     <section
