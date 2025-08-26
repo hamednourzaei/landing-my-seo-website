@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -128,12 +127,18 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <CardTitle
-                className="text-sm sm:text-base md:text-lg lg:text-xl font-light"
+              <div
+                itemScope
                 itemProp="author"
+                itemType="https://schema.org/Person"
               >
-                {story.name}
-              </CardTitle>
+                <CardTitle
+                  className="text-sm sm:text-base md:text-lg lg:text-xl font-light"
+                  itemProp="name"
+                >
+                  {story.name}
+                </CardTitle>
+              </div>
               <CardDescription
                 className="text-xs sm:text-sm md:text-base lg:text-lg font-light"
                 itemProp="description"

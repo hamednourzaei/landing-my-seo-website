@@ -110,34 +110,45 @@ export default async function TestimonialSection() {
     name: "نظرات مشتریان TsarSEO",
     description: "مجموعه‌ای از بازخوردهای مشتریان موفق TsarSEO",
     itemListElement: stories.map((story, index) => ({
-      "@type": "Review",
+      "@type": "ListItem",
       position: index + 1,
-      itemReviewed: {
-        "@type": "Organization",
-        name: "TsarSEO",
-        sameAs: "https://tsarseo.online",
-      },
-      author: { "@type": "Person", name: story.name },
-      reviewBody: story.comment,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: story.rating,
-        bestRating: 5,
-      },
-      datePublished: new Date().toISOString(),
-      publisher: {
-        "@type": "Organization",
-        name: "TsarSEO",
+      item: {
+        "@type": "Review",
+        author: { "@type": "Person", name: story.name },
+        reviewBody: story.comment,
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: story.rating,
+          bestRating: 5,
+        },
+        datePublished: new Date().toISOString(),
+        itemReviewed: {
+          "@type": "LocalBusiness",
+          name: "TsarSEO",
+          url: "https://tsarseo.online",
+          image: "https://tsarseo.online/og-image.jpg",
+          priceRange: "$$",
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "IR",
+          },
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "TsarSEO",
+        },
       },
     })),
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: stories.length
-        ? (
-            stories.reduce((sum, story) => sum + (story.rating || 0), 0) /
-            stories.length
-          ).toFixed(1)
-        : "0",
+        ? Number(
+            (
+              stories.reduce((sum, story) => sum + (story.rating || 0), 0) /
+              stories.length
+            ).toFixed(1)
+          )
+        : 0,
       reviewCount: stories.length,
     },
   };
@@ -159,7 +170,7 @@ export default async function TestimonialSection() {
           className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-4"
           itemProp="name"
         >
-          TsarSEO نظرات موفقیت‌آمیز مشتریان 
+          TsarSEO نظرات موفقیت‌آمیز مشتریان
         </h2>
         <p
           className="text-sm sm:text-base md:text-lg text-gray-600"
