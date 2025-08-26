@@ -132,40 +132,29 @@ export default async function TestimonialSection() {
           reviewCount: stories.length,
         },
       },
-      {
-        "@type": "ItemList",
-        "@id": "https://tsarseo.online/#reviews",
-        name: "نظرات مشتریان TsarSEO",
-        description: "مجموعه‌ای از بازخوردهای مشتریان موفق TsarSEO",
-        itemListElement: stories.map((story, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          item: {
-            "@type": "Review",
-            author: { "@type": "Person", name: story.name },
-            reviewBody: story.comment,
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: story.rating,
-              bestRating: 5,
-            },
-            datePublished: new Date().toISOString(),
-            itemReviewed: {
-              "@type": "LocalBusiness",
-              "@id": "https://tsarseo.online/#business",
-              name: "TsarSEO",
-              url: "https://tsarseo.online",
-              image: "https://tsarseo.online/og-image.jpg",
-              description:
-                "خدمات تخصصی سئو برای بهبود رتبه و افزایش بازدید سایت‌ها",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "TsarSEO",
-            },
-          },
-        })),
-      },
+      ...stories.map((story, index) => ({
+        "@type": "Review",
+        author: {
+          "@type": "Person",
+          name: story.name,
+        },
+        datePublished: new Date().toISOString(),
+        reviewBody: story.comment,
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: story.rating,
+          bestRating: 5,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "TsarSEO",
+        },
+        itemReviewed: {
+          "@type": "LocalBusiness",
+          name: "TsarSEO",
+          url: "https://tsarseo.online",
+        },
+      })),
     ],
   };
 
