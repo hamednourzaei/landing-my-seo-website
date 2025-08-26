@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://tsarseo.online/privacy-policy",
     languages: {
-      "fa-IR": "https://tsarseo.online/privacy-policy",
+      "en-UK": "https://tsarseo.online/privacy-policy",
       "en-US": "https://tsarseo.online/en/privacy-policy",
     },
   },

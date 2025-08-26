@@ -18,7 +18,7 @@ const NewsItemCard: React.FC<NewsItemCardProps> = ({ news }) => {
         {truncatedTitle}
       </h3>
       <p className="lg:text-xs font-semibold sm:text-sm text-gray-600 mb-3">
-        {new Date(news.published).toLocaleDateString("fa-IR")} | {news.source}
+        {new Date(news.published).toLocaleDateString("en-us")} | {news.source}
       </p>
       <div
         className="text-gray-300 mb-6 sm:text-base lg:text-sm break-words line-clamp-6"
