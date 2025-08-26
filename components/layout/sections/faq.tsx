@@ -46,7 +46,7 @@ export const FAQSection: React.FC = () => {
         />
         <meta
           property="og:image"
-          content="https://tsarseo.online/faq-image.jpg"
+          content="https://tsarseo.online/icons/Logo.png"
         />
         <script
           type="application/ld+json"

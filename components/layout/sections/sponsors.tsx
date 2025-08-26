@@ -48,7 +48,7 @@ export const SponsorsSection: React.FC = () => {
         />
         <meta
           property="og:image"
-          content="https://tsarseo.online/feature-image.jpg"
+          content="https://tsarseo.online/icons/Logo.png"
         />
 
         <script

@@ -137,7 +137,7 @@ export const ContactSection: React.FC = () => {
         />
         <meta
           property="og:image"
-          content="https://example.com/contact-image.jpg"
+          content="https://tsarseo.online/icons/Logo.png"
         />
       </Head>
 

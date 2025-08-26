@@ -57,7 +57,7 @@ export const BenefitsSection: React.FC = () => {
         />
         <meta
           property="og:image"
-          content="https://tsarseo.online/benefits-image.jpg"
+          content="https://tsarseo.online/icons/Logo.png"
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://tsarseo.online/benefits" />

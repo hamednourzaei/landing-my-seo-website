@@ -31,7 +31,7 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({ onLinkClick }) => {
           <NavigationMenuContent>
             <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
               <Image
-                src="/demo-img.jpg"
+                src="/Logo.png"
                 alt="ویژگی‌های آینده TsarSEO"
                 className="h-full w-full rounded-md "
                 width={600}

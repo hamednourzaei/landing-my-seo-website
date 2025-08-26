@@ -85,7 +85,7 @@ const fetchStories = cache(async (): Promise<SuccessStoryProps[]> => {
       .map((story: any) => ({
         id: String(story.id),
         image: {
-          src: story.image || "/default-image.jpg",
+          src: story.image || "/Logo.png",
           alt: `تصویر پروفایل ${story.name || "کاربر"} برای نظرات TsarSEO`,
         },
         name: story.name || "ناشناس",
@@ -177,14 +177,10 @@ export default async function TestimonialSection() {
       />
 
       <header className="text-center mb-8">
-        <h2
-          className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-4"
-        >
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-4">
           TsarSEO نظرات موفقیت‌آمیز مشتریان
         </h2>
-        <p
-          className="text-sm sm:text-base md:text-lg text-gray-600"
-        >
+        <p className="text-sm sm:text-base md:text-lg text-gray-600">
           تجربه واقعی مشتریان ما در بهبود رتبه و افزایش بازدید
         </p>
       </header>
@@ -193,10 +189,7 @@ export default async function TestimonialSection() {
         {stories.length > 0 ? (
           <TestimonialCarousel stories={stories} />
         ) : (
-          <div
-            role="alert"
-            className="text-center text-gray-500"
-          >
+          <div role="alert" className="text-center text-gray-500">
             هیچ نظری یافت نشد.
           </div>
         )}
