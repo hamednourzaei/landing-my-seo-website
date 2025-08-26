@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://tsarseo.online/og-image.jpg",
+        url: "https://tsarseo.online/icons/Logo.png",
         width: 1200,
         height: 630,
         alt: "نظرات مشتریان TsarSEO",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "نظرات مشتریان موفق TsarSEO",
     description:
       "تجربیات واقعی مشتریان ما در بهبود رتبه‌بندی و افزایش بازدید سایت با خدمات TsarSEO.",
-    images: ["https://tsarseo.online/og-image.jpg"],
+    images: ["https://tsarseo.online/icons/Logo.png"],
   },
 };
 
@@ -109,7 +109,7 @@ export default async function TestimonialSection() {
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": "https://tsarseo.online/#business",
+        "@id": "https://tsarseo.online/#success-stories",
         name: "TsarSEO",
         url: "https://tsarseo.online",
         image: "https://tsarseo.online/icons/Logo.png",
@@ -152,7 +152,7 @@ export default async function TestimonialSection() {
             datePublished: new Date().toISOString(),
             itemReviewed: {
               "@type": "LocalBusiness",
-              "@id": "https://tsarseo.online/#business",
+              "@id": "https://tsarseo.online/#success-stories",
               name: "TsarSEO",
               url: "https://tsarseo.online",
             },

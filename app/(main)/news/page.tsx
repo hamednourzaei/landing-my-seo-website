@@ -112,7 +112,7 @@ export async function generateMetadata({ searchParams }: PageProps) {
       type: "article",
       images: [
         {
-          url: "https://tsarseo.online/og-image.jpg",
+          url: "https://tsarseo.online/icons/Logo.png",
           width: 1200,
           height: 630,
           alt: "اخبار سئو TsarSEO",
@@ -123,7 +123,7 @@ export async function generateMetadata({ searchParams }: PageProps) {
       card: "summary_large_image",
       title: pageTitle,
       description: pageDescription,
-      images: ["https://tsarseo.online/og-image.jpg"],
+      images: ["https://tsarseo.online/icons/Logo.png"],
     },
     other: {
       "script:ld+json": JSON.stringify([

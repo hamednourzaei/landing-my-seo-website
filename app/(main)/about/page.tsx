@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "About TsarSEO | Simple and Effective SEO Services",
     description:
       "Discover TsarSEO, a platform for boosting real traffic and improving Google rankings with simple, powerful tools. Start today!",
-    url: "https://tsarseo.online/aboutus",
+    url: "https://tsarseo.online/about",
     siteName: "TsarSEO",
     images: [
       {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://tsarseo.online/aboutus",
+    canonical: "https://tsarseo.online/about",
   },
 };
 
