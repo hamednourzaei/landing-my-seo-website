@@ -106,52 +106,61 @@ export default async function TestimonialSection() {
   // Structured Data برای Rich Snippets
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "نظرات مشتریان TsarSEO",
-    description: "مجموعه‌ای از بازخوردهای مشتریان موفق TsarSEO",
-    itemListElement: stories.map((story, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Review",
-        author: { "@type": "Person", name: story.name },
-        reviewBody: story.comment,
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: story.rating,
-          bestRating: 5,
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://tsarseo.online/#business",
+        name: "TsarSEO",
+        url: "https://tsarseo.online",
+        image: "https://tsarseo.online/og-image.jpg",
+        description: "خدمات تخصصی سئو برای بهبود رتبه و افزایش بازدید سایت‌ها",
+        priceRange: "$$",
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "IR",
         },
-        datePublished: new Date().toISOString(),
-        itemReviewed: {
-          "@type": "LocalBusiness",
-          name: "TsarSEO",
-          url: "https://tsarseo.online",
-          image: "https://tsarseo.online/og-image.jpg",
-          priceRange: "$$",
-          address: {
-            "@type": "PostalAddress",
-            addressCountry: "IR",
-          },
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "TsarSEO",
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: stories.length
+            ? Number(
+                (
+                  stories.reduce((sum, story) => sum + (story.rating || 0), 0) /
+                  stories.length
+                ).toFixed(1)
+              )
+            : 0,
+          reviewCount: stories.length,
         },
       },
-    })),
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: stories.length
-        ? Number(
-            (
-              stories.reduce((sum, story) => sum + (story.rating || 0), 0) /
-              stories.length
-            ).toFixed(1)
-          )
-        : 0,
-      reviewCount: stories.length,
-    },
+      {
+        "@type": "ItemList",
+        "@id": "https://tsarseo.online/#reviews",
+        name: "نظرات مشتریان TsarSEO",
+        description: "مجموعه‌ای از بازخوردهای مشتریان موفق TsarSEO",
+        itemListElement: stories.map((story, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Review",
+            author: { "@type": "Person", name: story.name },
+            reviewBody: story.comment,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: story.rating,
+              bestRating: 5,
+            },
+            datePublished: new Date().toISOString(),
+            itemReviewed: { "@id": "https://tsarseo.online/#business" },
+            publisher: {
+              "@type": "Organization",
+              name: "TsarSEO",
+            },
+          },
+        })),
+      },
+    ],
   };
+  
 
   return (
     <section
