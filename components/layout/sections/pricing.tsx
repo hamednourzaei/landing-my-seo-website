@@ -1,6 +1,3 @@
-// =============================
-// pricing.tsx (SEO-amplified, no UI change, White Hat focus)
-// =============================
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -23,7 +20,6 @@ export const PricingSection: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [visits, setVisits] = useState(1000);
-
   const basePricePerVisit = 500;
   const totalPrice = visits * basePricePerVisit;
 
@@ -35,7 +31,9 @@ export const PricingSection: React.FC = () => {
       const diff = endDate.getTime() - now.getTime();
       if (diff <= 0) return setTimeLeft("تخفیف به پایان رسید!");
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const hours = Math.floor(
+        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       setTimeLeft(`${days} روز و ${hours} ساعت`);
     };
     updateTimer();
@@ -54,14 +52,14 @@ export const PricingSection: React.FC = () => {
   const handleSubmit = () => {
     if (!visits) return alert("لطفاً تعداد بازدید را وارد کنید.");
     setLoading(true);
-    setSuccessMessage(`درخواست شما برای ${visits.toLocaleString()} بازدید ثبت شد.`);
+    setSuccessMessage(
+      `درخواست شما برای ${visits.toLocaleString()} بازدید ثبت شد.`
+    );
     setTimeout(() => {
       setLoading(false);
       window.location.hash = `contact?visits=${visits}`;
       const contactSection = document.getElementById("contact");
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: "smooth" });
-      }
+      if (contactSection) contactSection.scrollIntoView({ behavior: "smooth" });
     }, 2000);
   };
 
@@ -76,19 +74,25 @@ export const PricingSection: React.FC = () => {
         <title>پلن‌های سئو TsarSEO | قیمت‌گذاری بهینه برای افزایش رتبه</title>
         <meta
           name="description"
-          content="پلن‌های سئو TsarSEO با قیمت‌گذاری منعطف برای افزایش بازدید واقعی، تحلیل رقبا، و بهینه‌سازی تجربه جستجو (AEO). گزارش‌های پیشرفته و پشتیبانی 24/7."
+          content="پلن‌های سئو TsarSEO با قیمت‌گذاری منعطف برای افزایش بازدید واقعی، تحلیل رقبا، و بهینه‌سازی تجربه جستجو (AEO)."
         />
         <meta
           name="keywords"
           content="پلن سئو, قیمت سئو, افزایش بازدید واقعی, تحلیل رقبا, بهینه‌سازی AEO, رتبه‌بندی گوگل, TsarSEO"
         />
         <link rel="canonical" href="https://tsarseo.online/pricing" />
-        <meta property="og:title" content="پلن‌های سئو TsarSEO | قیمت‌گذاری بهینه برای افزایش رتبه" />
+        <meta
+          property="og:title"
+          content="پلن‌های سئو TsarSEO | قیمت‌گذاری بهینه برای افزایش رتبه"
+        />
         <meta
           property="og:description"
           content="پلن‌های سئو TsarSEO با قیمت‌گذاری منعطف برای افزایش بازدید واقعی، تحلیل رقبا، و بهینه‌سازی تجربه جستجو (AEO)."
         />
-        <meta property="og:image" content="https://tsarseo.online/pricing-image.jpg" />
+        <meta
+          property="og:image"
+          content="https://tsarseo.online/pricing-image.jpg"
+        />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://tsarseo.online/pricing" />
         <script
@@ -157,7 +161,9 @@ export const PricingSection: React.FC = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-card p-2 sm:p-3 md:p-4 lg:p-5 rounded-md sm:rounded-lg shadow-sm text-center text-xs sm:text-sm md:text-base lg:text-lg border border-primary"
             >
-              <div className="animate-pulse mb-1 text-primary font-thin">در حال ثبت سفارش...</div>
+              <div className="animate-pulse mb-1 text-primary font-thin">
+                در حال ثبت سفارش...
+              </div>
               <div>{successMessage}</div>
             </motion.div>
           </motion.div>
@@ -198,7 +204,9 @@ export const PricingSection: React.FC = () => {
       >
         <Card className="bg-card border border-primary rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader>
-            <CardTitle className="sr-only">پلن‌های سئو و افزایش بازدید</CardTitle>
+            <CardTitle className="sr-only">
+              پلن‌های سئو و افزایش بازدید
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-3 sm:p-4 md:p-5 lg:p-5 space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
             <div className="text-center">
@@ -246,8 +254,14 @@ export const PricingSection: React.FC = () => {
                   key={benefit}
                   className="flex items-center text-muted-foreground text-sm sm:text-sm md:text-xs lg:text-sm"
                 >
-                  <Check className="text-primary ml-1 sm:mr-2 md:mr-3 lg:mr-4" size={10} aria-hidden="true" />
-                  <Link href="#benefits" className="focus:outline-none">{benefit}</Link>
+                  <Check
+                    className="text-primary ml-1 sm:mr-2 md:mr-3 lg:mr-4"
+                    size={10}
+                    aria-hidden="true"
+                  />
+                  <Link href="#benefits" className="focus:outline-none">
+                    {benefit}
+                  </Link>
                 </div>
               ))}
             </div>
@@ -277,7 +291,8 @@ export const PricingSection: React.FC = () => {
       </motion.div>
 
       <div className="sr-only" aria-hidden>
-        <Link href="#hero">تحلیل سئو حرفه‌ای</Link> | <Link href="#benefits">مزایای سئو</Link>
+        <Link href="#hero">تحلیل سئو حرفه‌ای</Link> |{" "}
+        <Link href="#benefits">مزایای سئو</Link>
       </div>
     </section>
   );

@@ -31,9 +31,8 @@ const fallbackNews: NewsItem[] = [
   },
 ];
 
-// تعریف نوع برای پراپ‌ها
 interface PageProps {
-  searchParams: Promise<{ page?: string }>; // searchParams به صورت Promise تعریف می‌شود
+  searchParams: Promise<{ page?: string }>;
 }
 
 async function getNews(page: number = 1) {
@@ -44,19 +43,19 @@ async function getNews(page: number = 1) {
       process.env.NEXT_PUBLIC_API_URL || "https://tsarseo.online/api/news";
     const url = `${baseUrl}?page=${validPage}&pageSize=${pageSize}`;
     const res = await fetch(url, { next: { revalidate: 60 } });
-    if (!res.ok) {
+    if (!res.ok)
       throw new Error(`Failed to fetch news: ${res.status} ${res.statusText}`);
-    }
     const data = await res.json();
     let news: NewsItem[] = [];
     let total: number = 0;
+
     if (Array.isArray(data.news)) {
       news = data.news.map((item: any, idx: number) => ({
         id: item.id || `${validPage}-${idx}`,
         title: item.title
           ? `${item.title} - TsarSEO`
           : `خبر سئو با TsarSEO - ${idx + 1}`,
-        link: item.link || `/news/${item.id || `${validPage}-${idx}`}`, // استفاده از لینک JSON
+        link: item.link || `/news/${item.id || `${validPage}-${idx}`}`,
         published: item.published || new Date().toISOString().split("T")[0],
         source: item.source || "TsarSEO News",
         summary: item.summary
@@ -82,7 +81,7 @@ async function getNews(page: number = 1) {
 }
 
 export async function generateMetadata({ searchParams }: PageProps) {
-  const { page } = await searchParams; // await برای resolve کردن Promise
+  const { page } = await searchParams;
   const pageNumber = Number(page) || 1;
   const data = await getNews(pageNumber);
   const firstNews = data.news[0] || fallbackNews[0];
@@ -100,10 +99,8 @@ export async function generateMetadata({ searchParams }: PageProps) {
   return {
     title: pageTitle,
     description: pageDescription,
-    keywords: ["tsarseo", "سئو", "بهینه‌سازی سایت", " اخبار سئو ", "SEO tools"],
-    alternates: {
-      canonical: `https://tsarseo.online/news?page=${pageNumber}`,
-    },
+    keywords: ["tsarseo", "سئو", "بهینه‌سازی سایت", "اخبار سئو", "SEO tools"],
+    alternates: { canonical: `https://tsarseo.online/news?page=${pageNumber}` },
     openGraph: {
       title: pageTitle,
       description: pageDescription,
@@ -127,12 +124,12 @@ export async function generateMetadata({ searchParams }: PageProps) {
     },
     other: {
       "script:ld+json": JSON.stringify([
-        {
+        ...data.news.map((newsItem) => ({
           "@context": "https://schema.org",
           "@type": "NewsArticle",
-          headline: firstNews.title,
-          datePublished: firstNews.published,
-          description: firstNews.summary.slice(0, 160),
+          headline: newsItem.title,
+          datePublished: newsItem.published,
+          description: newsItem.summary.slice(0, 160),
           author: { "@type": "Organization", name: "TsarSEO" },
           publisher: {
             "@type": "Organization",
@@ -142,11 +139,8 @@ export async function generateMetadata({ searchParams }: PageProps) {
               url: "https://tsarseo.online/logo.png",
             },
           },
-          mainEntityOfPage: {
-            "@type": "WebPage",
-            "@id": `https://tsarseo.online/news?page=${pageNumber}`,
-          },
-        },
+          mainEntityOfPage: { "@type": "WebPage", "@id": newsItem.link },
+        })),
         {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
@@ -171,9 +165,10 @@ export async function generateMetadata({ searchParams }: PageProps) {
 }
 
 export default async function NewsPage({ searchParams }: PageProps) {
-  const { page } = await searchParams; // await برای resolve کردن Promise
+  const { page } = await searchParams;
   const pageNumber = Number(page) || 1;
   const data = await getNews(pageNumber);
+
   return (
     <Suspense fallback={<NewsSkeleton />}>
       <News
