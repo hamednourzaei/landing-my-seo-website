@@ -1,8 +1,6 @@
-"use client";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { ChevronsDown } from "lucide-react";
 import { AnimatedHeader } from "./AnimatedHeader";
 import { MenuButton } from "./MenuButton";
@@ -55,6 +53,7 @@ const Navbar: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const isScrolling = useScrollHandler();
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
@@ -76,8 +75,56 @@ const Navbar: React.FC = () => {
     }, timeoutDuration);
   };
 
+  // تولید داده‌های ساختارمند BreadcrumbList
+  const getBreadcrumbList = () => {
+    const breadcrumbItems = [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@id": "https://tsarseo.online",
+          name: "خانه",
+        },
+      },
+    ];
+
+    // فقط در صورتی که pathname برابر با "/" نباشد، آیتم دوم رو اضافه کن
+    if (pathname !== "/") {
+      const currentRoute = ROUTE_LIST.find(
+        (route) =>
+          route.href === pathname || route.href.split("#")[0] === pathname
+      );
+      const currentPageName = currentRoute
+        ? currentRoute.label
+        : pathname.split("/").pop() || "صفحه";
+
+      breadcrumbItems.push({
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@id": `https://tsarseo.online${pathname}`,
+          name: currentPageName,
+        },
+      });
+    }
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://tsarseo.online/#breadcrumb",
+      itemListElement: breadcrumbItems,
+    };
+  };
+
   return (
     <>
+      {/* اضافه کردن JSON-LD برای Breadcrumbs */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getBreadcrumbList()),
+        }}
+      />
       {/* نمایش لودر به‌صورت شرطی */}
       {isLoading && (
         <motion.div
@@ -101,7 +148,6 @@ const Navbar: React.FC = () => {
           <Loader />
         </motion.div>
       )}
-
       <AnimatePresence>
         {!isOpen && (
           <motion.div
@@ -125,7 +171,6 @@ const Navbar: React.FC = () => {
                   />
                   TsarSEO
                 </Link>
-
                 <div className="lg:hidden">
                   <Sheet open={isOpen} onOpenChange={handleOpenChange}>
                     <SheetTrigger asChild>
@@ -147,14 +192,12 @@ const Navbar: React.FC = () => {
                     </SheetContent>
                   </Sheet>
                 </div>
-
                 <DesktopMenu onLinkClick={handleLinkClick} />
               </div>
             </AnimatedHeader>
           </motion.div>
         )}
       </AnimatePresence>
-
       {isOpen && (
         <Sheet open={isOpen} onOpenChange={handleOpenChange}>
           <SheetContent
