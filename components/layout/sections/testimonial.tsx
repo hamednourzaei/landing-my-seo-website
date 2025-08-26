@@ -109,7 +109,7 @@ export default async function TestimonialSection() {
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": "https://tsarseo.online/#success-stories",
+        "@id": "https://tsarseo.online/#business",
         name: "TsarSEO",
         url: "https://tsarseo.online",
         image: "https://tsarseo.online/icons/Logo.png",
@@ -152,12 +152,9 @@ export default async function TestimonialSection() {
             datePublished: new Date().toISOString(),
             itemReviewed: {
               "@type": "LocalBusiness",
-              "@id": "https://tsarseo.online/#success-stories",
+              "@id": "https://tsarseo.online/#business",
               name: "TsarSEO",
               url: "https://tsarseo.online",
-              image: "https://tsarseo.online/icons/Logo.png",
-              description:
-                "خدمات تخصصی سئو برای بهبود رتبه و افزایش بازدید سایت‌ها",
             },
             publisher: {
               "@type": "Organization",
@@ -173,8 +170,6 @@ export default async function TestimonialSection() {
     <section
       id="success-stories"
       className="container font-kalameh font-semibold py-12 sm:py-16 md:py-24"
-      itemScope
-      itemType="https://schema.org/ItemList"
     >
       <script
         type="application/ld+json"
@@ -184,13 +179,11 @@ export default async function TestimonialSection() {
       <header className="text-center mb-8">
         <h2
           className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-4"
-          itemProp="name"
         >
           TsarSEO نظرات موفقیت‌آمیز مشتریان
         </h2>
         <p
           className="text-sm sm:text-base md:text-lg text-gray-600"
-          itemProp="description"
         >
           تجربه واقعی مشتریان ما در بهبود رتبه و افزایش بازدید
         </p>
@@ -203,7 +196,6 @@ export default async function TestimonialSection() {
           <div
             role="alert"
             className="text-center text-gray-500"
-            itemProp="description"
           >
             هیچ نظری یافت نشد.
           </div>

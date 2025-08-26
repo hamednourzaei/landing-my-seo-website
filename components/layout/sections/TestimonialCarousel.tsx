@@ -76,20 +76,11 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, ...animation }}
       style={{ willChange: "opacity, background" }}
-      itemScope
-      itemType="https://schema.org/Review"
     >
       <Card className="h-full bg-muted/50 dark:bg-card overflow-hidden border border-orange-800 shadow-md">
         <CardContent className="pt-2 sm:pt-3 md:pt-4 lg:pt-5 pb-0">
-          <div
-            className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 pb-2 sm:pb-3 md:pb-4 lg:pb-5"
-            itemProp="reviewRating"
-            itemScope
-            itemType="https://schema.org/Rating"
-          >
+          <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 pb-2 sm:pb-3 md:pb-4 lg:pb-5">
             {stars}
-            <meta itemProp="ratingValue" content={String(story.rating || 0)} />
-            <meta itemProp="bestRating" content="5" />
           </div>
           {story.url ? (
             <a
@@ -98,15 +89,11 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
               rel="noopener noreferrer nofollow"
               aria-label={`نظری از ${story.name}`}
               className="font-light hover:underline text-xs sm:text-sm md:text-base lg:text-lg"
-              itemProp="url"
             >
-              <p itemProp="reviewBody">{story.comment}</p>
+              <p>{story.comment}</p>
             </a>
           ) : (
-            <p
-              className="font-light text-xs sm:text-sm md:text-base lg:text-lg"
-              itemProp="reviewBody"
-            >
+            <p className="font-light text-xs sm:text-sm md:text-base lg:text-lg">
               {story.comment}
             </p>
           )}
@@ -127,22 +114,10 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <div
-                itemScope
-                itemProp="author"
-                itemType="https://schema.org/Person"
-              >
-                <CardTitle
-                  className="text-sm sm:text-base md:text-lg lg:text-xl font-light"
-                  itemProp="name"
-                >
-                  {story.name}
-                </CardTitle>
-              </div>
-              <CardDescription
-                className="text-xs sm:text-sm md:text-base lg:text-lg font-light"
-                itemProp="description"
-              >
+              <CardTitle className="text-sm sm:text-base md:text-lg lg:text-xl font-light">
+                {story.name}
+              </CardTitle>
+              <CardDescription className="text-xs sm:text-sm md:text-base lg:text-lg font-light">
                 {story.role}
               </CardDescription>
             </div>
