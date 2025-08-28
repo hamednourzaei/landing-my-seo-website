@@ -51,7 +51,7 @@ export default function About() {
       cta: {
         title: "آماده‌اید شروع کنید؟",
         text: "با TsarSEO، آینده دیجیتال کسب‌وکار خود را بسازید. همین امروز به ما بپیوندید و قدرت <span class='font-semibold text-orange-800'>سئوی ساده و موثر</span> را تجربه کنید!",
-        button: "شروع کنید",
+        button: "بازدید واقعی",
       },
       language: {
         switchToEnglish: "تغییر به انگلیسی",

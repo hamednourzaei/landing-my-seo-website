@@ -110,6 +110,9 @@ const News: React.FC<NewsProps> = ({
   return (
     <div className="py-24 w-[90%] mx-auto">
       <div className="mb-6 flex justify-end gap-4">
+      <h1 className="text-lg pt-2 text-left font-bold text-gray-300 mb-8 font-kalameh ">
+          آخرین اخبار  و نرم افزار آمار بازدید سایت
+      </h1>
         <SortFilter
           value={sortOrder}
           onChange={(value: string) =>
