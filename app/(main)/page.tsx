@@ -105,7 +105,7 @@ export const metadata: Metadata = {
     canonical: "https://tsarseo.online",
     languages: {
       "en-US": "https://tsarseo.online",
-      "en-uk": "https://tsarseo.online/en",
+      "en-uk": "https://tsarseo.online",
     },
   },
   other: {
