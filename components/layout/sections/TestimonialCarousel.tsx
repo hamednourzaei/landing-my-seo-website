@@ -83,15 +83,14 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
             {stars}
           </div>
           {story.url ? (
-            <a
-              href={story.url}
-              target="_blank"
+            <h1
+             
               rel="noopener noreferrer nofollow"
               aria-label={`نظری از ${story.name}`}
               className="font-light hover:underline text-xs sm:text-sm md:text-base lg:text-lg"
             >
               <p>{story.comment}</p>
-            </a>
+            </h1>
           ) : (
             <p className="font-light text-xs sm:text-sm md:text-base lg:text-lg">
               {story.comment}
