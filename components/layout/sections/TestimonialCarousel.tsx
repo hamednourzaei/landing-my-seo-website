@@ -82,20 +82,9 @@ const TestimonialCard = memo(({ story }: { story: SuccessStoryProps }) => {
           <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 pb-2 sm:pb-3 md:pb-4 lg:pb-5">
             {stars}
           </div>
-          {story.url ? (
-            <h1
-             
-              rel="noopener noreferrer nofollow"
-              aria-label={`نظری از ${story.name}`}
-              className="font-light hover:underline text-xs sm:text-sm md:text-base lg:text-lg"
-            >
-              <p>{story.comment}</p>
-            </h1>
-          ) : (
-            <p className="font-light text-xs sm:text-sm md:text-base lg:text-lg">
-              {story.comment}
-            </p>
-          )}
+          <p className="font-light text-xs sm:text-sm md:text-base lg:text-lg">
+            {story.comment}
+          </p>
         </CardContent>
         <CardHeader className="p-2 sm:p-3 md:p-4 lg:p-5">
           <div className="flex flex-row items-center gap-2 sm:gap-3 md:gap-4 lg:gap-5">
