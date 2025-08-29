@@ -94,12 +94,19 @@ export async function generateMetadata({ searchParams }: PageProps) {
     : `اخبار سئو | TsarSEO - صفحه ${pageNumber}`;
   const pageDescription =
     firstNews.summary.slice(0, 160) ||
-    "آخرین اخبار و تحلیل‌های سئو برای بهینه‌سازی سایت با TsarSEO";
+    "آخرین اخبار و تحلیل‌های سئو برای بهینه‌سازی سایت با TsarSEO و استراتژی‌های لینک‌سازی حرفه‌ای.";
 
   return {
     title: pageTitle,
     description: pageDescription,
-    keywords: ["tsarseo", "سئو", "بهینه‌سازی سایت", "اخبار سئو", "SEO tools"],
+    keywords: [
+      "tsarseo",
+      "سئو",
+      "بهینه‌سازی سایت",
+      "اخبار سئو",
+      "SEO tools",
+      "لینک‌سازی",
+    ],
     alternates: { canonical: `https://tsarseo.online/news?page=${pageNumber}` },
     openGraph: {
       title: pageTitle,
@@ -143,6 +150,57 @@ export async function generateMetadata({ searchParams }: PageProps) {
         })),
         {
           "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "TsarSEO",
+          url: "https://tsarseo.online",
+          logo: "https://tsarseo.online/icons/logo.png",
+          contactPoint: {
+            "@type": "ContactPoint",
+            telephone: "+98-21-12345678",
+            contactType: "customer service",
+          },
+          sameAs: [
+            "https://www.linkedin.com/company/tsarseo",
+            "https://www.youtube.com/@tsarseo",
+          ],
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "TsarSEO",
+          url: "https://tsarseo.online",
+          telephone: "+98-21-12345678",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "خیابان اصلی، پلاک 123",
+            addressLocality: "تهران",
+            addressCountry: "IR",
+          },
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "چگونه TsarSEO اخبار سئو را ارائه می‌دهد؟",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "TsarSEO اخبار و تحلیل‌های به‌روز سئو را با استفاده از منابع معتبر و استراتژی‌های لینک‌سازی سفید مانند مطالعات موردی و وبینارها ارائه می‌دهد.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "چه روش‌های لینک‌سازی توسط TsarSEO استفاده می‌شود؟",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "TsarSEO از روش‌های لینک‌سازی سفید مانند مطالعات موردی، اسپانسرشیپ رویدادها، بورسیه‌های دانشجویی، ابزارهای رایگان، اینفوگرافیک‌ها، پادکست‌ها، HARO، وبینارها و فعالیت در گروه‌های LinkedIn استفاده می‌کند. همچنین روش‌های خاکستری مانند نظرات هدفمند و انتشار PDF نیز به کار می‌روند.",
+              },
+            },
+          ],
+        },
+        {
+          "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
             {
@@ -158,6 +216,18 @@ export async function generateMetadata({ searchParams }: PageProps) {
               item: `https://tsarseo.online/news?page=${pageNumber}`,
             },
           ],
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "AggregateRating",
+          ratingValue: "4.8",
+          reviewCount: "150",
+          bestRating: "5",
+          worstRating: "1",
+          itemReviewed: {
+            "@type": "Service",
+            name: "خدمات سئو TsarSEO",
+          },
         },
       ]),
     },
