@@ -55,7 +55,7 @@ const GoogleAnalytics = dynamic(
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار سئو برای رشد رتبه و ترافیک سایت",
   description:
-    "TsarSEO: ابزار سئو برای بهبود رتبه گوگل و افزایش ترافیک ارگانیک با رابط ساده.",
+    "TsarSEO: ابزار سئو برای بهبود رتبه گوگل و افزایش ترافیک ارگانیک با استراتژی‌های لینک‌سازی حرفه‌ای.",
   manifest: "/manifest.json",
   metadataBase: new URL("https://tsarseo.online"),
   keywords: [
@@ -66,6 +66,7 @@ export const metadata: Metadata = {
     "سئو در ایران",
     "ابزار سئو",
     "رتبه‌بندی گوگل",
+    "لینک‌سازی",
   ],
   robots: {
     index: true,
@@ -81,7 +82,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TsarSEO | سئوی ساده برای رشد سریع سایت",
     description:
-      "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل و افزایش ترافیک ارگانیک.",
+      "TsarSEO ابزار هوشمند سئو برای بهبود رتبه گوگل و افزایش ترافیک ارگانیک با استراتژی‌های لینک‌سازی حرفه‌ای.",
     url: "https://tsarseo.online",
     type: "website",
     locale: "fa_IR",
@@ -98,7 +99,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TsarSEO | بهبود رتبه و افزایش ترافیک سایت",
     description:
-      "با TsarSEO سایت خود را به اوج برسانید! سئوی آسان با نتایج سریع.",
+      "با TsarSEO سایت خود را به اوج برسانید! سئوی آسان با نتایج سریع و استراتژی‌های لینک‌سازی حرفه‌ای.",
     images: ["https://tsarseo.online/icons/metadata.png"],
   },
   alternates: {
@@ -134,6 +135,23 @@ export const metadata: Metadata = {
           telephone: "+98-21-12345678",
           contactType: "customer service",
         },
+        sameAs: [
+          "https://www.linkedin.com/company/tsarseo",
+          "https://www.youtube.com/@tsarseo",
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "TsarSEO",
+        url: "https://tsarseo.online",
+        telephone: "+98-21-12345678",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "خیابان اصلی، پلاک 123",
+          addressLocality: "تهران",
+          addressCountry: "IR",
+        },
       },
       {
         "@context": "https://schema.org",
@@ -144,18 +162,42 @@ export const metadata: Metadata = {
             name: "چگونه TsarSEO رتبه سایت را بهبود می‌دهد؟",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "TsarSEO با تحلیل پیشرفته کلمات کلیدی، بهینه‌سازی محتوا و بهبود ساختار سایت، رتبه گوگل شما را ارتقا می‌دهد.",
+              text: "TsarSEO با تحلیل پیشرفته کلمات کلیدی، بهینه‌سازی محتوا، بهبود ساختار سایت و استراتژی‌های لینک‌سازی سفید مانند مطالعات موردی، وبینارها و فعالیت در شبکه‌های اجتماعی، رتبه گوگل شما را ارتقا می‌دهد.",
             },
           },
           {
             "@type": "Question",
-            name: "آیا TsarSEO برای مبتدیان مناسب است؟",
+            name: "چه روش‌های لینک‌سازی توسط TsarSEO استفاده می‌شود؟",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "بله، TsarSEO با رابط کاربری ساده و راهنمای گام‌به‌گام برای همه سطوح مناسب است.",
+              text: "TsarSEO از روش‌های لینک‌سازی سفید مانند مطالعات موردی، اسپانسرشیپ رویدادها، بورسیه‌های دانشجویی، ابزارهای رایگان، اینفوگرافیک‌ها، پادکست‌ها، HARO، وبینارها و فعالیت در گروه‌های LinkedIn استفاده می‌کند. همچنین روش‌های خاکستری مانند نظرات هدفمند و انتشار PDF نیز به کار می‌روند.",
             },
           },
         ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "خانه",
+            item: "https://tsarseo.online",
+          },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "AggregateRating",
+        ratingValue: "4.8",
+        reviewCount: "150",
+        bestRating: "5",
+        worstRating: "1",
+        itemReviewed: {
+          "@type": "Service",
+          name: "خدمات سئو TsarSEO",
+        },
       },
     ]),
   },
