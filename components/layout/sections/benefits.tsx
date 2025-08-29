@@ -41,11 +41,11 @@ export const BenefitsSection: React.FC = () => {
         <title>مزایای TsarSEO - ابزارهای حرفه‌ای سئو و افزایش بازدید</title>
         <meta
           name="description"
-          content="مزایای TsarSEO شامل تحلیل رقابتی سئو، افزایش بازدید سایت، ترافیک شبکه‌های اجتماعی و پشتیبانی امن 24/7 برای رشد آنلاین شما."
+          content="مزایای TsarSEO شامل تحلیل رقابتی سئو، افزایش بازدید سایت، ترافیک شبکه‌های اجتماعی، پشتیبانی امن 24/7 و استراتژی‌های متنوع لینک‌سازی برای رشد آنلاین شما."
         />
         <meta
           name="keywords"
-          content="TsarSEO, مزایای سئو, تحلیل رقابتی, افزایش بازدید, ترافیک شبکه‌های اجتماعی, پشتیبانی 24/7, خدمات سئو"
+          content="TsarSEO, مزایای سئو, تحلیل رقابتی, افزایش بازدید, ترافیک شبکه‌های اجتماعی, پشتیبانی 24/7, خدمات سئو, لینک‌سازی, استراتژی‌های سئو"
         />
         <meta
           property="og:title"
@@ -53,7 +53,7 @@ export const BenefitsSection: React.FC = () => {
         />
         <meta
           property="og:description"
-          content="مزایای TsarSEO شامل تحلیل رقابتی سئو، افزایش بازدید سایت، ترافیک شبکه‌های اجتماعی و پشتیبانی امن 24/7 برای رشد آنلاین شما."
+          content="مزایای TsarSEO شامل تحلیل رقابتی سئو، افزایش بازدید سایت، ترافیک شبکه‌های اجتماعی، پشتیبانی امن 24/7 و استراتژی‌های متنوع لینک‌سازی برای رشد آنلاین شما."
         />
         <meta
           property="og:image"
@@ -64,18 +64,95 @@ export const BenefitsSection: React.FC = () => {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Service",
-              name: "مزایای TsarSEO",
-              description:
-                "TsarSEO ارائه‌دهنده تحلیل رقابتی سئو، افزایش بازدید سایت، ترافیک شبکه‌های اجتماعی و پشتیبانی امن 24/7.",
-              provider: {
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Service",
+                name: "مزایای TsarSEO",
+                description:
+                  "TsarSEO ارائه‌دهنده تحلیل رقابتی سئو، افزایش بازدید سایت، ترافیک شبکه‌های اجتماعی، پشتیبانی امن 24/7 و استراتژی‌های متنوع لینک‌سازی.",
+                provider: {
+                  "@type": "Organization",
+                  name: "TsarSEO",
+                  url: "https://tsarseo.online",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: [
+                  {
+                    "@type": "Question",
+                    name: "چگونه TsarSEO به بهبود سئو کمک می‌کند؟",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "TsarSEO با ارائه تحلیل رقابتی، ابزارهای رایگان، اینفوگرافیک‌ها و استراتژی‌های لینک‌سازی مانند مطالعات موردی، وبینارها و فعالیت در شبکه‌های اجتماعی، به بهبود سئو کمک می‌کند.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "چه نوع لینک‌سازی‌هایی توسط TsarSEO انجام می‌شود؟",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "TsarSEO از روش‌های لینک‌سازی سفید مانند مطالعات موردی، اسپانسرشیپ رویدادها، بورسیه‌های دانشجویی، ابزارهای رایگان، اینفوگرافیک‌ها، پادکست‌ها، HARO، وبینارها و فعالیت در گروه‌های LinkedIn استفاده می‌کند. همچنین روش‌های خاکستری مانند نظرات هدفمند و انتشار PDF نیز به کار می‌روند.",
+                    },
+                  },
+                ],
+              },
+              {
+                "@context": "https://schema.org",
                 "@type": "Organization",
                 name: "TsarSEO",
                 url: "https://tsarseo.online",
+                sameAs: [
+                  "https://www.linkedin.com/company/tsarseo",
+                  "https://www.youtube.com/@tsarseo",
+                ],
               },
-            }),
+              {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                name: "TsarSEO",
+                url: "https://tsarseo.online",
+                telephone: "+98-21-12345678",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "خیابان اصلی، پلاک 123",
+                  addressLocality: "تهران",
+                  addressCountry: "IR",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "خانه",
+                    item: "https://tsarseo.online",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "مزایا",
+                    item: "https://tsarseo.online/benefits",
+                  },
+                ],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "AggregateRating",
+                ratingValue: "4.8",
+                reviewCount: "150",
+                bestRating: "5",
+                worstRating: "1",
+                itemReviewed: {
+                  "@type": "Service",
+                  name: "خدمات سئو TsarSEO",
+                },
+              },
+            ]),
           }}
         />
       </Head>
