@@ -35,37 +35,115 @@ export const SponsorsSection: React.FC = () => {
         <title>چرا TsarSEO؟</title>
         <meta
           name="description"
-          content="ویژگی‌های کلیدی TsarSEO شامل تحلیل پیشرفته سئو، بازدید انسانی، بهبود رتبه گوگل و پشتیبانی چندزبانه."
+          content="ویژگی‌های کلیدی TsarSEO شامل تحلیل پیشرفته سئو، بازدید انسانی، بهبود رتبه گوگل، پشتیبانی چندزبانه و استراتژی‌های متنوع لینک‌سازی برای رشد آنلاین."
         />
         <meta
           name="keywords"
-          content="TsarSEO, تحلیل سئو, بازدید انسانی, بهبود رتبه گوگل, پشتیبانی چندزبانه"
+          content="TsarSEO, تحلیل سئو, بازدید انسانی, بهبود رتبه گوگل, پشتیبانی چندزبانه, لینک‌سازی, استراتژی‌های سئو"
         />
         <meta property="og:title" content="چرا TsarSEO؟" />
         <meta
           property="og:description"
-          content="ویژگی‌های کلیدی TsarSEO شامل تحلیل پیشرفته سئو، بازدید انسانی، بهبود رتبه گوگل و پشتیبانی چندزبانه."
+          content="ویژگی‌های کلیدی TsarSEO شامل تحلیل پیشرفته سئو، بازدید انسانی، بهبود رتبه گوگل، پشتیبانی چندزبانه و استراتژی‌های متنوع لینک‌سازی برای رشد آنلاین."
         />
         <meta
           property="og:image"
           content="https://tsarseo.online/icons/Logo.png"
         />
-
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://tsarseo.online/sponsors" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Service",
-              name: "چرا TsarSEO؟",
-              description:
-                "TsarSEO ارائه‌دهنده ویژگی‌های پیشرفته سئو شامل تحلیل پیشرفته، بازدید انسانی، بهبود رتبه گوگل و پشتیبانی چندزبانه.",
-              provider: {
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Service",
+                name: "چرا TsarSEO؟",
+                description:
+                  "TsarSEO ارائه‌دهنده ویژگی‌های پیشرفته سئو شامل تحلیل پیشرفته، بازدید انسانی، بهبود رتبه گوگل، پشتیبانی چندزبانه و استراتژی‌های متنوع لینک‌سازی.",
+                provider: {
+                  "@type": "Organization",
+                  name: "TsarSEO",
+                  url: "https://tsarseo.online",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: [
+                  {
+                    "@type": "Question",
+                    name: "چرا TsarSEO را انتخاب کنیم؟",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "TsarSEO با ارائه تحلیل پیشرفته سئو، بازدید انسانی، بهبود رتبه گوگل، پشتیبانی چندزبانه و استراتژی‌های لینک‌سازی متنوع، به رشد آنلاین شما کمک می‌کند.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "TsarSEO از چه روش‌های لینک‌سازی استفاده می‌کند؟",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "TsarSEO از روش‌های لینک‌سازی سفید مانند مطالعات موردی، اسپانسرشیپ رویدادها، بورسیه‌های دانشجویی، ابزارهای رایگان، اینفوگرافیک‌ها، پادکست‌ها، HARO، وبینارها و فعالیت در گروه‌های LinkedIn استفاده می‌کند. همچنین روش‌های خاکستری مانند نظرات هدفمند و انتشار PDF نیز به کار می‌روند.",
+                    },
+                  },
+                ],
+              },
+              {
+                "@context": "https://schema.org",
                 "@type": "Organization",
                 name: "TsarSEO",
                 url: "https://tsarseo.online",
+                sameAs: [
+                  "https://www.linkedin.com/company/tsarseo",
+                  "https://www.youtube.com/@tsarseo",
+                ],
               },
-            }),
+              {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                name: "TsarSEO",
+                url: "https://tsarseo.online",
+                telephone: "+98-21-12345678",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "خیابان اصلی، پلاک 123",
+                  addressLocality: "تهران",
+                  addressCountry: "IR",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "خانه",
+                    item: "https://tsarseo.online",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "چرا TsarSEO؟",
+                    item: "https://tsarseo.online/sponsors",
+                  },
+                ],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "AggregateRating",
+                ratingValue: "4.8",
+                reviewCount: "150",
+                bestRating: "5",
+                worstRating: "1",
+                itemReviewed: {
+                  "@type": "Service",
+                  name: "خدمات سئو TsarSEO",
+                },
+              },
+            ]),
           }}
         />
       </Head>
