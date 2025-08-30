@@ -216,6 +216,7 @@ const SectionLoading = () => (
 
 export default function Home() {
   return (
+    
     <main role="main" className="flex flex-col min-h-screen">
       {process.env.NODE_ENV === "production" && (
         <Suspense fallback={null}>

@@ -8,6 +8,7 @@ import { AdUnit } from "@/components/common/AdUnit";
 import { GoogleTagManager } from "@/components/common/GoogleTagManager";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
 import { FooterSection } from "@/components/layout/sections/footer";
+import { GoogleTag } from "@/components/common/GoogleTag";
 
 export const metadata: Metadata = {
   title: "TsarSEO | ابزار هوشمند سئو برای افزایش رتبه و ترافیک سایت",
@@ -188,6 +189,11 @@ export default function RootLayout({
 }>) {
   return (
     <QueryProvider>
+         <head>
+        <GoogleTagManager />
+        <GoogleAnalytics />
+        <GoogleTag/>
+      </head>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <Navbar />
         <AdUnit /> {/* تبلیغ غیر-AMP زیر Navbar */}
