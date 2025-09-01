@@ -199,7 +199,12 @@ export const ContactSection: React.FC = () => {
                   <div className="font-bold">تماس با ما</div>
                 </div>
                 <div className="text-xs sm:text-sm md:text-base">
-                  +989025120419
+                  <a
+                    href="tel:+989025120419"
+                    className="text-xs sm:text-sm md:text-base  hover:underline"
+                  >
+                    +989025120419
+                  </a>
                 </div>
               </div>
               <div>
